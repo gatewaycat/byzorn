@@ -157,7 +157,7 @@
 	\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &=
 	\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &=
 	\end{aligned}
-$ \par\bigskip\bigskip}
+$ \par\bigskip\smallskip}
 \newcommand\gacard[3]{\gaacard{#1}{#2}{#3}{}}
 \newcommand\gcard[2]{\gacard{#1}{#2}{grid=none, ticks=none}}
 \newcommand\opencircle[1]{\draw[color=black,fill=white,thick] (axis cs:{#1}) circle [radius=2pt];}
@@ -168,7 +168,8 @@ $ \par\bigskip\bigskip}
 	\setcounter{question}{14}
 	\gcard{1/x}{1/x}
 	\gcard{1/x^2}{1/x/x}
-	\gcard{x^2}{x^2}
+	\gcard{|x|}{abs(x)}
+	\gaacard{\sqrt[3]x}{0}{grid=none, ticks=none}{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}
 	\gcard{x^3}{x^3}
 	
 	\gacard{e^x}{e^x}{ytick={1}, xtick={0}}
@@ -183,6 +184,7 @@ $ \par\bigskip\bigskip}
 	\gacard{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
 	\gacard{x\sin(1/x)}{x/3*sin(deg(1/x*3))}{ytick={-1,1},xtick={0},samples={720}}
 	\end{questions}
+	\newpage
 	\end{multicols}
 
 \end{document}

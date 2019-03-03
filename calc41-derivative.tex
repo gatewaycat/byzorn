@@ -5,12 +5,26 @@
 \thispagestyle{empty}
 \pagestyle{empty}
 
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+ 
+\usepackage[landscape, two column, margin=0.35in, column sep=0.7in]{geometry}
+
+\everymath{\displaystyle}
+\newcommand\stacktwo[2]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}\)}
+\newcommand\stackthree[3]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}\)}
+\newcommand\mylimit{{\lim_{\textstyle h\to\,\,\phantom{\text{\huge0}}}}}
+
 \begin{document}
+\Repeat{2}{
 \section*{{\small 5 Minute Mini-Lesson} \\ The Limit Definition of Derivative}
 \large
 Suppose the height of a ball is a function of time $y=f(x)$.
 
 \vspace{\stretch1}
+\hfil
 \begin{tikzpicture}
 % axes
 \draw[<->] (0,7) to (0,0) to (12,0);
@@ -31,11 +45,6 @@ node [right] {\,\,\large tangent};
 \draw (6) node [left, rotate=-45] {\huge(\hspace{1.75cm},\hspace{1.75cm})\,\,};
 \end{tikzpicture}
 
-\everymath{\displaystyle}
-\newcommand\stacktwo[2]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}\)}
-\newcommand\stackthree[3]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}\)}
-\newcommand\mylimit{{\lim_{\textstyle h\to\,\,\phantom{\text{\huge0}}}}}
-
 \vspace{\stretch2}
 \(	\phantom\mylimit
 	\scriptstyle
@@ -44,7 +53,7 @@ node [right] {\,\,\large tangent};
 	=
 	\)
 
-\smallskip
+\bigskip
 \(	 \phantom\mylimit
 	\frac{\hspace{1in}}{}
 	\)
@@ -63,4 +72,5 @@ node [right] {\,\,\large tangent};
 = velocity
 
 \vspace{\stretch3}
+}
 \end{document}

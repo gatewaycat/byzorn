@@ -4,8 +4,6 @@
 \setlength\parindent{0mm}
 \thispagestyle{empty}
 \pagestyle{empty}
-\newcommand\stacktwo[2]{\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}}
-\newcommand\stackthree[3]{\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}}
 
 \begin{document}
 \section*{{\small 5 Minute Mini-Lesson} \\ The Limit Definition of Derivative}
@@ -33,29 +31,28 @@ node [right] {\,\,\large tangent};
 \draw (6) node [left, rotate=-45] {\huge(\hspace{1.75cm},\hspace{1.75cm})\,\,};
 \end{tikzpicture}
 
-\vspace{\stretch2}
-\(	\displaystyle \phantom{\lim_{\textstyle h\to\phantom{\text{\huge0}}}}
-	\frac{\phantom{f(x+h)-f(x)}}{} 
-	\hspace{0.25ex}
-	\mathrlap{
-		= \stacktwo{slope of}{secant} 
-		= \stacktwo{difference}{quotient}
-		= \stackthree{average}{rate of}{change}
-		= \stacktwo{average}{velocity} % \text{if $y$ = position, $x$ = time}
-		}
-	\)
+\everymath{\displaystyle}
+\newcommand\stacktwo[2]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}\)}
+\newcommand\stackthree[3]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}\)}
+\newcommand\mylimit{{\lim_{\textstyle h\to\phantom{\text{\huge0}}}}}
 
 \vspace{\stretch2}
-\(	\displaystyle {\lim_{\textstyle h\to\phantom{\text{\huge0}}}}
-	\frac{\phantom{f(x+h)-f(x)}}{} 
-	\hspace{0.25ex}
-	\mathrlap{
-		= \stacktwo{slope of}{tangent} 
-		= \text{derivative} 
-		= \stacktwo{rate of}{change}
-		= \text{velocity}
-		}
+\(	 \phantom\mylimit
+	\frac{\hspace{1in}}{}
 	\)
+= \stacktwo{slope of}{secant} 
+= \stacktwo{difference}{quotient}
+= \stackthree{average}{rate of}{change}
+= \stacktwo{average}{velocity}
+
+\vspace{\stretch2}
+\(	 \mylimit
+	\frac{\hspace{1in}}{}
+	\)
+= \stacktwo{slope of}{tangent} 
+= \text{derivative} 
+= \stacktwo{rate of}{change}
+= \text{velocity}Sim
 
 \vspace{\stretch3}
 \end{document}

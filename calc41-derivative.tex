@@ -1,28 +1,61 @@
 \RequirePackage{luatex85}
 \documentclass{article}
-\usepackage{tikz}
+\usepackage{tikz, amsmath, mathtools}
 \setlength\parindent{0mm}
+\thispagestyle{empty}
+\pagestyle{empty}
+\newcommand\stacktwo[2]{\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}}
+\newcommand\stackthree[3]{\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}}
+
 \begin{document}
 \section*{{\small 5 Minute Mini-Lesson} \\ The Limit Definition of Derivative}
+\large
+Suppose the height of a ball is a function of time $y=f(x)$.
 
+\vspace{\stretch1}
 \begin{tikzpicture}
 % axes
 \draw[<->] (0,7) to (0,0) to (12,0);
 % f(x)
-\draw[domain=0.5:8] plot (\x, \x^3/100+1) node [right] {\,\,\huge$y=f(x)$};
+\draw[domain=0.5:8] plot (\x, \x^3/100+1) node [right] {\,\,\large$y=f(x)$};
 % secant
 \draw[dashed, domain=1.5:8] plot (\x, {3^3/100+1+(\x-3)*(6^3-3^3)/(6-3)/100})
-node [right] {\,\,\huge secant};
+node [right] {\,\,\large secant};
 % tangent
 \draw[dashed, domain=1:8] plot (\x, {3^3/100+1+(\x-3)*3^2*3/100})
-node [right] {\,\,\huge tangent};
+node [right] {\,\,\large tangent};
 % closed circles
 \foreach \x/\n in {3/x,6/x+h}{
 \draw[black, fill=black] (\x, \x^3/100+1) circle (3pt) coordinate (\x);
-\draw (\x, 5pt) -- ++(down:10pt) node[below] {\huge$\n\vphantom h$};
+\draw (\x, 5pt) -- ++(down:10pt) node[below] {\large$\n\vphantom h$};
 }
 \draw (3) node [left, rotate=-45] {\huge(\hspace{1.25cm},\hspace{1.25cm})\,\,};
 \draw (6) node [left, rotate=-45] {\huge(\hspace{1.75cm},\hspace{1.75cm})\,\,};
 \end{tikzpicture}
 
+\vspace{\stretch2}
+\(	\displaystyle \phantom{\lim_{\textstyle h\to\phantom{\text{\huge0}}}}
+	\frac{\phantom{f(x+h)-f(x)}}{} 
+	\hspace{0.25ex}
+	\mathrlap{
+		= \stacktwo{slope of}{secant} 
+		= \stacktwo{difference}{quotient}
+		= \stackthree{average}{rate of}{change}
+		= \stacktwo{average}{velocity} % \text{if $y$ = position, $x$ = time}
+		}
+	\)
+
+\vspace{\stretch2}
+\(	\displaystyle {\lim_{\textstyle h\to\phantom{\text{\huge0}}}}
+	\frac{\phantom{f(x+h)-f(x)}}{} 
+	\hspace{0.25ex}
+	\mathrlap{
+		= \stacktwo{slope of}{tangent} 
+		= \text{derivative} 
+		= \stacktwo{rate of}{change}
+		= \text{velocity}
+		}
+	\)
+
+\vspace{\stretch3}
 \end{document}

@@ -28,19 +28,22 @@ node {
 		major tick length={0},
 		samples=299,
 		domain=-3:3,
+% Set global options #5 for this particular graph
 		#5
 		]
+% Add plot of functions/options #3 = {fn1/op1, fn2/op2, etc}
 		\foreach \function/\options in {#3}{
 			\edef\temp{\noexpand
 				\addplot[very thick, smooth, \options]{\function};
 				}
 			\temp
 			}
+% Add open circles at #4 = {(x1,y1), (x2,y2), etc}
 		\addplot [only marks, very thick, mark=*, mark options={scale=1, fill=white}]
 			coordinates{#4};
-% Position title (f or f') at top left
+% Position title #1 = f or f' at top left
 		\node at (axis description cs: 0.15,0.7) {\huge$#1$};
-% Position card number/letter at bottom right
+% Position card number/letter #2 at bottom right
 		\node at (axis description cs: 0.95,0.05) {\footnotesize#2};
 		\end{axis}
 		\end{tikzpicture}

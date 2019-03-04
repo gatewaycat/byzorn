@@ -1,0 +1,112 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ADAPTED FROM Hodge-King's
+%   IBL Week 4 Day 1 "Derivative Matching Revised"
+% DIRECTIONS: typeset twice to get positioning right
+% USAGE: print singled side and cut; print 1 copy on transparency for soln
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[letterpaper,10pt]{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\newcounter{card}
+\newcommand\content[5]{
+\begin{tikzpicture}[remember picture, overlay] \draw (current page.north west) ++({(floor(\arabic{card}/5)+0.5)*2.8333in},{(mod(\arabic{card},5)+0.5)*-2.2in}) node {
+	\begin{tikzpicture}
+	\begin{axis}[
+		axis equal image=false,
+		width=3in, height=2.4in,
+		grid=major, axis lines=center,
+		xmin=-3.1, xmax=3.1, xtick={-3,...,3},
+		ymin=-2.5, ymax=2.5, ytick={-2,...,2},
+		major tick length={0},
+		samples=299,
+		domain=-3:3,
+		#5
+		]
+		\foreach \function/\options in {#3}{
+			\edef\temp{\noexpand
+				\addplot[very thick, smooth, \options]{\function};
+				}
+			\temp
+			}
+		\addplot [only marks, very thick, mark=*, mark options={scale=1, fill=white}]
+			coordinates{#4};
+% Position title (f or f') at top left
+		\node at (axis description cs: 0.15,0.7) {\huge$#1$};
+% Position card number/letter at bottom right
+		\node at (axis description cs: 0.95,0.05) {\footnotesize#2};
+		\end{axis}
+		\end{tikzpicture}
+		};
+	\end{tikzpicture}
+	\stepcounter{card}
+	}
+\newcommand\contentb[3]{\content{#1}{#2}{{#3}/{}}{}{restrict y to domain=-2.5:2.5,}}
+\newcommand\contentc[3]{\content{#1}{#2}{{#3}/{}}{}{
+	xmin=-6.3, xmax=6.3, xtick={-6.28319,-3.14159,3.14159, 6.28319},
+	xticklabels={$-2\pi$,$-\pi$,$\pi$, $2\pi$},
+	ymin=-1.25, ymax=1.25, ytick={-1,-0.5,0.5,1}, 
+	domain=-6.2:6.2
+	}}
+
+\begin{document}
+% FUNCTION CARDS
+\contentb f1{2*x-1}
+\contentb f2{-2*x+1}
+\contentb f3{abs(x)}
+\contentb f4{x^2+2*x}
+\contentc f5{sin(deg(x)}
+\contentb f6{x^3-x}
+\contentb f7{(x+1)^4-1}
+\content f8{ln(x)/domain=0.01:3}{}{samples=300}
+\contentb f9{x^3/3+1}
+\contentb f{10}{x^(-1)}
+\contentb f{11}{2/(1+2.7182818^(-4*x+4))}
+\contentb f{12}{(x+1)/abs(x+1)*abs(x+1)^(1/3)}
+\contentb f{13}{2.7182818^(-x^2)}
+\content f{14}{0.333*x^3+1/domain=-3:1, x+0.333/{samples=99, domain=1:3}}{}{}
+\content f{15}{-x^4+4*x^2/{}}{}{ymin=-7.5, ymax=7.5, restrict y to domain=-7.5:7.5, ytick={-6,-3,...,6}}
+
+% DERIVATIVE CARDS
+\newpage
+\setcounter{card}0
+\contentb{f'}I2
+\contentb{f'}E{-2}
+\content{f'}O{-1/domain=-3:0, 1/domain=0:3}{(0,1) (0,-1)}{samples=2}
+\contentb{f'}D{2*x+2}
+\contentc{f'}F{cos(deg(x))}
+\contentb{f'}A{3*x^2-1}
+\contentb{f'}M{4*(x+1)^3}
+\content{f'}N{{1/x}/domain=0.1:3}{}{samples=30}
+\contentb{f'}J{x^2}
+\contentb{f'}K{-1*x^(-2)}
+\contentb{f'}C{8*2.7182818^(-4*x+4)/(1+2.7182818^(-4*x+4))^2}
+\content{f'}H{{(1/3)*1/(x+1)^2^(1/3)}/domain=-3:-1.01, {(1/3)*1/(x+1)^2^(1/3)}/domain=-0.99:3}{}{}
+\contentb{f'}B{-2*x*2.7182818^(-x^2)}
+\content{f'}G{x^2/domain=-3:1, 1/domain=1:3}{}{}
+\content{f'}L{-4*x^3+8*x/{}}{}{ymin=-7.5, ymax=7.5, restrict y to domain=-7.5:7.5, ytick={-6,-3,...,6}}
+
+% SOLUTIONS
+\newpage
+\section*{Solutions}
+\begin{tabular}{rl}
+1 & I %& $\div$
+\\ 2 & E %& $\star$
+\\ 3 & O %& =
+\\ 4 & D %& $\triangle$
+\\ 5 & F %& $\infty$
+\\ 6 & A %& \&
+\\ 7 & M %& @
+\\ 8 & N %& $\square$
+\\ 9 & J %& \#
+\\ 10 & K %& \%
+\\ 11 & C %& ?
+\\ 12 & H %& !
+\\ 13 & B %& $+$
+\\ 14 & G %& $\heartsuit$
+\\ 15 & L %& $\Rightarrow$
+\end{tabular}
+\end{document}

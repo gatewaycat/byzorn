@@ -13,7 +13,7 @@
 \pagestyle{empty}
 
 \newcounter{card}
-\newcommand\content[5]{
+\newcommand\content[4]{
 \begin{tikzpicture}[remember picture, overlay]
 \draw (current page.north west)
 ++({(floor(\arabic{card}/5)+0.5)*2.8333in},{(mod(\arabic{card},5)+0.5)*-2.2in})
@@ -28,31 +28,33 @@ node {
 		major tick length={0},
 		samples=299,
 		domain=-3:3,
-% Set global options #5 for this particular graph
-		#5
+% #4 = options for this particular graph, eg, xmax, ytick
+		#4
 		]
-% Add plot of functions/options #3 = {fn1/op1, fn2/op2, etc}
-		\foreach \function/\options in {#3}{
+% #2 = list of functions/options to plot = {fn1/op1, fn2/op2, etc}
+% global var \fncolor = color of plot & title
+		\foreach \function/\options in {#2}{
 			\edef\temp{\noexpand
-				\addplot[very thick, smooth, \options]{\function};
+				\addplot[very thick, smooth, \fncolor, \options]{\function};
 				}
 			\temp
 			}
-% Add open circles at #4 = {(x1,y1), (x2,y2), etc}
-		\addplot [only marks, very thick, mark=*, mark options={scale=1, fill=white}]
-			coordinates{#4};
-% Position title #1 = f or f' at top left
-		\node at (axis description cs: 0.15,0.7) {\huge$#1$};
-% Position card number/letter #2 at bottom right
-		\node at (axis description cs: 0.95,0.05) {\footnotesize#2};
+% #3 = coordinates of open circles = {(x1,y1), (x2,y2), etc}
+		\addplot [\fncolor, only marks, very thick, mark=*, mark options={scale=1, fill=white}]
+			coordinates{#3};
+% global var \titlef = title = f or f'
+% global var \titlex = relative x position for title = number btw 0, 1
+		\node[\fncolor] at (axis description cs: \titlex,0.8) {\huge$\titlef$};
+% #1 = card ID number/letter
+		\node at (axis description cs: 0.95,0.05) {\footnotesize#1};
 		\end{axis}
 		\end{tikzpicture}
 		};
 	\end{tikzpicture}
 	\stepcounter{card}
 	}
-\newcommand\contentb[3]{\content{#1}{#2}{{#3}/{}}{}{restrict y to domain=-2.5:2.5,}}
-\newcommand\contentc[3]{\content{#1}{#2}{{#3}/{}}{}{
+\newcommand\contentb[2]{\content{#1}{{#2}/{}}{}{restrict y to domain=-2.5:2.5,}}
+\newcommand\contentc[2]{\content{#1}{{#2}/{}}{}{
 	xmin=-6.3, xmax=6.3, xtick={-6.28319,-3.14159,3.14159, 6.28319},
 	xticklabels={$-2\pi$,$-\pi$,$\pi$, $2\pi$},
 	ymin=-1.25, ymax=1.25, ytick={-1,-0.5,0.5,1}, 
@@ -61,44 +63,50 @@ node {
 
 \begin{document}
 % FUNCTION CARDS
-\contentb f1{2*x-1}
-\contentb f2{-2*x+1}
-\contentb f3{abs(x)}
-\contentb f4{x^2+2*x}
-\contentc f5{sin(deg(x)}
-\contentb f6{x^3-x}
-\contentb f7{(x+1)^4-1}
-\content f8{ln(x)/domain=0.01:3}{}{samples=300}
-\contentb f9{x^3/3+1}
-\contentb f{10}{x^(-1)}
-\contentb f{11}{2/(1+2.7182818^(-4*x+4))}
-\contentb f{12}{(x+1)/abs(x+1)*abs(x+1)^(1/3)}
-\contentb f{13}{2.7182818^(-x^2)}
-\content f{14}{0.333*x^3+1/domain=-3:1, x+0.333/{samples=99, domain=1:3}}{}{}
-\content f{15}{-x^4+4*x^2/{}}{}
+\def\fncolor{black}
+\def\titlef{f}
+\def\titlex{0.2}
+\contentb 1{2*x-1}
+\contentb 2{-2*x+1}
+\contentb 3{abs(x)}
+\contentb 4{x^2+2*x}
+\contentc 5{sin(deg(x)}
+\contentb 6{x^3-x}
+\contentb 7{(x+1)^4-1}
+\content 8{ln(x)/domain=0.01:3}{}{samples=300}
+\contentb 9{x^3/3+1}
+\contentb {10}{x^(-1)}
+\contentb {11}{2/(1+2.7182818^(-4*x+4))}
+\contentb {12}{(x+1)/abs(x+1)*abs(x+1)^(1/3)}
+\contentb {13}{2.7182818^(-x^2)}
+\content {14}{0.333*x^3+1/domain=-3:1, x+0.333/{samples=99, domain=1:3}}{}{}
+\content {15}{-x^4+4*x^2/{}}{}
 	{ymin=-7.5, ymax=7.5, restrict y to domain=-7.5:7.5, ytick={-6,-3,...,6}}
 
 % DERIVATIVE CARDS
 \newpage
+\def\fncolor{red}
+\def\titlef{f'}
+\def\titlex{0.8}
 \setcounter{card}0
-\contentb{f'}I2
-\contentb{f'}E{-2}
-\content{f'}O{-1/domain=-3:0, 1/domain=0:3}{(0,1) (0,-1)}{samples=2}
-\contentb{f'}D{2*x+2}
-\contentc{f'}F{cos(deg(x))}
-\contentb{f'}A{3*x^2-1}
-\contentb{f'}M{4*(x+1)^3}
-\content{f'}N{{1/x}/domain=0.1:3}{}{samples=30}
-\contentb{f'}J{x^2}
-\contentb{f'}K{-1*x^(-2)}
-\contentb{f'}C{8*2.7182818^(-4*x+4)/(1+2.7182818^(-4*x+4))^2}
-\content{f'}H{
+\contentb I2
+\contentb E{-2}
+\content O{-1/domain=-3:0, 1/domain=0:3}{(0,1) (0,-1)}{samples=2}
+\contentb D{2*x+2}
+\contentc F{cos(deg(x))}
+\contentb A{3*x^2-1}
+\contentb M{4*(x+1)^3}
+\content N{{1/x}/domain=0.1:3}{}{samples=30}
+\contentb J{x^2}
+\contentb K{-1*x^(-2)}
+\contentb C{8*2.7182818^(-4*x+4)/(1+2.7182818^(-4*x+4))^2}
+\content H{
 	{(1/3)*1/(x+1)^2^(1/3)}/domain=-3:-1.01,
 	{(1/3)*1/(x+1)^2^(1/3)}/domain=-0.99:3
 	}{}{}
-\contentb{f'}B{-2*x*2.7182818^(-x^2)}
-\content{f'}G{x^2/domain=-3:1, 1/domain=1:3}{}{}
-\content{f'}L{-4*x^3+8*x/{}}{}
+\contentb B{-2*x*2.7182818^(-x^2)}
+\content G{x^2/domain=-3:1, 1/domain=1:3}{}{}
+\content L{-4*x^3+8*x/{}}{}
 	{ymin=-7.5, ymax=7.5, restrict y to domain=-7.5:7.5, ytick={-6,-3,...,6}}
 
 % SOLUTIONS

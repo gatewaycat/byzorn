@@ -33,21 +33,21 @@
 $\begin{matrix}
 \begin{tikzpicture}
 \begin{axis}[
-    every axis/.append style={font=\tiny}, 
-   	xmin=-3.1, xmax=3.1,
+	every axis/.append style={font=\tiny}, 
+	xmin=-3.1, xmax=3.1,
 	ymin=-2.4, ymax=2.4,
 	samples=99, 
 	major tick length={0},
 	line width=1pt,
- 	axis lines=center, height=1.6in, width=2in, grid=major,
- 	restrict y to domain=-2.4:2.4, 
+	axis lines=center, height=1.6in, width=2in, grid=major,
+	restrict y to domain=-2.4:2.4, 
 %	title={\normalsize{\unboldmath$\displaystyle f(x) = #1$}},
 	extra y tick style={y tick label style={right}},
 	#3,
-%  	samples=59 %COMMENT OUT
+%	samples=59 %COMMENT OUT
 	]
-    \addplot [black, smooth, thick, domain=-3:3] {#2};
-    #4
+	\addplot [black, smooth, thick, domain=-3:3] {#2};
+	#4
 \end{axis}
 \end{tikzpicture}
 \end{matrix}$
@@ -75,15 +75,17 @@ $\begin{matrix}
 
 % set amount to shrink in y direction first diagram
 \def\yscaleone{3}
+\newcommand\diagram{
+\fullwidth{
 \begin{center}
 \begin{tikzpicture}
-        [very thick, yscale=1/\yscaleone]
+	[very thick, yscale=1/\yscaleone]
 	% grid
 	\draw[gray, semithick] (-1,0) grid (14.25,20.5);
 	% x- and y-axes
 	\draw[<->, semithick] (-1,21) -- 
-        node[pos=0.03, right] {$y$} (-1,0) --  
-	    node[pos=0.99, above] {$x$} (14.5,0);
+		node[pos=0.03, right] {$y$} (-1,0) --  
+		node[pos=0.99, above] {$x$} (14.5,0);
 	% labels on y-axis
 	\foreach \y in {0,10,...,200}
 	\draw (-1,\y/10) node[left] {\y};
@@ -110,15 +112,20 @@ $\begin{matrix}
 	\draw[smooth] plot coordinates {(12.1,0) (12.4,5) (14.25,5.85)};
 	% open circles
 	\foreach \x/\y in {2/2, 3/1, 4/5, 4/8, 5/7, 5/16, 6/10, 7/17, 8/11}
-    	\draw[black, fill=white, yscale=\yscaleone] (\x,\y/\yscaleone) circle (3pt);
+	\draw[black, fill=white, yscale=\yscaleone] (\x,\y/\yscaleone) circle (3pt);
 	% closed circles
 	\foreach \x/\y in {3/4, 5/19, 6/14, 7/13, 8/3, 11/15, 12/18}
-    	\draw[black, fill=black, yscale=\yscaleone] (\x,\y/\yscaleone) circle (2.5pt);
-    % f(x) label
+	\draw[black, fill=black, yscale=\yscaleone] (\x,\y/\yscaleone) circle (2.5pt);
+	% f(x) label
 	\draw (1.5,15) node[fill,white] {\color{black} \huge$f(x)$};
 	\end{tikzpicture}
 	\end{center}
+	}
+	
+	\vspace{-1em}
+	}
 
+\diagram
 \begin{questions}
 \section{Finding Limits Graphically}
 \begin{multicols}{3}
@@ -154,11 +161,11 @@ $\begin{matrix}
 \setlength\columnsep{8mm}
 \raggedcolumns
 \begin{multicols}4
-    \gcard{1/x}{1/x}
+	\gcard{1/x}{1/x}
 	\gcard{1/x^2}{1/x/x}
 	\gcard{|x|}{abs(x)}
 	\gaacard{\sqrt[3]x}{0}{grid=none, ticks=none}{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}
-    \end{multicols}
+	\end{multicols}
 
 \vfill
 \begin{multicols}4
@@ -166,7 +173,7 @@ $\begin{matrix}
 	\gacard{e^x}{e^x}{ytick={1}, xtick={0}}
 	\gacard{\ln(x)}{ln(x)}{ytick={0}, xtick={1}}
 	\gaacard{\frac{\left| x \right|}x}{floor(x/10)*2+1}{ytick={1},extra y ticks={-1},xtick={0},samples={501}}{\opencircle{0,1} \opencircle{0,-1}}
-    \end{multicols}
+	\end{multicols}
 
 \vfill
 \begin{multicols}4
@@ -176,7 +183,55 @@ $\begin{matrix}
 	\gacard{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
 	\gacard{x\sin(1/x)}{x/3*sin(deg(1/x*3))}{ytick={-1,1},xtick={0},samples={720}}
 	\end{multicols}
-	
+
+\newpage
+\diagram
+\section{Identify Continuity/Discontinuity at a Point} %(removable, jump, infinite)
+\question We say $f(x)$
+	is  \fillin[\textbf{continuous at $x=a$}][2in] 
+	if $\lim\limits_{x\to a}f(x)$ exists and equals $f(a)$.
+\question We say $f(x)$
+	has a \fillin[\textbf{removable discontinuity at $x=a$}][2in] at $x=a$ 
+	if $\lim\limits_{x\to a}f(x)$ exists and does \emph{not} equal $f(a)$.
+\question We say $f(x)$
+	has a \fillin[\textbf{jump discontinuity at $x=a$}][2in]
+	if $\lim\limits_{x\to a^+}f(x)$ and $\lim\limits_{x\to a^-}f(x)$ exist and are \emph{un}equal. 
+\question We say $f(x)$
+	has an \fillin[\textbf{infinite discontinuity at $x=a$}][2in]
+	if either $\lim\limits_{x\to a^+}f(x)$ or $\lim\limits_{x\to a^-}f(x)$
+	equals either $\infty$ or $-\infty$.
+
+\question The function $f(x)$ is \textbf{continuous at \boldmath $x$ =} \fillin[][3in].
+\question The function $f(x)$ is has a \textbf{removable discontinuity at \boldmath $x$ =} \fillin[][3in].
+\question The function $f(x)$ is has a \textbf{jump discontinuity at \boldmath $x$ =} \fillin[][3in].
+\question The function $f(x)$ is has an \textbf{infinite discontinuity at \boldmath $x$ =} \fillin[][3in].
+
+\section{Identify Left and Right Continuity at a Point}
+\question We say $f(x)$ is \fillin[left continuous at $x=a$][3in]
+	if $\lim_{x\to a^-}f(x)$ exists and equals $f(a)$.
+\question We say $f(x)$ is \fillin[right continuous at $x=a$][3in]
+	if $\lim_{x\to a^+}f(x)$ exists and equals $f(a)$.
+
+\question The function $f(x)$ is \textbf{left continuous at \boldmath $x$ =} \fillin[][3in].
+\question The function $f(x)$ is \textbf{right continuous at \boldmath $x$ =} \fillin[][3in].
+
+\section{Continuity on an Interval}
+We say $f(x)$ is \textbf{continuous on \boldmath $(a,b)$}
+	if $f(x)$ is continuous at $x=c$ for all $c$ in $(a,b)$.
+\question We say $f(x)$ is \textbf{continuous on \boldmath $[a,b]$}
+	if $f(x)$ is continuous at $x=c$ for all $c$ in $(a,b)$, \\[3ex]
+	and \fillin[right continuous at $x=a$][3in]
+	and \fillin[left continuous at $x=a$][3in].
+\question We say $f(x)$ is \textbf{continuous everywhere}
+	if $f(x)$ is continuous at $x=c$ for all $c$ in \fillin[][1in].
+\question We say $f(x)$ is \textbf{continuous} if it is continuous on every open interval in \fillin[][2.5in].
+%\question Identify some intervals on which $f(x)$ is continuous on.
+%	Identify some intervals $f(x)$ is \emph{not} continuous on. 
+\question Find the union of all open intervals $(a,b)$ such that $f(x)$ is \textbf{continuous on \boldmath $(a,b)$}. Use interval notation.
+%\question Find the domain of $f(x)$. Use interval notation.
+\question The function $f(x)$ fails to be \textbf{continuous} (on every open interval in its domain). 
+	It fails at $x$ = \fillin[][1.4in].
+
 \end{questions}
 \end{document}
 

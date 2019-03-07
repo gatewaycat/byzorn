@@ -1,6 +1,6 @@
 \RequirePackage{luatex85}
 \documentclass{article}
-\usepackage{tikz, amsmath, mathtools, multicol}
+\usepackage{tikz, amsmath, mathtools, multicol, setspace}
 \setlength\parindent{0mm}
 \thispagestyle{empty}
 \pagestyle{empty}
@@ -11,10 +11,13 @@
 \ExplSyntaxOff
 
 \everymath{\displaystyle}
-\newcommand\stacktwo[2]{\hfill\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}\)\hfill}
-\newcommand\stackthree[3]{\hfill\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}\)\hfill}
-\newcommand\stackfour[4]{\hfill\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\\[-0.7ex]\text{#4}\end{matrix}\)\hfill}
-\newcommand\myoverset[2]{\smash{\large$\overset{#1}{\vphantom{\bigg(}\hspace{#2mm}}$}}
+
+\newcommand\blob[2][15mm]{\(\begin{matrix}\begin{tikzpicture}
+	\node[text width=#1, align=flush center]{\begin{spacing}{0.7}#2\end{spacing}};
+	\end{tikzpicture}\end{matrix}\)}
+\newcommand\myoverset[2]{\smash{\large$\overset
+	{#1}{\vphantom{\bigg(}\hspace{#2mm}}
+	$}}
 
 \usepackage[margin=0.5in, column sep=1in]{geometry}
 
@@ -58,20 +61,20 @@ Suppose the height of a ball is a function of time $y=f(x)$.
 	\end{tikzpicture}
 
 \vfill
-\stackfour{average}{velocity}{over}{$[x, x{+}h]$}
-= \stackfour{avg rate}{of change}{over}{$[x, x{+}h]$}
-= \stackfour{slope of}{secant}{btw}{$x, x{+}h$}
-= \hfill$\frac{\Delta y}{\Delta x}$\hfill 
-= \hfill$\frac{y_2 - y_1}{x_2 - x_1}$\hfill 
-= \hfill{\LARGE\boxed{\phantom{\frac{f(x+h)-f(x)}h}}}\hfill 
-= \stackthree{definition of}{difference}{quotient}
+\blob{average velocity over ${[x, x{+}h]}$}
+= \blob{average rate of change over ${[x, x{+}h]}$}
+= \blob{slope of secant between $x, x{+}h$}
+=\hfill$\frac{\Delta y}{\Delta x}$\hfill%
+=\hfill$\frac{y_2 - y_1}{x_2 - x_1}$\hfill%
+=\hfill{\LARGE\boxed{\phantom{\frac{f(x+h)-f(x)}h}}}\hfill%
+= \blob[22mm]{definition of difference quotient}
 
 \vfill
-\stacktwo{velocity}{at $x$}
-= \stackthree{rate of}{change}{at $x$}
-= \stackthree{slope of}{tangent}{at $x$}
-= \hfill{\LARGE\boxed{\phantom{\lim_{h\to0}\frac{f(x+h)-f(x)}h}}}\hfill
-=\hfill definition of derivative $f'(x)$
+\blob{velocity at $x$}
+= \blob{rate of change at $x$}
+= \blob{slope of tangent at $x$}
+=\hfill{\LARGE\boxed{\phantom{\lim_{h\to0}\frac{f(x+h)-f(x)}h}}}\hfill%
+=\hfill\!definition of derivative $f'(x)$
 
 \vfill
 \end{minipage}

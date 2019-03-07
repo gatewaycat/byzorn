@@ -20,58 +20,7 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
-\newcommand\threelim{
-\question $\left\{\begin{aligned}
-	\phantom{\lim_{x\to \mathbf{\arabic{question}}^+}} f(\arabic{question}) &=
-	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}^-}f(x) &=
-	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}^+}f(x) &=
-	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}\phantom{^+}}f(x) &=
-	\end{aligned}\right.$}
-
-\newcommand{\gaacard}[4]{
-	\question
-	\(\begin{matrix}
-	\begin{tikzpicture}
-	\begin{axis}[
-		every axis/.append style={font=\tiny}, 
-		xmin=-3.1, xmax=3.1,
-		ymin=-2.4, ymax=2.4,
-		samples=99, 
-		major tick length={0},
-		line width=1pt,
-		axis lines=center, height=1.6in, width=2in, grid=major,
-		restrict y to domain=-2.4:2.4, 
-		% title={\normalsize{\unboldmath$\displaystyle f(x) = #1$}},
-		extra y tick style={y tick label style={right}},
-		#3,
-		% samples=59 % speed up compile for testing
-		]
-		\addplot [black, smooth, thick, domain=-3:3] {#2};
-		#4
-	\end{axis}
-	\end{tikzpicture}
-	\end{matrix}\)
-	
-	\vspace{-3mm}
-	\fullwidth{\(\begin{aligned}
-		\phantom{\lim_{x\to \mathbf0^+}} f(x) &= \smash{#1}
-		\\[-0.9ex] \phantom{\lim_{x\to \mathbf0^+}} f(0) &=
-		\\[-0.9ex] \lim_{x\to \mathbf0^-}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathbf0^+}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathbf0\phantom{^+}}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &=
-		\end{aligned}\)}
-	}
-
-\newcommand\gacard[3]{\gaacard{#1}{#2}{#3}{}}
-\newcommand\gcard[2]{\gacard{#1}{#2}{grid=none, ticks=none}}
-\newcommand\opencircle[1]{\draw[color=black,fill=white,thick] (axis cs:{#1}) circle [radius=2pt];}
-
-\thispagestyle{empty}
-\pagestyle{empty}
-\begin{document}
-
+% diagram for questions on pages 1 and 3
 \def\yscaleone{3} % = amount to shrink diagram in y direction
 \newcommand\diagram{
 \fullwidth{
@@ -121,7 +70,60 @@
 	\vspace{-1em}
 	}
 
+% template for questions 1 through 12 on page 1
+\newcommand\threelim{
+\question $\left\{\begin{aligned}
+	\phantom{\lim_{x\to \mathbf{\arabic{question}}^+}} f(\arabic{question}) &=
+	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}^-}f(x) &=
+	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}^+}f(x) &=
+	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}\phantom{^+}}f(x) &=
+	\end{aligned}\right.$}
+
+% template for questions 15 through 26 on page 2
+\newcommand\fivelim[4]{
+	\question
+	\(\begin{matrix}
+	\begin{tikzpicture}
+	\begin{axis}[
+		every axis/.append style={font=\tiny}, 
+		xmin=-3.1, xmax=3.1,
+		ymin=-2.4, ymax=2.4,
+		samples=99, 
+		major tick length={0},
+		line width=1pt,
+		axis lines=center, height=1.6in, width=2in, grid=major,
+		restrict y to domain=-2.4:2.4, 
+		% title={\normalsize{\unboldmath$\displaystyle f(x) = #1$}},
+		extra y tick style={y tick label style={right}},
+		#3,
+		% samples=59 % speed up compile for testing
+		]
+		\addplot [black, smooth, thick, domain=-3:3] {#2};
+		#4
+	\end{axis}
+	\end{tikzpicture}
+	\end{matrix}\)
+	
+	\vspace{-3mm}
+	\fullwidth{\(\begin{aligned}
+		\phantom{\lim_{x\to \mathbf0^+}} f(x) &= \smash{#1}
+		\\[-0.9ex] \phantom{\lim_{x\to \mathbf0^+}} f(0) &=
+		\\[-0.9ex] \lim_{x\to \mathbf0^-}f(x) &=
+		\\[-0.9ex] \lim_{x\to \mathbf0^+}f(x) &=
+		\\[-0.9ex] \lim_{x\to \mathbf0\phantom{^+}}f(x) &=
+		\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &=
+		\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &=
+		\end{aligned}\)}
+	}
+\newcommand\fivelima[3]{\fivelim{#1}{#2}{#3}{}}
+\newcommand\fivelimb[2]{\fivelima{#1}{#2}{grid=none, ticks=none}}
+\newcommand\opencircle[1]{\draw[color=black,fill=white,thick] (axis cs:{#1}) circle [radius=2pt];}
+
+\thispagestyle{empty}
+\pagestyle{empty}
+\begin{document}
 \diagram
+
 \begin{questions}
 \section{Finding Limits Graphically}
 \begin{multicols}3
@@ -140,28 +142,28 @@
 \setlength\columnsep{8mm}
 \raggedcolumns
 \begin{multicols}4
-\gcard{1/x}{1/x}
-\gcard{1/x^2}{1/x/x}
-\gcard{|x|}{abs(x)}
-\gaacard{\sqrt[3]x}{0}{grid=none, ticks=none}{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}
+\fivelimb{1/x}{1/x}
+\fivelimb{1/x^2}{1/x/x}
+\fivelimb{|x|}{abs(x)}
+\fivelim{\sqrt[3]x}{0}{grid=none, ticks=none}{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}
 \end{multicols}
 
 \vfill
 \begin{multicols}4
-\gcard{x^3}{x^3}
-\gacard{e^x}{e^x}{ytick={1}, xtick={0}}
-\gacard{\ln(x)}{ln(x)}{ytick={0}, xtick={1}}
-\gaacard{\frac{\left| x \right|}x}{floor(x/10)*2+1}
+\fivelimb{x^3}{x^3}
+\fivelima{e^x}{e^x}{ytick={1}, xtick={0}}
+\fivelima{\ln(x)}{ln(x)}{ytick={0}, xtick={1}}
+\fivelim{\frac{\left| x \right|}x}{floor(x/10)*2+1}
 	{ytick={1},extra y ticks={-1},xtick={0},samples={501}}{\opencircle{0,1} \opencircle{0,-1}}
 \end{multicols}
 
 \vfill
 \begin{multicols}4
-\gacard{\cos(x)}{cos(deg(x)*2)}{ytick={-1,1},xtick={0}}
-%	\gaacard{\frac{\sin(x)}x}{sin(deg(x*3))/(x*3)}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
-\gaacard{\frac{\sin(x)}x}{cos(deg(x*6))*exp(-abs(x/1.25))}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
-\gacard{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
-\gacard{x\sin(1/x)}{x/3*sin(deg(1/x*3))}{ytick={-1,1},xtick={0},samples={720}}
+\fivelima{\cos(x)}{cos(deg(x)*2)}{ytick={-1,1},xtick={0}}
+%	\fivelim{\frac{\sin(x)}x}{sin(deg(x*3))/(x*3)}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
+\fivelim{\frac{\sin(x)}x}{cos(deg(x*6))*exp(-abs(x/1.25))}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
+\fivelima{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
+\fivelima{x\sin(1/x)}{x/3*sin(deg(1/x*3))}{ytick={-1,1},xtick={0},samples={720}}
 \end{multicols}
 
 \newpage
@@ -194,8 +196,7 @@ We say $f(x)$ is \textbf{continuous on \boldmath $(a,b)$}
 	if $f(x)$ is continuous at $x=c$ for all $c$ in $(a,b)$.
 \question We say $f(x)$ is \textbf{continuous on \boldmath $[a,b]$}
 	if $f(x)$ is continuous at $x=c$ for all $c$ in $(a,b)$, \\[3ex]
-	and \fillin[right continuous at $x=a$][3in]
-	and \fillin[left continuous at $x=a$][3in].
+	and \fillin[right continuous at $x=a$][3in] and \fillin[left continuous at $x=a$][3in].
 \question We say $f(x)$ is \textbf{continuous everywhere}
 	if $f(x)$ is continuous at $x=c$ for all $c$ in \fillin[][1in].
 \question We say $f(x)$ is \textbf{continuous} if it is continuous on every open interval in \fillin[][2.5in].

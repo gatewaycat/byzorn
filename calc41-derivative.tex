@@ -4,14 +4,13 @@
 \setlength\parindent{0mm}
 \thispagestyle{empty}
 \pagestyle{empty}
+\everymath{\displaystyle}
 
 % define macro \Repeat{integer}{content}
 \usepackage{expl3}
 \ExplSyntaxOn
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
-
-\everymath{\displaystyle}
 
 \newcommand\blob[2][15mm]{\(\begin{matrix}\begin{tikzpicture}
 	\node[text width=#1, align=flush center]{\begin{spacing}{0.7}#2\end{spacing}};
@@ -26,6 +25,7 @@
 \large
 
 \Repeat{2}{
+% margin=0.5in, row sep=1in, so textheight=4.5in
 \begin{minipage}[t][4.5in]{\textwidth}
 \section*{The Limit Definition of Derivative}
 
@@ -62,8 +62,8 @@ Suppose the height of a ball is a function of time $y=f(x)$.
 	\end{tikzpicture}
 
 \vfill
-\blob{average velocity over ${[x, x{+}h]}$}
-= \blob{average rate of change over ${[x, x{+}h]}$}
+\blob{average velocity over $[x, x{+}h]$}
+= \blob{average rate of change over $[x, x{+}h]$}
 = \blob{slope of secant between $x, x{+}h$}
 =\hfill$\frac{\Delta y}{\Delta x}$\hfill%
 =\hfill$\frac{y_2 - y_1}{x_2 - x_1}$\hfill%

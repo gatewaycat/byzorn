@@ -1,6 +1,6 @@
 \RequirePackage{luatex85}
 \documentclass{article}
-\usepackage{tikz, amsmath, mathtools}
+\usepackage{tikz, amsmath, mathtools, multicol}
 \setlength\parindent{0mm}
 \thispagestyle{empty}
 \pagestyle{empty}
@@ -9,75 +9,73 @@
 \ExplSyntaxOn
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
- 
-\usepackage[landscape, two column, margin=0.35in, column sep=0.7in]{geometry}
 
 \everymath{\displaystyle}
-\newcommand\stacktwo[2]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}\)}
-\newcommand\stackthree[3]{\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}\)}
-\newcommand\mylimit{{\lim_{\textstyle h\to\,\,\phantom{\text{\huge0}}}}}
-\newcommand\myoverset[2]{\smash{\large$\overset{#1}{\vphantom{\Bigg(}\hspace{#2mm}}$}}
+\newcommand\stacktwo[2]{\hfill\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\end{matrix}\)\hfill}
+\newcommand\stackthree[3]{\hfill\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\end{matrix}\)\hfill}
+\newcommand\stackfour[4]{\hfill\(\begin{matrix}\text{#1}\\[-0.7ex]\text{#2}\\[-0.7ex]\text{#3}\\[-0.7ex]\text{#4}\end{matrix}\)\hfill}
+\newcommand\myoverset[2]{\smash{\large$\overset{#1}{\vphantom{\bigg(}\hspace{#2mm}}$}}
+
+\usepackage[margin=0.5in, column sep=1in]{geometry}
 
 \begin{document}
-\Repeat{2}{
-\section*{{\small 5 Minute Mini-Lesson} \\ The Limit Definition of Derivative}
 \large
+
+\Repeat{2}{
+\begin{minipage}[t][4.5in]{\textwidth}
+\section*{The Limit Definition of Derivative}
+
+\vspace{-1ex}
 Suppose the height of a ball is a function of time $y=f(x)$.
 
-\vspace{\stretch1}
-\hfil
+\bigskip\hfil
 \begin{tikzpicture}[very thick]
-% axes
-\draw[<->] (-1,7) to (-1,0) to (10.5,0);
-% f(x)
-\draw[domain=0.5:8] plot (\x, \x^3/100+1) node [right] {\,\,\large$y=f(x)$};
-% secant
-\draw[red, domain=1.5:8] plot (\x, {3^3/100+1+(\x-3)*(6^3-3^3)/(6-3)/100})
-node [right] {\,\,\large secant};
-% tangent
-\draw[blue, domain=1:8] plot (\x, {3^3/100+1+(\x-3)*3^2*3/100})
-node [right] {\,\,\large tangent};
-% closed circles
-\foreach \x/\n in {3/x,6/x+h}{
-	\draw[black, fill=black] (\x, \x^3/100+1) circle (3pt) coordinate (\x);
-	\draw (\x, 5pt) -- ++(down:10pt) node[below] {\large$\n\vphantom h$};
-	}
-% fillin (x1, y1) = (x, f(x))
-\draw (3) node [above left] {
-	\bfseries\huge(\myoverset{x_1}{12},\myoverset{y_1}{12})\!
-	};
-% fillin (x2, y2) = (x+h, f(x+h))
-\draw (6) node [above left] {
-	\bfseries\huge(\myoverset{x_2}{16},\myoverset{y_2}{16})\!
-	};
-\end{tikzpicture}
+	% axes
+	\draw[<->] (-1.5,4.5) to (-1.5,0) to (10.5,0);
+	% f(x)
+	\draw[domain=0.5:8] 
+		plot (\x, \x^3/150+1) node [right] {\,\,\large$y=f(x)$};
+	% secant
+	\draw[red, domain=1.5:8] 
+		plot (\x, {3^3/150+1+(\x-3)*(6^3-3^3)/(6-3)/150})
+		node [right] {\,\,\large secant};
+	% tangent
+	\draw[red, domain=1:8] plot (\x, {3^3/150+1+(\x-3)*3^2*3/150})
+		node [right] {\,\,\large tangent};
+	% closed circles
+	\foreach \x/\n in {3/x,6/x+h}{
+		\draw[black, fill=black] (\x, \x^3/150+1) circle (3pt) coordinate (\x);
+		\draw (\x, 5pt) -- ++(down:10pt) node[below] {\large$\n\vphantom h$};
+		}
+	% fillin (x1, y1) = (x, f(x))
+	\draw (3) node [above left] {
+		\bfseries\huge(\myoverset{x_1}{14},\myoverset{y_1}{14})\!
+		};
+	% fillin (x2, y2) = (x+h, f(x+h))
+	\draw (6) node [above left] {
+		\bfseries\huge(\myoverset{x_2}{18},\myoverset{y_2}{18})\!
+		};
+	\end{tikzpicture}
 
-\vspace{\stretch2}
-\(\phantom\mylimit\)
-{\footnotesize\(
-	\frac{\Delta y}{\Delta x}
-	= \frac{y_2-y_1}{x_2-x_1}
-	=
-	\)}
+\vfill
+\stackfour{average}{velocity}{over}{$[x, x{+}h]$}
+= \stackfour{avg rate}{of change}{over}{$[x, x{+}h]$}
+= \stackfour{slope of}{secant}{btw}{$x, x{+}h$}
+= \hfill$\frac{\Delta y}{\Delta x}$\hfill 
+= \hfill$\frac{y_2 - y_1}{x_2 - x_1}$\hfill 
+= \hfill{\LARGE\boxed{\phantom{\frac{f(x+h)-f(x)}h}}}\hfill 
+= \stackthree{definition of}{difference}{quotient}
 
-\bigskip
-\(	 \phantom\mylimit
-	\frac{\hspace{1in}}{}
-	\)
-= \stacktwo{slope of}{secant} 
-= \stacktwo{difference}{quotient}
-= \stackthree{average}{rate of}{change}
-= \stacktwo{average}{velocity}
+\vfill
+\stacktwo{velocity}{at $x$}
+= \stackthree{rate of}{change}{at $x$}
+= \stackthree{slope of}{tangent}{at $x$}
+= \hfill{\LARGE\boxed{\phantom{\lim_{h\to0}\frac{f(x+h)-f(x)}h}}}\hfill
+=\hfill definition of derivative $f'(x)$
 
-\vspace{\stretch2}
-\(	 \mylimit
-	\frac{\hspace{1in}}{}
-	\)
-= \stacktwo{slope of}{tangent} 
-= derivative
-= \stacktwo{rate of}{change}
-= velocity
+\vfill
+\end{minipage}
 
-\vspace{\stretch3}
+\vspace{1in}
 }
 \end{document}

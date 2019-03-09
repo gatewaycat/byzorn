@@ -1,0 +1,98 @@
+%%%%%%%%%%
+% AVOIDS "x to a" definition derivative, lest fuss with f'(a) vs f'(x)
+% AVOIDS "x to a" proof of power rule (slick, but less insight)
+%%%%%%%%%%
+
+\documentclass[17pt, handout]{beamer}
+\usetheme{Pittsburgh}
+\usepackage[thicklines]{cancel}
+\usepackage{mathtools, multicol}
+%\usepackage{stackengine}
+%\stackMath
+\theoremstyle{remark}
+\newtheorem{exercise}{Exercise}
+\newtheorem{plickers}{Plickers Exercise}
+\AtBeginSection[]{
+	\begin{frame}\relax
+	\tableofcontents[currentsection]
+	\end{frame}
+	}
+
+\begin{document}
+%\section{Power Rule}
+\begin{frame}
+\begin{theorem}%[Power Rule]
+\[\Big(x^n\Big)' = nx^{n-1}\]
+\end{theorem}
+
+\begin{plickers}
+Find the derivative of $f(x) = x^3$.
+\begin{multicols}4
+\begin{enumerate}[A.]
+\item $3x^2$ \item $3x$ \item $6x$ \item $6$
+\end{enumerate}
+\end{multicols}
+\end{plickers}
+\end{frame}
+
+\begin{frame}
+\begin{fact}
+\vspace{-3ex}
+\begin{align*}
+(x+h)^2 &= x^2 + 2xh + h^2 \\[1ex]
+(x+h)^3 &= x^3 + 3x^2h + %\overset{(3x+h)h^2}
+	{(3xh^2 + h^3)} \\[1ex]
+(x+h)^4 &= x^4 + 4x^3h + %\overset{(6x^2 + 4xh+h^2)h^2}
+	{(6x^2h^2 + 4xh^3+h^4)} \\[1.5ex]
+&\quad \text{\Large$
+	x^n \quad nx^{n-1}\!h \quad (\,\cdots)h^2
+	$}
+\end{align*}
+\end{fact}
+\end{frame}
+
+%%%%%%%%%%%%%%%
+% OLD STYLE PROOF
+%%%%%%%%%%%%%%%
+%\begin{frame}
+%\begin{proof}
+%Fix a positive integer $n$.
+%\vspace{-1.5ex}
+%\begin{align*}
+%	f(x) &= x^n 
+%	&&\text{(given)} \\
+%	f'(x) &= \lim_{h\to0} \textstyle \frac{f(x+h) - f(x)}h 
+%	&&\text{(definition)} \\
+%	&= \lim_{h\to0} \textstyle \frac{(x+h)^n - x^n}h 
+%	&&\text{(sub in $f$)} \\
+%	&= \lim_{h\to0} \textstyle \frac{x^n + nx^{n-1}h + (\,\cdots)h^2 \,\,-\,\, x^n}h 
+%	&&\text{(use fact)} \\
+%	&= \lim_{h\to0} \textstyle \frac{nx^{n-1}h}h + \frac{(\,\cdots)h^2}h \\
+%	&= nx^{n-1} &&\qedhere
+%	\end{align*}
+%\end{proof}
+%\end{frame}
+
+%%%%%%%%%%%%%%%
+% NEW STYLE PROOF
+%%%%%%%%%%%%%%%
+\newcommand\mystack[3]{\overset{\mathclap{\substack{\textstyle #3 \\[1.5ex] \textstyle #2 \vphantom) \\[1.5ex]}}}{\quad\,\,#1\quad\,\,}}
+\begin{frame}
+\begin{proof}
+Fix a positive integer $n$.
+Let $f(x) = x^n$.
+\begin{align*}
+	f'(x) &= \lim_{h\to0} 
+	\frac{
+		\mystack{f(x+h)}{(x+h)^n}{
+			\bcancel{x^n}
+			+ nx^{n-1}\bcancel h
+			+ (\,\cdots)h^{\bcancel2}
+			}
+		- \mystack{f(x)}{x^n}{}
+		}{\bcancel h}
+	\\[1.5em] &= nx^{n-1} \qedhere
+	\end{align*}
+\end{proof}
+\end{frame}
+\end{document}

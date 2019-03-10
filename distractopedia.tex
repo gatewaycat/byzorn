@@ -1,10 +1,48 @@
 \RequirePackage{luatex85}
 \documentclass[addpoints]{exam}
+\usepackage{multicol, amsmath}
+\everymath{\displaystyle}
 \begin{document}
 \begin{questions}
-\section{Calc I. Limits. Algebraic.}
-\question $\lim_{x\to 25} \frac{\sqrt x-5}{x-25} = $
-\begin{oneparcheckboxes}
+
+\section{Algebra. Functions. Composition.}
+\question Let $f(x) = -2+\sqrt{x+3}$ and let $g(x) = \frac1x$. Find the composition $(f\circ g)(x)$.
+\begin{multicols}3
+\begin{choices}
+	\choice $\frac1{-2+\sqrt{x+3}}$
+	\choice $-2+\sqrt{x+3}$
+	\choice $-2+\frac1{\sqrt{x+3}}$
+	\choice $-2+\frac1{\sqrt x+3}$
+	\correctchoice $-2+\sqrt{\frac1x+3}$
+	\end{choices}
+	\end{multicols}
+
+\section{Algebra. Functions. Domain.}
+\question Find the domain of $-2+\sqrt{3+1/x}$.
+\begin{multicols}3
+\begin{choices}
+	\choice $(-\infty,0)\cup(0,\infty)$ %6/30
+	\choice $(-\infty,\infty)$ %5/30
+	\choice $[0,\infty)$ %5/30
+	\choice $(1,\infty)$ %3/30
+	\choice $(-\infty,0)\cup(0,1)$ %3/30
+	\correctchoice $(-\infty,-\tfrac13]\cup(0,\infty)$ %2/30
+	\end{choices}
+	\end{multicols}
+\question Find the domain of $\frac1{-2+\sqrt{3+x}}$.
+\begin{multicols}3
+\begin{choices}
+	\correctchoice $[-3,1)\cup(1,\infty)$
+	\choice $(-\infty,0)\cup(0,\infty)$
+	\choice $(-\infty,\infty)$
+	\choice $(-\infty,1)\cup(1,\infty)$
+	\choice $(-\infty,-3)\cup(-3,\infty)$
+	\end{choices}
+	\end{multicols}
+
+\section{Calculus I. Limits. Algebraic.}
+\question Find $\lim_{x\to 25} \frac{\sqrt x-5}{x-25}$. \qquad\qquad
+\begin{oneparchoices}
 	\correctchoice $\frac1{10}$
 	\choice $\frac1{50}$ % +reasoning/level; +student stats
 	\choice $\frac1{60}$
@@ -12,13 +50,13 @@
 	\choice 0
 	\choice DNE
 	\choice 0.10001
-	\end{oneparcheckboxes}
-\question $\lim_{h\to0} \frac0h = $
-\begin{oneparcheckboxes}
+	\end{oneparchoices}
+\question Find $\lim_{h\to0} \frac0h$. \qquad\qquad
+\begin{oneparchoices}
 	\correctchoice 0
 	\choice 1
 	\choice $\infty$
 	\choice DNE
-	\end{oneparcheckboxes}
+	\end{oneparchoices}
 \end{questions}
 \end{document}

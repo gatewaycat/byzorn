@@ -29,33 +29,42 @@
 \section*{The Limit Definition of Derivative}
 
 \vspace{-1ex}
-Suppose the height of a ball is a function of time $y=f(x)$.
+Suppose the distance a train has traveled is a function of time $y=f(x)$.
 
-\bigskip\hfil
-\begin{tikzpicture}[very thick]
+\hfil
+\begin{tikzpicture}[very thick, scale=2]
+	% grid
+	\draw[gray, semithick, dotted, step=0.25] (0,0) grid (5.5,2.75);
+	\draw[gray, thick] (0,0) grid (5.5,2.75);
 	% axes
-	\draw[<->] (-1.5,4.5) to (-1.5,0) to (10.5,0);
+	\draw[<->] (0,2.75) node[below left] {distance [mi]} to (0,0) to (5.5,0) node[right] {time [hr]};
+	% tick marks and coordinates for closed circles
+	\foreach \x/\n in {3/x, 5/x+h}{
+		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
+		\draw (\x, 3pt) -- ++(down:6pt) node[below] {\large$\n\vphantom h$};
+		}
+%	% crop
+%	\clip (0,0) rectangle (8.5,2.5);
 	% f(x)
-	\draw[domain=0.5:8] 
-		plot (\x, \x^3/150+1) node [right] {\,\,\large$y=f(x)$};
+	\draw[domain=0.5:5.5]
+		plot (\x, {(\x-1)^4*5/8/100+15/100}) node [right] {\,\,\large$y=f(x)$};
 	% secant
-	\draw[red, domain=1.5:8] 
-		plot (\x, {3^3/150+1+(\x-3)*(6^3-3^3)/(6-3)/150})
+	\draw[red, domain=2.5:5.5] 
+		plot (\x, {0.75*(\x-3)+0.25})
 		node [right] {\,\,\large secant};
 	% tangent
-	\draw[red, domain=1:8] plot (\x, {3^3/150+1+(\x-3)*3^2*3/150})
+	\draw[red, domain=1.5:5.5] plot (\x, {0.2*(\x-3)+0.25})
 		node [right] {\,\,\large tangent};
 	% closed circles
-	\foreach \x/\n in {3/x,6/x+h}{
-		\draw[black, fill=black] (\x, \x^3/150+1) circle (3pt) coordinate (\x);
-		\draw (\x, 5pt) -- ++(down:10pt) node[below] {\large$\n\vphantom h$};
+	\foreach \x/\n in {3/x, 5/x+h}{
+		\draw[black, fill=black] (\x) circle (2pt);
 		}
 	% fillin (x1, y1) = (x, f(x))
 	\draw (3) node [above left] {
 		\bfseries\huge(\myoverset{x_1}{14},\myoverset{y_1}{14})\!
 		};
 	% fillin (x2, y2) = (x+h, f(x+h))
-	\draw (6) node [above left] {
+	\draw (5) node [above left] {
 		\bfseries\huge(\myoverset{x_2}{18},\myoverset{y_2}{18})\!
 		};
 	\end{tikzpicture}

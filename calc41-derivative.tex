@@ -5,7 +5,7 @@
 \setlength\parindent{0mm}
 \thispagestyle{empty}
 \pagestyle{empty}
-\everymath{\displaystyle}
+%\everymath{\displaystyle}
 
 % define macro \Repeat{integer}{content}
 \usepackage{expl3}
@@ -20,6 +20,26 @@
 	{#1}{\vphantom{\bigg(}\hspace{#2mm}}
 	$}}
 
+\newcommand\diagram[3]{
+\begin{tikzpicture}[very thick, scale=2.1, yscale=0.85]
+	#3
+	% axes
+	\draw[<->] (0,2.75) node[below left] {distance [mi]} to (0,0) to (5.75,0) node[right] {time [hr]};
+%	% crop
+%	\clip (0,0) rectangle (8.5,2.5);
+	% f(x)
+	\draw[domain=0.5:5.65]
+		plot (\x, {(\x-1)^4*5/8/100+15/100}) node [right] {\,\,\large$#1$};
+	% secant
+	\draw[red, domain=2.5:6] 
+		plot (\x, {0.75*(\x-3)+0.25})
+		node [right] {\,\,\large secant};
+	% tangent
+	\draw[red, domain=1.25:6] plot (\x, {0.2*(\x-3)+0.25})
+		node [right] {\,\,\large tangent};
+		#2
+	\end{tikzpicture}}
+
 \begin{document}
 \large
 
@@ -33,31 +53,14 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 
 \vspace{-2ex}
 \hfil
-\begin{tikzpicture}[very thick, scale=2.1, yscale=0.85]
-	% grid
-%	\draw[gray, semithick, dotted, step=0.25] (0,0) grid (5.75,2.75);
-%	\draw[gray, thick] (0,0) grid (5.75,2.75);
-	% axes
-	\draw[<->] (0,2.75) node[below left] {distance [mi]} to (0,0) to (5.75,0) node[right] {time [hr]};
+\diagram{y=f(x)\phantom{{}=\frac58(x-1)^4+15}}{
 	% tick marks and coordinates for closed circles
 	\foreach \x/\n in {3/x, 5/x+h}{
 		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
 		\draw (\x, 3pt) -- ++(down:6pt) node[below] {\large$\n\vphantom h$};
 		}
-%	% crop
-%	\clip (0,0) rectangle (8.5,2.5);
-	% f(x)
-	\draw[domain=0.5:5.65]
-		plot (\x, {(\x-1)^4*5/8/100+15/100}) node [right] {\,\,\large$y=f(x)$};
-	% secant
-	\draw[red, domain=2.5:6] 
-		plot (\x, {0.75*(\x-3)+0.25})
-		node [right] {\,\,\large secant};
-	% tangent
-	\draw[red, domain=1.25:6] plot (\x, {0.2*(\x-3)+0.25})
-		node [right] {\,\,\large tangent};
 	% closed circles (yscale counteracts global yscale)
-	\foreach \x/\n in {3/x, 5/x+h}{
+	\foreach \x in {3, 5}{
 		\draw[black, fill=black, yscale=1/0.85] (\x) circle (1.5pt);
 		}
 	% fillin (x1, y1) = (x, f(x))
@@ -68,7 +71,8 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 	\draw (5) node [above left] {
 		\bfseries\huge(\myoverset{x_2}{18},\myoverset{y_2}{18})\!
 		};
-	\end{tikzpicture}
+	}{
+	}
 
 \vfill
 \blob{avera\smash ge velocity over $[x, x{+}h]$}
@@ -87,6 +91,39 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 =\hfill\!definition of derivative $f'(x)$
 
 \vfill
+\end{minipage}
+
+\vspace{1in}
+}
+
+\Repeat{2}{
+\begin{minipage}[t][4.5in]{\textwidth}
+%\clearpage
+\begin{tabbing}
+\textbf{Exercise 1.} \= Use the definition of difference quotient to find the slope of the \textbf{secant} line through \\ \> $y=f(x)=\frac58(x-1)^4+15$ between $x$ and $x+h$. \\[1ex]
+\textbf{Exercise 2.} Use the definition of difference quotient to find the slope of the \textbf{tangent} line to \\ \> $y=f(x)=\frac58(x-1)^4+15$ at $x$. \\[1ex]
+\diagram{y=f(x)=\frac58(x-1)^4+15}{
+	% tick marks and coordinates for closed circles
+	\foreach \x in {0, ..., 5}{
+		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
+		\draw (\x, 3pt) -- ++(down:6pt) node[below] {\large$\x$};
+		}
+	% closed circles (yscale counteracts global yscale)
+	\foreach \x in {3, 5}{
+		\draw[black, fill=black, yscale=1/0.85] (\x) circle (1.5pt);
+		}
+	% y-tick marks
+	\foreach \y in {0, 100, 200}{
+		\draw (3pt, \y/100) -- ++(left:6pt) node[left] {\large$\y$};
+		}
+	}{
+	% grid
+	\draw[gray, semithick, dotted, step=0.25] (0,0) grid (5.75,2.75);
+	\draw[gray, thick] (0,0) grid (5.75,2.75);
+	}\\[1ex]
+\textbf{Exercise 3.} Use the \textbf{diagram} to estimate the slope of the \textbf{secant} line to \\ \> $y=f(x)=\frac58(x-1)^4+15$ between 3 and 5. \\[1ex]
+\textbf{Exercise 4.} Use your answer to Exercise 2 above to estimate the slope of the \textbf{tangent} line to \\ \> $y=f(x)=\frac58(x-1)^4+15$ at 3.
+\end{tabbing}
 \end{minipage}
 
 \vspace{1in}

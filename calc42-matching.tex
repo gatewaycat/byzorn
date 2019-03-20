@@ -14,8 +14,8 @@
 \newcommand\content[4]{
 \begin{tikzpicture}[remember picture, overlay]
 \draw (current page.north west)
-++({(floor(\arabic{card}/5)+0.5)*2.8333in},{(mod(\arabic{card},5)+0.5)*-2.2in})
-node {
+++({(floor(\arabic{card}/5)+1/2)*1/3*8.5in},{(mod(\arabic{card},5)+1/2)*-1/5*11in}) coordinate (center);
+\draw (center) node {
 	\begin{tikzpicture}
 	\begin{axis}[
 		axis equal image=false,
@@ -48,6 +48,14 @@ node {
 		\end{axis}
 		\end{tikzpicture}
 		};
+	% cut guides
+	\foreach \x/\y in {1/1, 1/-1, -1/1, -1/-1}
+	\draw[gray] (center) ++(\x*1/2*1/3*8.5in, \y*1/2*1/5*11in)
+		edge[-] ++(left:5mm)
+		edge[-] ++(right:5mm)
+		edge[-] ++(up:5mm)
+		edge[-] ++(down:5mm)
+		;
 	\end{tikzpicture}
 	\stepcounter{card}
 	}

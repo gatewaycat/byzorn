@@ -1,9 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ADAPTED FROM Hodge-King's
+% BASED ON Hodge-King's
 %   IBL Week 4 Day 1 "Derivative Matching Revised"
 % DIRECTIONS: typeset twice to get positioning right
-% USAGE: print singled side and cut;
-%   print 1 copy pp1-2 on transparency for as soln
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[letterpaper,10pt]{article}
@@ -35,7 +33,7 @@ node {
 % global var \fncolor = color of plot & title
 		\foreach \function/\options in {#2}{
 			\edef\temp{\noexpand
-				\addplot[very thick, smooth, \fncolor, \options]{\function};
+				\addplot[ultra thick, smooth, \fncolor, \options]{\function};
 				}
 			\temp
 			}

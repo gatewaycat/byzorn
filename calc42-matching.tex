@@ -26,24 +26,24 @@ node {
 		major tick length={0},
 		samples=299,
 		domain=-3:3,
-% #4 = options for this particular graph, eg, xmax, ytick
+		% #4 = options for this particular graph, eg, xmax, ytick
 		#4
 		]
-% #2 = list of functions/options to plot = {fn1/op1, fn2/op2, etc}
-% global var \fncolor = color of plot & title
+		% #2 = list of functions/options to plot = {fn1/op1, fn2/op2, etc}
+		% global var \fncolor = color of plot & title
 		\foreach \function/\options in {#2}{
 			\edef\temp{\noexpand
 				\addplot[ultra thick, smooth, \fncolor, \options]{\function};
 				}
 			\temp
 			}
-% #3 = coordinates of open circles = {(x1,y1), (x2,y2), etc}
+		% #3 = coordinates of open circles = {(x1,y1), (x2,y2), etc}
 		\addplot [\fncolor, only marks, very thick, mark=*, mark options={scale=1, fill=white}]
 			coordinates{#3};
-% global var \titlef = title = f or f'
-% global var \titlex = relative x position for title = number btw 0, 1
+		% global var \titlef = title = f or f'
+		% global var \titlex = relative x position for title = number btw 0, 1
 		\node[\fncolor] at (axis description cs: \titlex,0.8) {\huge$\titlef$};
-% #1 = card ID number/letter
+		% #1 = card ID number/letter
 		\node at (axis description cs: 0.95,0.05) {\footnotesize#1};
 		\end{axis}
 		\end{tikzpicture}

@@ -1,0 +1,122 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BASED ON Hodge-King IBL week1day2 "Transformation Matching"
+% DIRECTIONS: typeset twice to get positioning right
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper,10pt]{article}
+\usepackage{xintexpr} % for \xintthefloatexpr
+\usepackage{pgfplots, amsmath, amssymb, ifthen}
+\pgfplotsset{compat=1.13}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\newcounter{card}
+\newcommand\card[2]{
+% page break every 15 cards
+\ifthenelse{\equal{\arabic{card}}{15}}{\newpage\setcounter{card}0}{}
+\begin{tikzpicture}[remember picture, overlay]
+	% position card 5 to a column, 3 columns
+	\draw (current page.north west)
+		++({(floor(mod(\arabic{card},15)/5)+1/2)*1/3*8.5in}, {(mod(\arabic{card},5)+1/2)*-1/5*11in}) 
+		coordinate (center);
+	\draw (center) node {#2};
+	% #1 = card ID number/letter
+	\draw (center) ++(1/2*1/3*8.5in - 0.2in, 0.2in - 1/2*1/5*11in) node[fill=white] [anchor=south east] {{\boldmath\large\color{black}$#1$}};
+	% cut guides
+	\foreach \x/\y in {1/1, 1/-1, -1/1, -1/-1}
+	\draw[gray] (center) ++(\x*1/2*1/3*8.5in, \y*1/2*1/5*11in)
+		edge[-] ++(left:5mm)
+		edge[-] ++(right:5mm)
+		edge[-] ++(up:5mm)
+		edge[-] ++(down:5mm);
+	\end{tikzpicture}
+	\stepcounter{card}
+	}
+\newcommand\cardf[2]{\card{#1}{\scalebox{1.85}{\LARGE$#2$}}}
+\newcommand\carda[3]{\card{#1}{
+\begin{tikzpicture}
+\begin{axis}[
+		width=3.2in, height=2.35in,
+		axis equal image=false,
+		grid=major, axis lines=center,
+		domain=-3:3,
+		xmin=-3.1, xmax=3.1, xtick={-3,...,3},
+		xticklabel style={font=\Large},
+		ymin=-2.5, ymax=2.5, ytick={-2,...,2},
+		yticklabel style={font=\Large},
+		major tick length={0},
+		samples=299,
+		#3 % = graph options, eg, xmax, ytick
+		]
+		\addplot[ultra thick, smooth] {#2}; % = function
+		\end{axis}
+		\end{tikzpicture}
+		}}
+\newcommand\cardb[2]{\carda{#1}{#2}{restrict y to domain=-2.5:2.5,}}
+\newcommand\cardc[2]{\carda{#1}{#2}{
+	xmin=-6.3, xmax=6.3, xtick={-6.28319,-3.14159,3.14159, 6.28319},
+	xticklabels={$2\pi$, $-\pi$, $\pi$, $2\pi$},
+	ymin=-2.25, ymax=2.25, ytick={-2,-1,1,2}, 
+	domain=-6.2:6.2
+	}}
+\newcommand\cardd[4]{\carda{#1}{#2}{
+	domain=0.005:15*#3,
+	xmin=-0.5*#3, xmax=15*#3,
+	xtick/.expanded={\xintthefloatexpr seq(x*#3, x={1,10})\relax},
+	xticklabel style={xshift=2ex},
+	ymin=-1.25*#4, ymax=1.25*#4, ytick={-#4, 0, #4},
+	}}
+
+\begin{document}
+\cardf \Rightarrow{h(x)}
+\cardf +{h(x+1)}
+\cardf \#{h(x)+1}
+\cardf \&{h(-x)}
+\cardf \bigstar{-h(x)}
+\cardb{11}{x^2-2*x+1}
+\cardb{12}{x^2}
+\cardb{13}{x^2-2*x+2}
+\cardb{14}{x^2+2*x+1}
+\cardb{15}{-x^2+2*x-1}
+\cardf D{x^2-2x+1}
+\cardf C{x^2}
+\cardf M{x^2-2x+2}
+\cardf N{x^2+2x+1}
+\cardf E{-x^2+2x-1}
+
+\cardf @{f(x)}
+\cardf \infty{2f(x)}
+\cardf !{f(2x)}
+\cardf \Delta{f(\frac12x)}
+\cardf \square{\frac12f(x)}
+\cardc 1{cos(deg(x))}
+\cardc 2{2*cos(deg(x))}
+\cardc 3{cos(2*deg(x))}
+\cardc 4{cos(1/2*deg(x))}
+\cardc 5{1/2*cos(deg(x))}
+\cardf L{\cos x}
+\cardf I{2\cos x}
+\cardf A{\cos 2x}
+\cardf F{\cos \frac12x}
+\cardf B{\frac12\cos x}
+
+\newcommand\mylog{\log}
+%\newcommand\mylog{\scalebox{0.92}{$\log_{\!10}$}}
+\cardf \heartsuit{g(x)}
+\cardf ?{g(5x)}
+\cardf ={g(\frac x5)}
+\cardf \div{5g(x)}
+\cardf \%{\frac{g(x)}5}
+\cardd 6{log10(x)}11
+\cardd 7{log10(5*x)}{1/5}1
+\cardd 8{log10(x/5)}51
+\cardd 9{5*log10(x)}15
+\cardd {10}{1/5*log10(x)}1{0.2}
+\cardf J{\mylog x}
+\cardf G{\mylog x + \mylog5}
+\cardf K{\mylog x - \mylog5}
+\cardf H{\mylog x^5}
+\cardf O{\mylog\sqrt[5]x}
+\end{document}
+
+\newpage
+\section*{Solution}

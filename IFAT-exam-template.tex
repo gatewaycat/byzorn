@@ -1,0 +1,33 @@
+\documentclass[answers]{exam}
+
+% Define \myMC{correctchoice}{choice}{choice}{choice}
+\usepackage{pgfmath}
+\newcommand\myMC[4]{
+\pgfmathtruncatemacro{\temp}{\answerkey[\number\value{question}]}
+\ifnum\temp=1 \correctchoice #1 \choice #2 \choice #3 \choice #4 \else\fi
+\ifnum\temp=2 \choice #2 \correctchoice #1 \choice #3 \choice #4 \else\fi
+\ifnum\temp=3 \choice #2 \choice #3 \correctchoice #1 \choice #4 \else\fi
+\ifnum\temp=4 \choice #2 \choice #3 \choice #4 \correctchoice #1 \else\fi
+}
+
+% Set answerkey for given exam here
+\def\answerkey{{{},4,2,2}} %=DBB
+
+\begin{document}
+\begin{questions}
+\question What is the capital of France?
+\begin{oneparchoices}
+\myMC{Paris}{London}{Versaille}{New York}
+\end{oneparchoices}
+
+\question What is the circumference of a circle divided by its diameter?
+\begin{oneparchoices}
+\myMC{$\pi$}{3}{$2\pi$}{1}
+\end{oneparchoices}
+
+\question Which of the following is not a gas giant?
+\begin{oneparchoices}
+\myMC{Mars}{Jupiter}{Saturn}{Uranus}
+\end{oneparchoices}
+\end{questions}
+\end{document}

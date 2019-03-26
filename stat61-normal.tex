@@ -4,19 +4,20 @@
 \usepackage{graphicx, adjustbox, tikz-cd, amsmath, amssymb, multicol, lscape, mathtools}
 %\usetikzlibrary{decorations.text}
 %\usepackage{frcursive}\newcommand{\mathfrc}[1]{\text{\textcursive{#1}}}
-\setlength{\parindent}{0pt} 
+\setlength\parindent{0pt}
+
+% DEFINE \Repeat{n}{content}
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
 \begin{document}
 \begin{landscape}
 \pagestyle{empty}
-
-%\sf
-\huge 
-Standard Normal %Cumulative Distribution Function $F_Z$ 
-table
-
-\vspace{0.2in}
-\large
-\hfill
+\huge %\sf
+Standard Normal table %Standard Normal Cumulative Distribution Function $F_Z$
+\par\vspace{0.2in}\large\hfill
 \begin{tikzcd}[column sep=3.5cm, row sep=-2mm]
 	\text{\LARGE standard units}\quad
 	\rar[leftrightarrow, "\text{\normalsize use table to convert}"]
@@ -44,15 +45,8 @@ $\smash{\begin{matrix}\begin{tikzpicture}[thick, yscale=1.5, xscale=1.25]
 %\begin{center}
 \begin{adjustbox}{angle=270}
 \def\arraystretch{0.68}
-\begin{tabular}{
-	r
-	@{\hspace{4.5mm}}
-	*{5}{c @{\hspace{2.5mm}}} 
-	@{\hspace{-0.5mm}}
-	*{5}{@{\hspace{2.5mm}} c} 
-	@{\hspace{2mm}}
-	r
-	}
+\begin{tabular}{r@{\hspace{4.5mm}}
+	*5{c @{\hspace{2.5mm}}}@{\hspace{-0.5mm}}*5{@{\hspace{2.5mm}}c}@{\hspace{2mm}}r}
 & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\
 &&&&&&&&&&{} \\
 $\mathclap{\le\phantom\le}-$3.5$\mathclap{\phantom00}$ & 0.0001\\
@@ -217,17 +211,15 @@ $\ge$600 & 2.58 & 2.33 & 1.96 & 1.65 & 1.28 & $\ge$600 \\[3ex]
 City University of New York / College of Staten Island / M Sunderland
 \end{landscape}
 
-\newcommand\halftable{
-	\huge 
-	$F_Z$ table
-	\par\bigskip\bigskip\footnotesize
-	\begin{tabular}{
-			r 
-			| *{5}{c @{\hspace{1.2mm}}} 
-			|
-			*{5}{@{\hspace{1.2mm}} c} 
-			| l
-			}
+\Repeat{2}{
+	\begin{landscape}
+	\begin{multicols}2
+	\def\arraystretch{1.25}
+	\center
+	\Repeat{2}{
+		\par\huge $F_Z$ table
+		\par\bigskip\bigskip\footnotesize
+		\begin{tabular}{r|*5{c@{\hspace{1.2mm}}}|*5{@{\hspace{1.2mm}}c}|l}
 		& 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\ \hline 
 		0.0 & .5000 & .5040 & .5080 & .5120 & .5160 & .5199 & .5239 & .5279 & .5319 & .5359 & 0.0 \\
 		0.1 & .5398 & .5438 & .5478 & .5517 & .5557 & .5596 & .5636 & .5675 & .5714 & .5753 & 0.1 \\
@@ -262,21 +254,10 @@ City University of New York / College of Staten Island / M Sunderland
 		3.0 & .9987 & .9987 & .9987 & .9988 & .9988 & .9989 & .9989 & .9989 & .9990 & .9990 & 3.0 \\ \hline
 		& 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09
 		\end{tabular}
-	}
-
-\begin{landscape}
-\begin{multicols}2
-	\def\arraystretch{1.25}
-	\center\par\halftable
-	\par\halftable
-	\end{multicols}
-
-\begin{multicols}2
-	\def\arraystretch{1.25}
-	\center\par\halftable
-	\par\halftable
+		}
 	\end{multicols}
 	\end{landscape}
+	}
 \end{document}
 
 

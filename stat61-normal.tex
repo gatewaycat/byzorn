@@ -6,7 +6,7 @@
 %\usepackage{frcursive}\newcommand{\mathfrc}[1]{\text{\textcursive{#1}}}
 \setlength\parindent{0pt}
 
-% DEFINE \Repeat{n}{content}
+%% DEFINE \Repeat{n}{content}
 \usepackage{expl3}
 \ExplSyntaxOn
 \cs_new_eq:NN \Repeat \prg_replicate:nn
@@ -30,7 +30,7 @@ Standard Normal table %Standard Normal Cumulative Distribution Function $F_Z$
 $\smash{\begin{matrix}\begin{tikzpicture}[thick, yscale=1.5, xscale=1.25]
 	\draw[smooth, domain=-2.5:2.5] plot (\x, {2.718^(-0.5*(\x*\x))});
 	\draw (1, {2.718^-0.5}) node[above right, outer sep=0.4pt] (fZ) 
-		{\footnotesize$\color{black} y=(2\pi e^{\textstyle z^{\textstyle2}})^{\textstyle-0.5}$};
+	{\footnotesize$\color{black} y=(2\pi e^{\textstyle z^{\textstyle2}})^{\textstyle-0.5}$};
 	\draw (-2.8, 0) edge[->] (2.8, 0);
 	\draw  (1.5,0) node[below] {$\boldsymbol z$} -- ++(up: {2.718^(-0.5*(1.5*1.5))});
 	\draw (0,0) node[below, black, outer sep=0.4pt] {\footnotesize0};
@@ -38,11 +38,10 @@ $\smash{\begin{matrix}\begin{tikzpicture}[thick, yscale=1.5, xscale=1.25]
 	\end{tikzpicture}\end{matrix}}$
 \hfill~
 
-% TO SHOW CLASS normal density function is a probability density function
-% https://www.wolframalpha.com/input/?i=integrate+x*x*(2*pi*exp(x*x))%5E(-1%2F2)+from+negative+inf+to+inf
+%% TO SHOW CLASS normal density function is a probability density function
+%% https://www.wolframalpha.com/input/?i=int(x**2*(2pi*exp(x**2))**-0.5,-inf,inf)
 
 \footnotesize
-%\begin{center}
 \begin{adjustbox}{angle=270}
 \def\arraystretch{0.68}
 \begin{tabular}{r@{\hspace{4.5mm}}
@@ -132,16 +131,14 @@ $\mathclap{\ge\phantom\ge}$3.5$\mathclap{\phantom00}$ & 0.0001\\
 & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09
 \end{tabular}
 \end{adjustbox}
-%\end{center}
 \par\vfill\small
 City University of New York / College of Staten Island / M Sunderland
-\hfill
-\textcolor{black}{symmetry: $P(-z$ or less) = $1 - P(z$ or less)}
+\hfill\textcolor{black}{symmetry: $P(-z$ or less) = $1 - P(z$ or less)}
 \end{landscape}
 
 \pagestyle{empty}
 \begin{landscape}
-\huge 
+\huge
 Student's $t$ table
 \par\vfill
 \begin{adjustbox}{angle=270}

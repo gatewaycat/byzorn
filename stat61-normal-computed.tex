@@ -104,7 +104,7 @@ City University of New York / College of Staten Island / M Sunderland
 	\pgfmathparse{floor(\ab/10)} \pgfmathroundto\pgfmathresult \xdef\a{\pgfmathresult}
 	\pgfmathparse{mod(\ab, 10)} \pgfmathroundto\pgfmathresult \xdef\b{\pgfmathresult}
 	\xappto\TableBody{$\a.\b$}
-	\foreach \c in {0, ..., 9}{\xappto\TableBody{& .} \normal{1000}{\ab/10+\c/100}}
+	\foreach \c in {0, ..., 9}{\xappto\TableBody{& .} \normal{10000}{\ab/10+\c/100}}
 	\xappto\TableBody{& $\a.\b$ \noexpand\\ }
 	\ifnum\a=0 \else \ifnum\b=0 \xappto\TableBody{\noexpand\hline} \else \fi \fi
 	}

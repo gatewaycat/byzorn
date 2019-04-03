@@ -1,16 +1,24 @@
 \RequirePackage{luatex85}
 \documentclass[12pt]{article}
 \usepackage[margin=0.5in, bottom=0.35in, columnsep=1.0in]{geometry}
-\usepackage{graphicx, adjustbox, tikz-cd, amsmath, amssymb, multicol, lscape, mathtools, etoolbox}
+\usepackage{graphicx, adjustbox, tikz-cd, amsmath, amssymb, multicol, lscape, mathtools, etoolbox, xlop}
 \setlength\parindent{0pt}
 
+%% DEFINE \Repeat{n}{content}
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+%% DEFINE \normal{scale}{zscore}
 \def\luamath#1{\edef\luamathresult{\directlua{tex.write("" .. #1)}}}
-\pgfkeys{/pgf/number format/.cd, fixed, fixed zerofill, precision=4}
-\newcommand\normal[1]{
-	\pgfmathparse{#1 > 0 ? 1 : -1}%
+\newcommand\normal[2]{
+	\pgfmathparse{#2 > 0 ? 1 : -1}%
 	\edef\sign{\pgfmathresult}%
-	\pgfmathparse{abs(#1)}%
+	\pgfmathparse{abs(#2)}%
 	\edef\x{\pgfmathresult}%
+	\pgfmathparse{#1}%
+	\edef\scale{\pgfmathresult}%
 	\luamath{(\sign+1)/2 - \sign
 		*(2*3.141592653589793*2.718281828459045^(\x^2))^-0.5
 		*(0.4361836/(1+0.33267*\x)
@@ -18,33 +26,16 @@
 			+ 0.9372980/(1+0.33267*\x)^3
 			)
 		}
-	\pgfmathparse{\luamathresult}
-	\pgfmathroundto\pgfmathresult
-	\xappto\NormalTable{& $\pgfmathresult$}
+	\pgfmathparse{\luamathresult*\scale}
+	\pgfmathroundtozerofill\pgfmathresult
+	\edef\res{\pgfmathresult}
+	\xappto{\TableBody}{\pgfmathresult}
 	}
-\def\arraystretch{0.68}
-\def\NormalTable{}%
-\foreach \ab in {34,...,0}{
-	\pgfmathparse{floor(\ab/10)} \pgfmathroundto\pgfmathresult \xdef\a{\pgfmathresult}
-	\pgfmathparse{mod(\ab, 10)} \pgfmathroundto\pgfmathresult \xdef\b{\pgfmathresult}
-	\xappto\NormalTable{$-\a.\b$}
-	\foreach \c in {0, ..., 9}{\normal{-\ab/10-\c/100}}
-	\xappto\NormalTable{& $-\a.\b$ \noexpand\\ }
-	\ifnum\b=0 \xappto\NormalTable{&&&&&&&&&&{} \noexpand\\ } \else \fi
-	}
-\xappto\NormalTable{\noexpand\\[-4ex] }%
-\foreach \ab in {0,...,34}{
-	\pgfmathparse{floor(\ab/10)} \pgfmathroundto\pgfmathresult \xdef\a{\pgfmathresult}
-	\pgfmathparse{mod(\ab, 10)} \pgfmathroundto\pgfmathresult \xdef\b{\pgfmathresult}
-	\ifnum\b=0 \xappto\NormalTable{&&&&&&&&&&{} \noexpand\\ } \else \fi
-	\xappto\NormalTable{$\a.\b$}
-	\foreach \c in {0, ..., 9}{\normal{\ab/10+\c/100}}
-	\xappto\NormalTable{& $\a.\b$ \noexpand\\ }
-	}%
 
 \begin{document}
-\begin{landscape}
 \pagestyle{empty}
+\thispagestyle{empty}
+\begin{landscape}
 \huge %\sf
 Standard Normal table %Standard Normal Cumulative Distribution Function $F_Z$
 \par\vspace{0.2in}\large\hfill
@@ -66,16 +57,36 @@ $\smash{\begin{matrix}\begin{tikzpicture}[thick, yscale=1.5, xscale=1.25]
 	\draw (0,0) node[below, black, outer sep=0.4pt] {\footnotesize0};
 	\draw (0, 0.33) node {$\boldsymbol{P(z\text{ or less})}$};
 	\end{tikzpicture}\end{matrix}}$
-\hfill~
+\hfill~\footnotesize
 
-\footnotesize
+
+\pgfkeys{/pgf/number format/.cd, fixed, fixed zerofill, precision=4, skip 0., }%
+\def\TableBody{}%
+\foreach \ab in {34,...,0}{
+	\pgfmathparse{floor(\ab/10)} \pgfmathroundto\pgfmathresult \xdef\a{\pgfmathresult}
+	\pgfmathparse{mod(\ab, 10)} \pgfmathroundto\pgfmathresult \xdef\b{\pgfmathresult}
+	\xappto\TableBody{$-\a.\b$}
+	\foreach \c in {0, ..., 9}{\xappto\TableBody{& } \normal1{-\ab/10-\c/100}}
+	\xappto\TableBody{& $-\a.\b$ \noexpand\\ }
+	\ifnum\b=0 \xappto\TableBody{&&&&&&&&&&{} \noexpand\\ } \else \fi
+	}%
+\xappto\TableBody{\noexpand\\[-4ex]}%
+\foreach \ab in {0,...,34}{
+	\pgfmathparse{floor(\ab/10)} \pgfmathroundto\pgfmathresult \xdef\a{\pgfmathresult}
+	\pgfmathparse{mod(\ab, 10)} \pgfmathroundto\pgfmathresult \xdef\b{\pgfmathresult}
+	\ifnum\b=0 \xappto\TableBody{&&&&&&&&&&{} \noexpand\\ } \else \fi
+	\xappto\TableBody{$\a.\b$}
+	\foreach \c in {0, ..., 9}{\xappto\TableBody{& } \normal1{\ab/10+\c/100}}
+	\xappto\TableBody{& $\a.\b$ \noexpand\\ }
+	}%
 \begin{adjustbox}{angle=270}
+\def\arraystretch{0.68}%
 \begin{tabular}{r@{\hspace{4.5mm}}
 	*5{l @{\hspace{2.5mm}}}@{\hspace{-0.5mm}}*5{@{\hspace{2.5mm}}l}@{\hspace{2mm}}r}
 & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\
 &&&&&&&&&&{} \\
 $\mathllap\le{-}3.5\mathrlap0$ & 0.0001\\
-\NormalTable
+\TableBody
 $\mathllap\ge3.5\mathrlap0$ & 0.0001\\
 &&&&&&&&&&{} \\
 & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09
@@ -85,4 +96,33 @@ $\mathllap\ge3.5\mathrlap0$ & 0.0001\\
 City University of New York / College of Staten Island / M Sunderland
 \hfill\textcolor{black}{symmetry: $P(-z$ or less) = $1 - P(z$ or less)}
 \end{landscape}
+
+
+\pgfkeys{/pgf/number format/.cd, fixed, fixed zerofill, precision=0, skip 0.=false}
+\def\TableBody{}
+\foreach \ab in {0,...,30}{
+	\pgfmathparse{floor(\ab/10)} \pgfmathroundto\pgfmathresult \xdef\a{\pgfmathresult}
+	\pgfmathparse{mod(\ab, 10)} \pgfmathroundto\pgfmathresult \xdef\b{\pgfmathresult}
+	\xappto\TableBody{$\a.\b$}
+	\foreach \c in {0, ..., 9}{\xappto\TableBody{& .} \normal{1000}{\ab/10+\c/100}}
+	\xappto\TableBody{& $\a.\b$ \noexpand\\ }
+	\ifnum\a=0 \else \ifnum\b=0 \xappto\TableBody{\noexpand\hline} \else \fi \fi
+	}
+\Repeat{2}{
+	\begin{landscape}
+	\begin{multicols}2
+	\def\arraystretch{1.25}
+	\center
+	\Repeat{2}{
+		\par\huge $F_Z$ table
+		\par\bigskip\bigskip\footnotesize
+		\begin{tabular}{r|*5{l@{\hspace{1.2mm}}}|*5{@{\hspace{1.2mm}}l}|l}
+		& .00 & .01 & .02 & .03 & .04 & .05 & .06 & .07 & .08 & .09 \\ \hline
+		\TableBody
+		& .00 & .01 & .02 & .03 & .04 & .05 & .06 & .07 & .08 & .09
+		\end{tabular}
+		}
+	\end{multicols}
+	\end{landscape}
+	}
 \end{document}

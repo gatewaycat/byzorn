@@ -1,3 +1,6 @@
+%%%%%%%%%%%%%%%%%%%%
+% WARNING: these Lua computations are not precise to all 4 decimal places (yet)
+%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{luatex85}
 \documentclass[12pt]{article}
 \usepackage[margin=0.5in, bottom=0.35in, columnsep=1.0in]{geometry}
@@ -18,15 +21,17 @@
 	\pgfmathparse{abs(#2)}%
 	\edef\x{\pgfmathresult}%
 	\pgfmathparse{#1}%
+	\pgfmathroundto\pgfmathresult
 	\edef\scale{\pgfmathresult}%
-	\luamath{(\sign+1)/2 - \sign
-		*(2*3.141592653589793*2.718281828459045^(\x^2))^-0.5
+	\luamath{((\sign+1)/2 - \sign
+		*(2*3.14159265358979323846*2.718281828459045^(\x^2))^-0.5
 		*(0.4361836/(1+0.33267*\x)
 			- 0.1201676/(1+0.33267*\x)^2 
 			+ 0.9372980/(1+0.33267*\x)^3
 			)
+		)*\scale
 		}
-	\pgfmathparse{\luamathresult*\scale}
+	\pgfmathparse{\luamathresult}
 	\pgfmathroundtozerofill\pgfmathresult
 	\edef\res{\pgfmathresult}
 	\xappto{\TableBody}{\pgfmathresult}
@@ -82,7 +87,7 @@ $\smash{\begin{matrix}\begin{tikzpicture}[thick, yscale=1.5, xscale=1.25]
 \begin{adjustbox}{angle=270}
 \def\arraystretch{0.68}%
 \begin{tabular}{r@{\hspace{4.5mm}}
-	*5{l @{\hspace{2.5mm}}}@{\hspace{-0.5mm}}*5{@{\hspace{2.5mm}}l}@{\hspace{2mm}}r}
+	*5{c @{\hspace{2.5mm}}}@{\hspace{-0.5mm}}*5{@{\hspace{2.5mm}} c}@{\hspace{2mm}}r}
 & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\
 &&&&&&&&&&{} \\
 $\mathllap\le{-}3.5\mathrlap0$ & 0.0001\\

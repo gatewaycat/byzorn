@@ -1,0 +1,64 @@
+%%%%%%%%%%%%%%%%%%%%
+% DIRECTIONS. 
+% Print p1 only, 
+% or print shortend-duplex & cut in half.
+%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{luatex85}
+\documentclass[answers]{exam}
+\usepackage{tikz, amsmath}
+\usepackage{mathabx} %% makes \cup shallower
+\setlength\fillinlinelength{0.45in}
+\setlength\answerclearance{1.5ex}
+\setlength\parindent{0ex}
+\CorrectChoiceEmphasis{\bfseries\Large}
+
+%% DEFINE \Repeat{n}{content}
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\usepackage[margin=0.5in, column sep=1in, two column, landscape]{geometry}
+\newcommand\andso{\text{\normalsize \!\!and so\!\!}}
+\newcommand\content[1]{\contentraw{}{}{}{}{}{}{{#1}}}
+\newcommand\contentraw[7]{
+	\par\bigskip\bigskip
+	\(\begin{matrix}
+		&&&& f \fillin[#1] \\[1.5ex]
+		&& f' \fillin[#2] &\andso& f \fillin[#4] \\[1.5ex]
+		f'' \fillin[#3] &\andso& f' \fillin[#5] &\andso& f \fillin[#6]
+		\end{matrix}\)
+	\quad
+	\(\begin{matrix}\begin{tikzpicture}
+		[scale=1.3, very thick]
+		\draw[->] (-1,0) -- (1,0) node[right] {$x$};
+		\draw[->] (0,-1) -- (0,1) node[left, yshift=1.4mm] {$f$};
+		\draw[domain=-1:1] plot (\x, {{#7}});
+		\end{tikzpicture}\end{matrix}\)
+	}
+
+\begin{document}
+\Large\boldmath
+\Repeat{2}{
+	\newpage
+	Fill in the blanks with: \\[1ex]
+	\fillin[$>\!0$] (positive), \qquad \fillin[$<\!0$] (negative), \\[1ex]
+	\fillin[$\nearrow$] (increasing), \qquad \fillin[$\searrow$] (decreasing), \\[1ex]
+	\fillin[$\cup$] (concave up), \qquad \fillin[$\cap$] (concave down).
+	\vfill
+	\contentraw{$>\!0$}{$>\!0$}{$>\!0$}{$\nearrow$}{$\nearrow$}{$\cup$}{0.2*(\x+1)^2+0.1}
+	\content{0.2*(-\x+1)^2+0.1}
+	\content{0.2*(\x+1)^2+0.1-1}
+	\content{0.2*(-\x+1)^2+0.1-1}
+	
+	\newpage
+	$~$
+	\vfill
+	\content{-0.2*(-\x+1)^2-0.1+1}
+	\content{-0.2*(\x+1)^2-0.1+1}
+	\content{-0.2*(-\x+1)^2-0.1}
+	\content{-0.2*(\x+1)^2-0.1}
+	}
+\end{document}
+NOTE. \fillin inside \tikzcd inside \newcommand breaks

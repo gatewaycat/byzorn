@@ -23,8 +23,8 @@
 \ExplSyntaxOff
 
 \newcommand\g{\color{black}} %% black -> gray to gray columns 2-3
-\newcommand\bc{\text{\g\!\scalebox{0.4}{because}\!}}
-\newcommand\rowheader[1]{\smash{\begin{matrix}\scalebox{0.4}{\tikz\node[rotate=90, text width=25mm]{#1};}\end{matrix}}\!\!}
+\newcommand\bc{\text{\g\!\scalebox{0.37}{because}\!}}
+\newcommand\rowheader[1]{\smash{\begin{matrix}\scalebox{0.37}{\tikz\node[rotate=90, text width=27mm]{#1};}\end{matrix}}\!}
 \newcommand\content[4]{
 	\par\bigskip\bigskip
 	\question
@@ -42,10 +42,11 @@
 	\hfill
 	%% #1 = black (example 1) or white (not example 1)
 	\(\begin{matrix}
-		& f \fillin[\color{#1}$>0$]\\[2ex]
-		\rowheader{increasing \\[-1ex] decreasing} &
+		\rowheader{Above\\[-1ex] $x$-axis? \\ Below?} &
+		f \fillin[\color{#1}$>0$]\\[2ex]
+		\rowheader{Increasing? \\ Decreasing?} &
 		f \fillin[\color{#1}$\pmb\nearrow$] &\bc& \g f' \fillin[\color{#1}$>0$]\\[2ex]
-		\rowheader{concavity} &
+		\rowheader{Concavity?} &
 		f \fillin[\color{#1}$\pmb\cup$] &\bc& \g f' \fillin[\color{#1}$\pmb\nearrow$] &\bc& \g f'' \fillin[\color{#1}$>0$]
 		\end{matrix}\)
 	}

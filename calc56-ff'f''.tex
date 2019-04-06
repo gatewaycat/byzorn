@@ -23,8 +23,8 @@
 \ExplSyntaxOff
 
 \newcommand\g{\color{black}} %% black -> gray to gray columns 2-3
-\newcommand\bc{\text{\g\!\scalebox{0.37}{because}\!}}
-\newcommand\rowheader[1]{\smash{\begin{matrix}\scalebox{0.37}{\tikz\node[rotate=90, text width=27mm]{#1};}\end{matrix}}\!}
+\newcommand\bc{\text{\g\!\!\scalebox{0.5}{because}\!\!}}
+\newcommand\rowheader[2]{\smash{\begin{matrix}\scalebox{0.5}{\tikz\node[rotate=90, text width=#1]{#2};}\end{matrix}}\!}
 \newcommand\content[4]{
 	\par\bigskip\bigskip
 	\question
@@ -42,11 +42,11 @@
 	\hfill
 	%% #1 = black (example 1) or white (not example 1)
 	\(\begin{matrix}
-		\rowheader{Above\\[-1ex] $x$-axis? \\ Below?} &
-		f \fillin[\color{#1}$>0$]\\[2ex]
-		\rowheader{Increasing? \\ Decreasing?} &
-		f \fillin[\color{#1}$\nearrow$] &\bc& \g f' \fillin[\color{#1}$>0$]\\[2ex]
-		\rowheader{Concavity?} &
+		\rowheader{16mm}{Above\\[-1ex] $x$-axis? \\ Below?} &
+		f \fillin[\color{#1}$>0$]\\[2.5ex]
+		\rowheader{25mm}{Increasing? \\[-0.5ex] Decreasing?} &
+		f \fillin[\color{#1}$\searrow$] &\bc& \g f' \fillin[\color{#1}$<0$]\\[2.5ex]
+		\rowheader{29mm}{Concavity?} &
 		f \fillin[\color{#1}$\cup$] &\bc& \g f' \fillin[\color{#1}$\nearrow$] &\bc& \g f'' \fillin[\color{#1}$>0$]
 		\end{matrix}\)
 	}
@@ -55,23 +55,23 @@
 \Large\boldmath\sf
 \Repeat{2}{
 	\newpage
-	Fill in the blanks for each snippet 1--8 with: \\[1ex]
-	\fillin[$>\!0$] (is positive), \qquad \fillin[$<\!0$] (is negative), \\[1ex]
-	\fillin[$\nearrow$] (is increasing), \qquad \fillin[$\searrow$] (is decreasing), \\[1ex]
+	Fill in the blanks for each snippet 1--8 with: \\[0.8ex]
+	\fillin[$>\!0$] (is positive), \qquad \fillin[$<\!0$] (is negative), \\[0.8ex]
+	\fillin[$\nearrow$] (is increasing), \qquad \fillin[$\searrow$] (is decreasing), \\[0.8ex]
 	\fillin[$\cup$] (is concave up), \qquad \fillin[$\cap$] (is concave down).
 	\vfill
 	\begin{questions}
 	\begin{multicols}2
-	\content{black}000
-	\content{white}010
-	\content{white}100
+	\content{black}010
+	\content{white}001
 	\content{white}110
+	\content{white}101
 	
 	\columnbreak
 	\vfill
-	\content{white}001
+	\content{white}000
 	\content{white}011
-	\content{white}101
+	\content{white}100
 	\content{white}111
 	\end{multicols}
 	\end{questions}

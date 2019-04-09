@@ -6,7 +6,7 @@
 
 \RequirePackage{luatex85}
 \documentclass[answers]{exam}
-\usepackage[margin=0.5in, column sep=1in, landscape]{geometry}
+\usepackage[margin=0.5in, two column, column sep=1in, landscape]{geometry}
 \usepackage{tikz, amsmath, multicol}
 \usepackage{mathabx} %% makes \cup shallower
 \setlength\fillinlinelength{0.45in}
@@ -22,60 +22,79 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
-\newcommand\g{\color{black}} %% black -> gray to gray columns 2-3
-\newcommand\bc{\text{\g\!\!\scalebox{0.5}{because}\!\!}}
+\newcommand\bc{\text{\!\!\scalebox{0.5}{because}\!\!}}
 \newcommand\rowheader[2]{\smash{\begin{matrix}\scalebox{0.5}{\tikz\node[rotate=90, text width=#1]{#2};}\end{matrix}}\!}
-\newcommand\content[4]{
-	\par\bigskip\bigskip
+\newcommand\content[3]{
+	\par\bigskip\medskip
 	\question
 	\(\begin{matrix}\begin{tikzpicture}[scale=1, very thick]
-		%% #2 = 0 (f above xaxis) or 1 (f below xaxis)
-		\draw[->] (-1,-1+2*#2) -- ++(right:2);
+		%% #1 = 0 (f above xaxis) or 1 (f below xaxis)
+		%% #2 = 0 (f increasing) or 1 (f decreasing)
+		%% #3 = 0 (f concave up) or 1 (f concave down)
+		\draw[->] (-1,-1+2*#1) -- ++(right:2);
 		\draw[->] (0,-1.3) -- ++(up:2.6);
-		%% #3 = 0 (f increasing) or 1 (f decreasing)
-		%% #4 = 0 (f concave up) or 1 (f concave down)
-		\draw ({-0.7*(1-#4*2)*(1-#3*2)}, {-0.7*(1-#4*2)}) arc
-		[start angle=-75*(1-#3*2), end angle=-15*(1-#3*2),
-			radius={2cm*(1-#4*2)*(1-#3*2)}]
-		node[right, pos={0.5+0.4*(1-#4*2)*(1-#3*2)}] {$f$};
+		\draw ({-0.6*(1-#3*2)*(1-#2*2)}, {-0.6*(1-#3*2)}) arc
+		[start angle=-70*(1-#2*2), end angle=-20*(1-#2*2),
+			radius={2cm*(1-#3*2)*(1-#2*2)}]
+		node[right, pos={0.5+0.5*(1-#3*2)*(1-#2*2)}, inner sep=0ex] {$f$};
 		\end{tikzpicture}\end{matrix}\)
 	\hfill
-	%% #1 = black (example 1) or white (not example 1)
+	%% \exonecolor = black (display ans ex1) or white (hide ans ex1)
 	\(\begin{matrix}
 		\rowheader{16mm}{Above\\[-1ex] $x$-axis? \\ Below?} &
-		f \fillin[\color{#1}$>0$]\\[2.5ex]
+		f \fillin[\color\exonecolor$>0$]\\[2.5ex]
 		\rowheader{25mm}{Increasing? \\[-0.5ex] Decreasing?} &
-		f \fillin[\color{#1}$\searrow$] &\bc& \g f' \fillin[\color{#1}$<0$]\\[2.5ex]
+		f \fillin[\color\exonecolor$\searrow$] &\bc&  f' \fillin[\color\exonecolor$<0$]\\[2.5ex]
 		\rowheader{29mm}{Concavity?} &
-		f \fillin[\color{#1}$\cup$] &\bc& \g f' \fillin[\color{#1}$\nearrow$] &\bc& \g f'' \fillin[\color{#1}$>0$]
+		f \fillin[\color\exonecolor$\cup$] &\bc& f' \fillin[\color\exonecolor$\nearrow$] &\bc&  f'' \fillin[\color\exonecolor$>0$]
 		\end{matrix}\)
 	}
-
-\begin{document}
-\Large\boldmath\sf
-\Repeat{2}{
-	\newpage
-	Fill in the blanks for each snippet 1--8 with: \\[0.8ex]
+\newcommand\directions{\fullwidth{%
+	Fill in the blanks for each snippet with: \\[0.8ex]
 	\fillin[$>\!0$] (is positive), \qquad \fillin[$<\!0$] (is negative), \\[0.8ex]
 	\fillin[$\nearrow$] (is increasing), \qquad \fillin[$\searrow$] (is decreasing), \\[0.8ex]
 	\fillin[$\cup$] (is concave up), \qquad \fillin[$\cap$] (is concave down).
+	}}
+
+\begin{document}
+\begin{questions}
+\Large\boldmath\sf
+\Repeat{2}{
+	\setcounter{question}0
+	\directions
 	\vfill
-	\begin{questions}
-	\begin{multicols}2
-	\content{black}010
-	\content{white}001
-	\content{white}110
-	\content{white}101
+	\def\exonecolor{black} \content010
+	\def\exonecolor{white} \content001
+	\content110
+	\content101
+	\newpage
 	
-	\columnbreak
-	\vfill
-	\content{white}000
-	\content{white}011
-	\content{white}100
-	\content{white}111
-	\end{multicols}
-	\end{questions}
+	$~$\par\vfill
+	\content000
+	\content011
+	\content100
+	\content111
+	\newpage
 	}
+\Repeat{2}{
+	\setcounter{question}0
+	\directions
+	\vfill
+	\def\exonecolor{white} \content010
+	\content001
+	\content110
+	\content101
+	\newpage
+	
+	\directions
+	\vfill
+	\content000
+	\content011
+	\content100
+	\content111
+	\newpage
+	}
+\end{questions}
 \end{document}
 
 NOTE. \fillin inside \tikzcd inside \newcommand breaks

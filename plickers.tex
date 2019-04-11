@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%
+% An enlarged version of the plickers-cards available at
+% https://assets.plickers.com/plickers-cards/PlickersCards_2up_LargeAnswers_1-40.pdf
+% for use in larger classrooms
+%
+% DIRECTIONS.
+% Typeset twice to get positioning correct.
+% Print single-sided on card stock,
+% then cut out negative space around tabs.
+% Tabs make it easy for students to find their
+% plickers-card first thing each class meeting.
+%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{luatex85}
+\documentclass{article}
+\usepackage[margin=0in]{geometry}
+\usepackage{pdfpages, tikz}
+\setlength\parindent{0mm}
+
+%% DEFINE \Repeat{n}{content}
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\newcounter{cardpage}
+\newcommand\card[2]{
+	\newpage
+	\begin{tikzpicture}[overlay, remember picture, ultra thick]
+		\foreach \angle in {0, 180} \draw[rotate=\angle]
+			(current page.center)
+			++(-4.25in, -5.5in+1.125in) to
+			++(right: {mod(#1-1,5)*1.7in}) to
+			++(down: 1.125in)
+			++(0.5*1.7in, 0.5*1.125in)
+			node[rotate=\angle] {\scalebox{6}{#1}}
+			++(0.5*1.7in, -0.5*1.125in) to
+			++(up: 1.125in) to
+			++(right: {8.5in - 1.7in - mod(#1-1,5)*1.7in})
+			;
+		\end{tikzpicture}
+	\begin{minipage}{8.5in}
+		\centering
+		\includepdf[pages=\arabic{cardpage}, clip, trim=#2]{plickers40.pdf}
+		\end{minipage}
+	}
+
+\begin{document}
+\Repeat{20}{
+	\stepcounter{cardpage}
+	\pgfmathtruncatemacro\carda{\arabic{cardpage}*2-1}
+	\pgfmathtruncatemacro\cardb{\arabic{cardpage}*2}
+	\card\carda{52mm 160mm 52mm 20mm} %% trim = L B R T
+	\card\cardb{52mm 20mm 52mm 160mm} %% trim = L B R T
+	}
+\end{document}

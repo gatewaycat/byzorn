@@ -23,30 +23,34 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
+%% VERSIONS
+%\newcommand\version[2]{#1} %% 4 sets of 10 tabs
+\newcommand\version[2]{#2} %% 2 sets of 20 tabs
+
 \newcounter{cardpage}
 \newcommand\card[2]{
 	\newpage
-	\begin{tikzpicture}[overlay, remember picture, ultra thick]
+	\begin{tikzpicture}[overlay, remember picture, dashed]
 		\foreach \angle in {0, 180} \draw[rotate=\angle]
 			(current page.center)
-			++({-4in+(1+mod(#1-1,10))*0.8in}, 4.25in) to %% OR mod(#1-1,20))*0.4in
-			++(down: 0.2in) to
-			++(down: 0.3in) %% OR 0.15in
-			++(left:0.4in) %% OR 0.2in
-			node[rotate=\angle] {\scalebox{4}{#1}} %% OR \scalebox{2}
-			++(right:0.4in) to %% OR 0.2in
-			++(down: 0.3in) to %% OR 0.15in
-			++(right:{8in-(1+mod(#1-1,10))*0.8in}) to %% OR mod(#1-1,20))*0.4in
-			++(up:0.8in) %% OR 0.5in
+			++({-4in+(1+mod(#1-1,\version120))*0.\version84in}, 4.25in) to
+			++(down: 0.2in + 0.\version3{15}in)
+			++(left:0.\version42in)
+			node[rotate=\angle] {\scalebox{\version5{2.5}}{#1}}
+			++(right:0.\version42in) to
+			++(down: 0.\version3{15}in) to
+			++(right:{8in-(1+mod(#1-1,\version120))*0.\version84in}) to
+			++(up:0.\version85in)
 			;
 		\end{tikzpicture}
 	\begin{minipage}{11in}
 		\centering
-		\includepdf[pages=\arabic{cardpage}, clip, trim=#2, height=6.9in]{plickers40.pdf} %% OR height=7.2in
+		\includepdf[pages=\arabic{cardpage}, clip, trim=#2, height=\version{6.9}{7.2}in]{plickers40.pdf} %% OR height=7.2in
 		\end{minipage}
 	}
 
 \begin{document}
+\sf
 \Repeat{20}{
 	\stepcounter{cardpage}
 	\pgfmathtruncatemacro\carda{\arabic{cardpage}*2-1}

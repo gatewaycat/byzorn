@@ -6,3 +6,4 @@
 ## 2. Calculus Worksheet: Limits (calc33-limits.[tex](calc33-limits.tex) [pdf](calc33-limits.pdf))
 ![calc33-limits](calc33-limits1.png)
 ![calc33-limits](calc33-limits2.png)
+![calc33-limits](calc33-limits3.png)

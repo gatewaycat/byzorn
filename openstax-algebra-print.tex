@@ -1,0 +1,103 @@
+\RequirePackage{luatex85}
+\documentclass[twoside]{article}
+\usepackage[landscape, margin=0.1in]{geometry}
+\usepackage{pdfpages}
+\newcommand\content[2][18mm 9mm 18mm 19mm]{
+  \cleardoublepage
+  \includepdf[
+    pages={#2},
+    clip=true,
+    frame=false,
+    trim={#1},
+    %left bot right top
+    nup=2x1,
+    delta=0 0,
+    width=0.5\textwidth,
+    ]
+  {openstax-algebra.pdf}}
+
+\begin{document}
+\content[15mm 9mm 15mm 19mm]{3,6}
+\content{11-14}
+
+\content{19-34} %11
+\content{35-48} %12
+\content{49-58} %13
+\content{59-66} %14
+\content{67-75} %15
+\content{{},76-83} %16
+\content{{},84-90} %17
+
+\content{91-104}
+\content{105-119}
+\content{{},120-128}
+\content{129-136}
+\content{137-148}
+\content{149-159}
+\content{{},160-168}
+\content{169-176}
+
+\content{177-197}
+\content{{},198-213}
+\content{{},214-226}
+\content{227-239}
+\content{{},240-264}
+\content{265-271}
+\content{{},272-284}
+\content{285-296}
+
+\content{297-326}
+\content{327-339}
+\content{{},340-351}
+\content{{},352-360}
+
+\content{361-377}
+\content{{},378-392}
+\content{393-410}
+\content{411-419}
+\content{{},420-431}
+\content{{},432-452}
+\content{453-463}
+\content{{},464-470}
+\content{471-480}
+
+\content{481-496}
+\content{497-508}
+\content{509-516}
+\content{517-533}
+\content{{},534-543}
+\content{{},544-554}
+\content{555-569}
+\content{{},570-582}
+\content{{},583-592}
+
+\content{593-610}
+\content{611-621}
+\content{{},622-637}
+\content{{},638-650}
+\content{651-658}
+
+\content{659-676}
+\content{677-694}
+\content{695-705}
+\content{{},706-712}
+
+\content{713-723}
+\content{{},724-737}
+\content{{},738-749}
+\content{{},750-756}
+\content{757-770}
+\content{771-778}
+
+\content{779-793}
+\content{{},794-805}
+\content{{},806-816}
+\content{817-832}
+\content{833-843}
+\content{{},844-854}
+\content{855-864}
+\content{865-882}
+\content{883-892}
+\end{document}
+
+\content{893-909} % system linear eqns

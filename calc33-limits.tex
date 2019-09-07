@@ -20,6 +20,8 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
+\usepackage{hyperref}
+
 % diagram for questions on pages 1 and 3
 \def\yscaleone{3} % = amount to shrink diagram in y direction
 \newcommand\diagram{
@@ -44,7 +46,7 @@
 	\foreach \y in {9,6}
 	\draw[dashed, semithick] (-1,\y) -- (14.25,\y);
 	% plot five curves on left half
-	\draw[smooth] plot coordinates{(-1,8.9) (0.2,8.6) (1,7) (2,2) (3.15,1.15) (4,5)};
+	\draw[smooth] plot coordinates{(-1,8.85) (0.2,8.6) (1,7) (2,2) (3.15,1.15) (4,5)};
 	\draw (4,8) -- (5,7);
 	\draw (5,16) to [bend right=10] (6,10);
 	\draw (6,14) -- (7,13);
@@ -130,15 +132,16 @@
 \Repeat 7 \threelim
 \end{multicols}
 
-\section{Infinite Limits and Limits at Infinity}
+\section{Finding Limits Involving Infinity Graphically}
 \begin{multicols}3
 \Repeat 5 \threelim
 \bigskip
-\question $\lim\limits_{x\to \mathbf{-\infty}}g(x) =$
-\question $\lim\limits_{x\to \mathbf{+\infty}}g(x) =$
+\question $\lim\limits_{x\to \mathbf{-\infty}}f(x) =$
+\question $\lim\limits_{x\to \mathbf{+\infty}}f(x) =$
 \end{multicols}
 
 \clearpage
+\section{Famous Functions}
 \setlength\columnsep{8mm}
 \raggedcolumns
 \begin{multicols}4

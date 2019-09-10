@@ -30,7 +30,8 @@
 \begin{tikzpicture}
 	[very thick, yscale=1/\yscaleone]
 	% grid
-	\draw[gray, semithick] (-1,0) grid (14.25,20.5);
+	\draw[gray, semithick] (1,0) grid (12,20.5);
+	\draw[gray, semithick, xstep=10,xshift=-1cm] (0,0) grid (15.25,20.5);
 	% x- and y-axes
 	\draw[<->, semithick] (-1,21) -- node[pos=0.03, right] {$y$} (-1,0) -- node[pos=0.99, above] {$x$} (14.5,0);
 	% labels on y-axis
@@ -41,10 +42,10 @@
 	\draw (\x,0) node[below] {\x};
 	% vertical asymptotes
 	\foreach \x in {8,...,12}
-	\draw[dashed, semithick] (\x,0) -- (\x,20.5);
+	\draw[dashed] (\x,0) -- (\x,20.5);
 	% horizontal asymptotes
 	\foreach \y in {9,6}
-	\draw[dashed, semithick] (-1,\y) -- (14.25,\y);
+	\draw[dashed] (-1,\y) -- (14.25,\y);
 	% plot five curves on left half
 	\draw[smooth] plot coordinates{(-1,8.85) (0.2,8.6) (1,7) (2,2) (3.15,1.15) (4,5)};
 	\draw (4,8) -- (5,7);

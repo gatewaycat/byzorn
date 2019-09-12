@@ -1,0 +1,96 @@
+%%%%%%%%%%%%%%%%%%%%
+% The Plickers cards available at
+% https://assets.plickers.com/plickers-cards/PlickersCards_2up_LargeAnswers_1-40.pdf
+% are here enlarged and tabbed for use in larger classrooms
+%
+% DIRECTIONS.
+% Typeset twice to get positioning correct.
+% Print single-sided on card stock,
+% then cut out negative space around tabs.
+% Tabs make it easy for students to find their
+% Plickers card at beginning of each class
+%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{luatex85}
+\documentclass{article}
+\usepackage[margin=0in, landscape]{geometry}
+\usepackage{pdfpages, tikz}
+\setlength\parindent{0mm}
+
+%% DEFINE \Repeat{n}{content}
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\newcounter{cardpage}
+\newcommand\cardwrap[2]{
+	\newpage
+	\begin{tikzpicture}[overlay, remember picture, dashed]
+	\pgfmathtruncatemacro\top{mod(#1,10)}
+	\foreach \angle in {0, 180}{
+	\draw[rotate=\angle] (current page.center)
+		++(-11in/2 + 1.3in/2,
+			{8.5in/2 - 0.75in - mod(#1-1,10)*0.7in - 0.7in/2})
+		node {\scalebox{5.5}{\textsf{\textbf{#1}}}};
+	\ifnum \top=1
+	\else
+	\draw[rotate=\angle]
+		(current page.center)
+		++(-11in/2, 8.5in/2 - 0.75in) rectangle
+		++(1.3in, {-mod(#1-1,10)*0.7in})
+		;
+	\fi
+	\ifnum \top=0
+	\else
+	\draw[rotate=\angle] (current page.center)
+		++(-11in/2,
+			{8.5in/2 - 0.75in - mod(#1-1,10)*0.7in - 0.7in})
+		rectangle
+		++(1.3in,
+			{-(9-mod(#1-1,10))*0.7in});
+	\fi
+	}
+	\end{tikzpicture}
+	\begin{minipage}{11in}
+		\centering
+		\includepdf[pages=\arabic{cardpage},
+			clip, trim=#2, height=8in]
+		{plickers40.pdf}
+		\end{minipage}
+	}
+\newcommand\card{
+	\stepcounter{cardpage}
+	\pgfmathtruncatemacro\carda{\arabic{cardpage}*2-1}
+	\pgfmathtruncatemacro\cardb{\arabic{cardpage}*2}
+	\cardwrap\carda{58mm 159.75mm 58mm 20mm} %% trim = L B R T
+	\cardwrap\cardb{58mm 20mm 58mm 159.75mm} %% trim = L B R T
+	}
+
+\newcounter{tencards}
+\newcommand\listcards{
+	\newpage
+	\begin{tikzpicture}
+	[overlay, remember picture, dashed]
+	\pgfmathtruncatemacro\one{\arabic{tencards}*10+1}
+	\pgfmathtruncatemacro\ten{\arabic{tencards}*10+10}
+	\draw (current page.center)
+	node {\scalebox{20}{\textsf{\textbf{$$\one--\ten$$}}}}
+	;
+	\foreach \x in {\one,...,\ten}
+	\foreach \angle in {0, 180}
+	\draw[rotate=\angle]
+	(current page.center)
+	++(-11in/2 + 1.3in/2,
+		{8.5in/2 - 0.75in - mod(\x-1,10)*0.7in - 0.35in})
+	node {\scalebox{5.5}{\textsf{\textbf{\x}}}}
+	;
+	\end{tikzpicture}
+	\stepcounter{tencards}
+	}
+
+\begin{document}
+\Repeat{4}{\listcards}
+%\setcounter{cardpage}{10}
+\Repeat{20}{\card}
+\end{document}

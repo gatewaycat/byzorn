@@ -32,7 +32,7 @@
 	\draw[rotate=\angle] (current page.center)
 		++(-11in/2 + 1.3in/2,
 			{8.5in/2 - 0.75in - mod(#1-1,10)*0.7in - 0.7in/2})
-		node {\scalebox{5.5}{\textsf{\textbf{#1}}}};
+		node[rotate=\angle] {\scalebox{5.5}{\textsf{\textbf{#1}}}};
 	\ifnum \top=1
 	\else
 	\draw[rotate=\angle]
@@ -83,7 +83,7 @@
 	(current page.center)
 	++(-11in/2 + 1.3in/2,
 		{8.5in/2 - 0.75in - mod(\x-1,10)*0.7in - 0.35in})
-	node {\scalebox{5.5}{\textsf{\textbf{\x}}}}
+	node[rotate=\angle] {\scalebox{5.5}{\textsf{\textbf{\x}}}}
 	;
 	\end{tikzpicture}
 	\stepcounter{tencards}

@@ -110,14 +110,27 @@
 	\vspace{-3mm}
 	\fullwidth{\(\begin{aligned}
 		\phantom{\lim_{x\to \mathbf0^+}} f(x) &= \smash{#1}
-		\\[-0.9ex] \phantom{\lim_{x\to \mathbf0^+}} f(0) &=
-		\\[-0.9ex] \lim_{x\to \mathbf0^-}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathbf0^+}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathbf0\phantom{^+}}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &=
-		\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &=
+		\\[-0.9ex] \phantom{\lim_{x\to \mathbf0^+}} f(0) &= \one
+		\\[-0.9ex] \lim_{x\to \mathbf0^-}f(x) &= \two
+		\\[-0.9ex] \lim_{x\to \mathbf0^+}f(x) &= \three
+		\\[-0.9ex] \lim_{x\to \mathbf0\phantom{^+}}f(x) &= \four
+		\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &= \five
+		\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &= \six
 		\end{aligned}\)}
+\def\one{}
+\def\two{}
+\def\three{}
+\def\four{}
+\def\five{}
+\def\six{}
 	}
+\def\one{}
+\def\two{}
+\def\three{}
+\def\four{}
+\def\five{}
+\def\six{}
+
 \newcommand\fivelima[3]{\fivelim{#1}{#2}{#3}{}}
 \newcommand\fivelimb[2]{\fivelima{#1}{#2}{grid=none, ticks=none}}
 \newcommand\opencircle[1]{\draw[color=black,fill=white,thick] (axis cs:{#1}) circle [radius=2pt];}
@@ -128,12 +141,12 @@
 \diagram
 
 \begin{questions}
-\section{Finding Limits Graphically}
+\section{Find Limits Graphically}
 \begin{multicols}3
 \Repeat 7 \threelim
 \end{multicols}
 
-\section{Finding Limits Involving Infinity Graphically}
+\section{Find Limits Involving Infinity Graphically}
 \begin{multicols}3
 \Repeat 5 \threelim
 \bigskip
@@ -163,54 +176,107 @@
 
 \vfill
 \begin{multicols}4
+\def\five{\text{DNE}}
+\def\six{\text{DNE}}
 \fivelima{\cos(x)}{cos(deg(x)*2)}{ytick={-1,1},xtick={0}}
+
 %	\fivelim{\frac{\sin(x)}x}{sin(deg(x*3))/(x*3)}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
 \fivelim{\frac{\sin(x)}x}{cos(deg(x*6))*exp(-abs(x/1.25))}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
+
+
+\def\one{\text{DNE}}
+\def\two{\text{DNE}}
+\def\three{\text{DNE}}
+\def\four{\text{DNE}}
 \fivelima{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
+
 \fivelima{x\sin(1/x)}{x/3*sin(deg(1/x*3))}{ytick={-1,1},xtick={0},samples={720}}
 \end{multicols}
 
 \newpage
 \diagram
-\section{Identify Continuity/Discontinuity at a Point} %(removable, jump, infinite)
-\question We say $f(x)$ is  \fillin[\textbf{continuous at $x=a$}][2in] 
-	if $\lim\limits_{x\to a}f(x)$ exists and equals $f(a)$.
-\question We say $f(x)$ has a \fillin[\textbf{removable discontinuity at $x=a$}][2in] at $x=a$ 
-	if $\lim\limits_{x\to a}f(x)$ exists and does \emph{not} equal $f(a)$.
-\question We say $f(x)$ has a \fillin[\textbf{jump discontinuity at $x=a$}][2in]
-	if $\lim\limits_{x\to a^+}f(x)$ and $\lim\limits_{x\to a^-}f(x)$ exist and are \emph{un}equal. 
-\question We say $f(x)$ has an \fillin[\textbf{infinite discontinuity at $x=a$}][2in]
-	if either $\lim\limits_{x\to a^+}f(x)$ or $\lim\limits_{x\to a^-}f(x)$
-	equals either $\infty$ or $-\infty$.
+\vspace{-4mm}
+\section{Identify Infinite, Jump, Removable Discontinuities Graphically}
+\vspace{-3mm}
+\question We say $f$ is
+	\textbf{continuous} (cts) at $x=a$
+	if $\lim\limits_{x\to a}f(x)$ is finite
+	and equals $f(a)$.
+	\par The function $f$ above is continuous
+	at integers $x$ = \fillin[][2in].
 
-\question The function $f(x)$ is \textbf{continuous at \boldmath $x$ =} \fillin[][3in].
-\question The function $f(x)$ is has a \textbf{removable discontinuity at \boldmath $x$ =} \fillin[][3in].
-\question The function $f(x)$ is has a \textbf{jump discontinuity at \boldmath $x$ =} \fillin[][3in].
-\question The function $f(x)$ is has an \textbf{infinite discontinuity at \boldmath $x$ =} \fillin[][3in].
+\question We say $f$ has a 
+	\fillin[\textbf{removable}][1in] discontinuity
+	at \fillin[$x=a$][0.5in]
+	if $\lim\limits_{x\to a}f(x)$ is finite
+	and \emph{un}equal to $f(a)$.
+	\par
+	The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
 
-\section{Identify Left and Right Continuity at a Point}
-\question We say $f(x)$ is \fillin[left continuous at $x=a$][3in] if $\lim_{x\to a^-}f(x)$ exists and equals $f(a)$.
-\question We say $f(x)$ is \fillin[right continuous at $x=a$][3in] if $\lim_{x\to a^+}f(x)$ exists and equals $f(a)$.
+\question We say $f$ has a 
+	\fillin[\textbf{jump}][1in] discontinuity
+	at \fillin[$x=a$][0.5in]
+	if $\lim\limits_{x\to a\smash{^+}}f(x)$ 
+	and $\lim\limits_{x\to a\smash{^-}}f(x)$
+	are finite but \emph{un}equal.
+	\par
+	The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
 
-\question The function $f(x)$ is \textbf{left continuous at \boldmath $x$ =} \fillin[][3in].
-\question The function $f(x)$ is \textbf{right continuous at \boldmath $x$ =} \fillin[][3in].
+\question We say $f$ has an
+	\fillin[\textbf{infinite}][1in] discontinuity
+	at \fillin[$x=a$][0.5in]
+	if $\lim\limits_{x\to a\smash{^+}}f(x)$
+	or $\lim\limits_{x\to a\smash{^-}}f(x)$
+	is infinite.
+	\par
+	The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
 
+\vspace{-1mm}
 \section{Continuity on an Interval}
-We say $f(x)$ is \textbf{continuous on \boldmath $(a,b)$}
-	if $f(x)$ is continuous at $x=c$ for all $c$ in $(a,b)$.
-\question We say $f(x)$ is \textbf{continuous on \boldmath $[a,b]$}
-	if $f(x)$ is continuous at $x=c$ for all $c$ in $(a,b)$, \\[3ex]
-	and \fillin[right continuous at $x=a$][3in] and \fillin[left continuous at $x=a$][3in].
-\question We say $f(x)$ is \textbf{continuous everywhere}
-	if $f(x)$ is continuous at $x=c$ for all $c$ in \fillin[][1in].
-\question We say $f(x)$ is \textbf{continuous} if it is continuous on every open interval in \fillin[][2.5in].
-%\question Identify some intervals on which $f(x)$ is continuous on.
-%	Identify some intervals $f(x)$ is \emph{not} continuous on. 
-\question Find the union of all open intervals $(a,b)$ such that $f(x)$
-	is \textbf{continuous on \boldmath $(a,b)$}. Use interval notation.
-%\question Find the domain of $f(x)$. Use interval notation.
-\question The function $f(x)$ fails to be \textbf{continuous} (on every open interval in its domain). 
-	It fails at $x$ = \fillin[][1.4in].
+\vspace{-2mm}
+\question We say $f$ is 
+	\textbf{continuous on the open interval
+	\boldmath $(a,b)$}
+	if $f$ is continuous at every $x$ 
+	in $(a,b)$.
+	\par Find the union of all open intervals
+	\textbf{on which $f$
+	is continuous}.
+	\\[3ex] (Set-builder notation) \fillin[][5in]
+	\\[3ex] (Interval notation) \fillin[][5in]
+\question We say $f$ is \textbf{continuous everywhere}
+	if $f$ is continuous at every $x$ in \fillin[][1in].
+\question We say $f$ is 
+	\textbf{a continuous function} 
+	if $f$ is continuous at every 
+	$x$ in its \fillin[][1in].
+
+\vspace{-1mm}
+\section{Left and Right Continuity}
+\vspace{-4mm}
+\question We say $f$ is \fillin[left][1in] 
+	continuous at $x=a$
+	if $\lim_{x\to a^+}f(x)$ is finite 
+	and equals $f(a)$.
+	\\[2ex]
+	The function $f$ above
+	has this type of continuity at integers
+	$x$ = \fillin[][2in].
+
+\question We say $f$ is \fillin[right][1in] 
+	continuous at $x=a$
+	if $\lim_{x\to a^-}f(x)$ is finite 
+	and equals $f(a)$.
+	\\[2ex]
+	The function $f$ above
+	has this type of continuity at integers
+	$x$ = \fillin[][2in].
+
+\question We say $f$ is \textbf{continuous on the closed interval \boldmath $[a,b]$}
+	if $f$ is continuous at every $x$ in the \emph{open} interval $(a,b)$
+	\\[2ex]
+	and is \fillin[right continuous][2in] at $x=a$
+	and is \fillin[left continuous][2in] at $x=b$.
 
 \end{questions}
 \end{document}

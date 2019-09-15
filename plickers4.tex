@@ -1,0 +1,89 @@
+%%%%%%%%%%%%%%%%%%%%
+% The Plickers cards available at
+% https://assets.plickers.com/plickers-cards/PlickersCards_2up_LargeAnswers_1-40.pdf
+% are here enlarged and tabbed for use in larger classrooms
+%
+% DIRECTIONS.
+% Typeset twice to get positioning correct.
+% Print single-sided on card stock,
+% ==> change the color of the paper every 13 pages
+% then cut out negative space around tabs.
+% Tabs make it easy for students to find their
+% Plickers card at beginning of each class
+%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{luatex85}
+\documentclass{article}
+\usepackage[margin=0in]{geometry}
+\usepackage{pdfpages, tikz, mathtools}
+\setlength\parindent{0mm}
+
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\begin{document}
+\sf\bfseries
+\newcounter{index}
+
+\Repeat{63}{
+\newpage
+\stepcounter{index}
+\pgfmathtruncatemacro\index{\arabic{index}}
+\pgfmathtruncatemacro\position{mod(\index-1,13)}
+\pgfmathtruncatemacro\page{floor((\index-1)/2)+1}
+\pgfmathtruncatemacro\ones{mod(\index,10)}
+\pgfmathtruncatemacro\tens{floor(\index/10)}
+\def\zero{0}
+\pgfmathtruncatemacro\odd{mod(\index,2)}
+\ifnum\odd=1
+	\pgfmathtruncatemacro\bottom{160}
+	\pgfmathtruncatemacro\top{20}
+	\else
+	\pgfmathtruncatemacro\bottom{20}
+	\pgfmathtruncatemacro\top{160}
+	\fi
+
+\begin{tikzpicture}
+	[scale=2.54, overlay, remember picture]
+	\foreach \angle in {0, 180}{
+		\draw[rotate=\angle]
+			(current page.center)
+			++({-8.5/2 + 1.65 + 0.4*(0.5+\position)},
+				11/2 - 0.6)
+			node[rotate=\angle, align=center,
+				text width=0.5/3.5, scale=3.5]
+			{\ifx\tens\zero\else\clap\tens\fi
+				\\[-1ex]\clap\ones}
+			++(0.4/2, 0.6)
+			coordinate 
+			(corner);
+		\ifnum\position=12 % don't cut 13th, 26th, etc card
+			\else
+			\ifnum\index=63 % don't cut last (63rd) card
+				\else
+				\draw[rotate=\angle, dashed]
+					(current page.center)
+					++(8.5/2 - 1.65, 11/2 - 1.25)
+					rectangle
+					(corner);
+				\fi
+			\fi
+		}
+	\end{tikzpicture}
+
+\begin{minipage}{11in}
+	\centering
+	\ifnum\index>40 %switch to extended card deck
+		\includepdf[pages=\page, height=8in, clip,
+			trim=58mm \bottom mm 58mm \top mm]
+		{plickers63.pdf}
+		\else
+		\includepdf[pages=\page, height=8in, clip,
+			trim=58mm \bottom mm 58mm \top mm]
+		{plickers40.pdf}
+		\fi
+	\end{minipage}
+}
+\end{document}

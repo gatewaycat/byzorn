@@ -1,3 +1,15 @@
+%%%%%%%%%%%%%%%%%%%%
+% SEMESTER START.
+% Send to repro asap;
+% print in color!
+%
+% DAY OF.
+% Do 2 together.
+% Write         f(x+h)                  =
+% Then add  f(x+h) - f(x)          = 
+% Then add (f(x+h) - f(x))(1/h) =
+%%%%%%%%%%%%%%%%%%%% 
+
 \RequirePackage{luatex85}
 \documentclass{article}
 \usepackage{tikz, amsmath, mathtools, multicol, setspace}
@@ -24,10 +36,9 @@
 \begin{tikzpicture}[very thick, scale=2.1, yscale=0.85]
 	#3
 	% axes
-	\draw[<->] (0,2.75) node[below left] {distance [mi]} to (0,0) to (5.75,0) node[right] {time [hr]};
-%	% crop
-%	\clip (0,0) rectangle (8.5,2.5);
-	% f(x)
+	\draw[<->] (0,2.75) node[below left] {distance [mi]} 
+		to (0,0) 
+		to (5.75,0) node[right] {time [hr]};
 	\draw[domain=0.5:5.65]
 		plot (\x, {(\x-1)^4*5/8/100+15/100}) node [right] {\,\,\large$#1$};
 	% secant
@@ -53,7 +64,7 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 
 \vspace{-2ex}
 \hfil
-\diagram{y=f(x)\phantom{{}=\frac58(x-1)^4+15}}{
+\diagram{y=f(x)\phantom{{}=15+\frac58x^4}}{
 	% tick marks and coordinates for closed circles
 	\foreach \x/\n in {3/x, 5/x+h}{
 		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
@@ -88,7 +99,9 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 = \blob{rate of change at $x$}
 = \blob{slope of tangent at $x$}
 =\hfill{\LARGE\boxed{\lim_{h\to\quad}\phantom{\frac{f(x+h)-f(x)}h}}}\hfill%
-=\hfill\!definition of derivative $f'(x)$
+=\hfill\!$\underset{
+	\text{written } y' \text{ or } \frac{dy}{dx} \text{ or } f'(x) \text{ or } \frac d{dx}f(x)
+	}{\text{definition of derivative}}$
 
 \vfill
 \end{minipage}
@@ -100,13 +113,16 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 \begin{minipage}[t][4.5in]{\textwidth}
 %\clearpage
 \begin{tabbing}
-2. \textbf{Example.} \= Use the definition of difference quotient to find the slope of  \\ \> the \textbf{secant} line through $y=f(x)=\frac58(x-1)^4+15$ between $x$ and $x+h$. \\ \> \emph{Hint:} $f(x+h)$ \== $\scriptstyle\frac58((x-1)+h)^4+15$ \\ \>\>= $\scriptstyle\frac58(x-1)^4+4(x-1)^3h+6(x-1)^2h^2+4(x-1)h^3+4h^4+15$\\[1ex]
-3. \textbf{Exercise.} \> Use the definition of derivative to find the slope of \\ \>  the \textbf{tangent} line to $y=f(x)=\frac58(x-1)^4+15$ at $x$. \\[-2.5ex]
-\diagram{y=f(x)=\frac58(x-1)^4+15}{
+2. \textbf{Example.} \= Use the definition of difference quotient to find the slope of  \\ \> the \textbf{secant} line through $y=f(x)=15+\frac58x^4$ between $x$ and $x+h$. \\[1ex] \> \emph{Hint:} 
+%$f(x+h) = 5x^4/8+20x^3h/8+30x^2h^2/8+20xh^3/8+5h^4/8+15$
+$\phantom( f(x+h) \phantom{{}-f(x))\frac1h} = \phantom( 15 + \frac58x^4+\frac{20}8x^3h+\frac{30}8x^2h^2+\frac{20}8xh^3+\frac58h^4$
+\\[1ex] 
+3. \textbf{Exercise.} \> Use the definition of derivative to find the slope of \\ \>  the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ at $x$. \\[-2.5ex]
+\diagram{y=f(x)=15+\frac58x^4}{
 	% tick marks and coordinates for closed circles
-	\foreach \x in {0, ..., 5}{
+	\foreach \x in {0, ..., 4}{
 		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
-		\draw (\x, 3pt) -- ++(down:6pt) node[below] {\large$\x$};
+		\draw (\x+1, 3pt) -- ++(down:6pt) node[below] {\large$\x$};
 		}
 	% closed circles (yscale counteracts global yscale)
 	\foreach \x in {3, 5}{
@@ -120,9 +136,9 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 	% grid
 	\draw[gray, semithick, dotted, step=0.25] (0,0) grid (5.75,2.75);
 	\draw[gray, thick] (0,0) grid (5.75,2.75);
-	}\\[1ex]
-4. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of  \\ \> the \textbf{secant} line to $y=f(x)=\frac58(x-1)^4+15$ \textbf{between 3 and 5}. \\[1ex]
-5. \textbf{Exercise.} \> Use your answer to Exercise 2 above to estimate the slope of  \\ \> the \textbf{tangent} line to $y=f(x)=\frac58(x-1)^4+15$ \textbf{at 3}.
+	}\\[0.5ex]
+4. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of  \\ \> the \textbf{secant} line to $y=f(x)=15+\frac58x^4$ \textbf{between 2 and 4}. \\[1ex]
+5. \textbf{Exercise.} \> Use your answer to Exercise 3 above to estimate the slope of  \\ \> the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ \textbf{at 2}.
 \end{tabbing}
 \end{minipage}
 

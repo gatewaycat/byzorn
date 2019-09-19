@@ -3,10 +3,12 @@
 % AVOIDS "x to a" proof of power rule (slick, but less insight)
 %%%%%%%%%%
 
-\documentclass[17pt, handout]{beamer}
+\documentclass[17pt]{beamer}
 \usetheme{Pittsburgh}
+\setbeamertemplate{enumerate items}[default]
+%\setbeamercovered{transparent}
 \usepackage[thicklines]{cancel}
-\usepackage{mathtools, multicol}
+\usepackage{mathtools, multicol, tikz-cd}
 %\usepackage{stackengine}
 %\stackMath
 \theoremstyle{remark}
@@ -22,9 +24,10 @@
 %\section{Power Rule}
 \begin{frame}
 \begin{theorem}%[Power Rule]
-\[\Big(x^n\Big)' = nx^{n-1}\]
+\[\Big(x^n\Big)' = \pause nx^{n-1}\]
 \end{theorem}
 
+\pause
 \begin{plickers}
 Find the derivative of $f(x) = x^3$.
 \begin{multicols}4
@@ -37,17 +40,25 @@ Find the derivative of $f(x) = x^3$.
 
 \begin{frame}
 \begin{fact}
-\vspace{-3ex}
-\begin{align*}
-(x+h)^2 &= x^2 + 2xh + h^2 \\[1ex]
-(x+h)^3 &= x^3 + 3x^2h + %\overset{(3x+h)h^2}
-	{(3xh^2 + h^3)} \\[1ex]
-(x+h)^4 &= x^4 + 4x^3h + %\overset{(6x^2 + 4xh+h^2)h^2}
-	{(6x^2h^2 + 4xh^3+h^4)} \\[1.5ex]
-&\quad \text{\Large$
-	x^n \quad nx^{n-1}\!h \quad (\,\cdots)h^2
-	$}
-\end{align*}
+$(x+h)^2 = \pause x^2 + 2xh + h^2$ \pause\par\bigskip
+$(x+h)^3 = \pause x^3 + 3x^2h + 3xh^2 + h^3$ \pause\par\bigskip
+$(x+h)^4 = x^4 + 4x^3h + 6x^2h^2 + 4xh^3 + h^4$ \pause\par\bigskip\bigskip
+
+%$(x+h)^3 = \pause x^3 + 3x^2h + 
+%	\uncover<5->(
+%	3x\uncover<-4>{h^2} +
+%	h\uncover<-4>{^3}
+%	\uncover<5->{)h^2}$ \pause[6]
+%
+%$(x+h)^3 = \pause x^3 + 3x^2h + \uncover<-4>{3xh^2 + h^3}$
+%\pause\par
+%$\phantom{(x+h)^3 = x^3 + 3x^2h + {}} \mathllap(3x\phantom{h^2}+h\phantom{^3})h^2$
+
+$\phantom{(x+h)^n = {}}x^n \pause + nx^{n-1}h \pause \quad+\quad (\hspace{0.6ex}\cdots)h^2$ 
+
+%\Large\quad$
+%	x^n \quad nx^{n-1}\!h \quad (\,\cdots)h^2
+%	$
 \end{fact}
 \end{frame}
 
@@ -76,23 +87,55 @@ Find the derivative of $f(x) = x^3$.
 %%%%%%%%%%%%%%%
 % NEW STYLE PROOF
 %%%%%%%%%%%%%%%
-\newcommand\mystack[3]{\overset{\mathclap{\substack{\textstyle #3 \\[1.5ex] \textstyle #2 \vphantom) \\[1.5ex]}}}{\quad\,\,#1\quad\,\,}}
+%\newcommand\mystack[3]{\overset{\mathclap{\substack{\textstyle #3 \\[1.5ex] \textstyle #2 \vphantom) \\[1.5ex]}}}{\quad\,\,#1\quad\,\,}}
+%\begin{frame}
+%\begin{proof}
+%Fix a positive integer $n$.
+%Let $f(x) = x^n$.
+%\begin{align*}
+%	f'(x) &= \lim_{h\to0} 
+%	\frac{
+%		\mystack{f(x+h)}{(x+h)^n}{
+%			\bcancel{x^n}
+%			+ nx^{n-1}\bcancel h
+%			+ (\,\cdots)h^{\bcancel2}
+%			}
+%		- \mystack{f(x)}{x^n}{}
+%		}{\bcancel h}
+%	\\[1.5em] &= nx^{n-1} \qedhere
+%	\end{align*}
+%\end{proof}
+%\end{frame}
+
+%%%%%%%%%%%%%%%
+% NEWer STYLE PROOF
+%%%%%%%%%%%%%%%
+
 \begin{frame}
 \begin{proof}
 Fix a positive integer $n$.
 Let $f(x) = x^n$.
-\begin{align*}
-	f'(x) &= \lim_{h\to0} 
-	\frac{
-		\mystack{f(x+h)}{(x+h)^n}{
-			\bcancel{x^n}
-			+ nx^{n-1}\bcancel h
-			+ (\,\cdots)h^{\bcancel2}
-			}
-		- \mystack{f(x)}{x^n}{}
-		}{\bcancel h}
-	\\[1.5em] &= nx^{n-1} \qedhere
-	\end{align*}
+
+\bigskip\pause
+Then \par\bigskip
+\phantom{=}
+$\uncover<7->{\lim_{h\to0}}
+	\uncover<5->(
+	f(x+h) \uncover<3->{{}- f(x)}
+	\uncover<5->{)\tfrac1h}$
+
+\bigskip
+= $\uncover<7->{\lim_{h\to0}}
+	\uncover<5->(
+	\alt<-3>{x^n}{\bcancel{x^n}}
+	+ nx^{n-1}\alt<-5>h{\bcancel h}
+	+ (\cdots\hspace{-0.1ex})h\alt<-5>{^2}{^{\bcancel2}}
+	\uncover<3->{{}-\alt<-3>{x^n}{\bcancel{x^n}}}
+	\uncover<5->{)\tfrac1{\alt<-5>h{\bcancel h}}}$
+
+\bigskip\pause[8]
+= $nx^{n-1}$
 \end{proof}
 \end{frame}
+
 \end{document}

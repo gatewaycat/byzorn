@@ -32,15 +32,16 @@
 	{#1}{\vphantom{\bigg(}\hspace{#2mm}}
 	$}}
 
+\def\yscale{0.8}
 \newcommand\diagram[3]{
-\begin{tikzpicture}[very thick, scale=2.1, yscale=0.85]
+\begin{tikzpicture}[very thick, scale=2.1, yscale=\yscale]
 	#3
 	% axes
 	\draw[<->] (0,2.75) node[below left] {distance [mi]} 
 		to (0,0) 
 		to (5.75,0) node[right] {time [hr]};
 	\draw[domain=0.5:5.65]
-		plot (\x, {(\x-1)^4*5/8/100+15/100}) node [right] {\,\,\large$#1$};
+		plot (\x, {(\x-1)^4*5/8/100+15/100}) #1;
 	% secant
 	\draw[red, domain=2.5:6] 
 		plot (\x, {0.75*(\x-3)+0.25})
@@ -64,7 +65,7 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 
 \vspace{-2ex}
 \hfil
-\diagram{y=f(x)\phantom{{}=15+\frac58x^4}}{
+\diagram{node [right] {$y=f(x)\phantom{{}=15+\frac58x^4}$}}{
 	% tick marks and coordinates for closed circles
 	\foreach \x/\n in {3/x, 5/x+h}{
 		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
@@ -72,7 +73,7 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 		}
 	% closed circles (yscale counteracts global yscale)
 	\foreach \x in {3, 5}{
-		\draw[black, fill=black, yscale=1/0.85] (\x) circle (1.5pt);
+		\draw[black, fill=black, yscale=1/\yscale] (\x) circle (1.5pt);
 		}
 	% fillin (x1, y1) = (x, f(x))
 	\draw (3) node [above left] {
@@ -113,12 +114,13 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 \begin{minipage}[t][4.5in]{\textwidth}
 %\clearpage
 \begin{tabbing}
-2. \textbf{Example.} \= Use the definition of difference quotient to find the slope of  \\ \> the \textbf{secant} line through $y=f(x)=15+\frac58x^4$ between $x$ and $x+h$. \\[1ex] \> \emph{Hint:} 
+2. \textbf{Example.} \= Use the definition of difference quotient to find the slope of  \\ \> the \textbf{secant} line through $y=f(x)=15+\frac58x^4$ between $x$ and $x+h$. \\[0.5ex]
+\> \emph{Hint:} 
 %$f(x+h) = 5x^4/8+20x^3h/8+30x^2h^2/8+20xh^3/8+5h^4/8+15$
 $\phantom( f(x+h) \phantom{{}-f(x))\frac1h} = \phantom( 15 + \frac58x^4+\frac{20}8x^3h+\frac{30}8x^2h^2+\frac{20}8xh^3+\frac58h^4$
-\\[1ex] 
-3. \textbf{Exercise.} \> Use the definition of derivative to find the slope of \\ \>  the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ at $x$. \\[-2.5ex]
-\diagram{y=f(x)=15+\frac58x^4}{
+\\[3ex] 
+3. \textbf{Exercise.} \> Use the definition of derivative and your answer to \textbf{Example 2} to find the slope of \\ \>  the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ at $x$. \\
+\diagram{node [right, yshift=-2mm] {$y=f(x)=15+\frac58x^4$}}{
 	% tick marks and coordinates for closed circles
 	\foreach \x in {0, ..., 4}{
 		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
@@ -126,7 +128,7 @@ $\phantom( f(x+h) \phantom{{}-f(x))\frac1h} = \phantom( 15 + \frac58x^4+\frac{20
 		}
 	% closed circles (yscale counteracts global yscale)
 	\foreach \x in {3, 5}{
-		\draw[black, fill=black, yscale=1/0.85] (\x) circle (1.5pt);
+		\draw[black, fill=black, yscale=1/\yscale] (\x) circle (1.5pt);
 		}
 	% y-tick marks
 	\foreach \y in {0, 100, 200}{
@@ -136,9 +138,10 @@ $\phantom( f(x+h) \phantom{{}-f(x))\frac1h} = \phantom( 15 + \frac58x^4+\frac{20
 	% grid
 	\draw[gray, semithick, dotted, step=0.25] (0,0) grid (5.75,2.75);
 	\draw[gray, thick] (0,0) grid (5.75,2.75);
-	}\\[0.5ex]
-4. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of  \\ \> the \textbf{secant} line to $y=f(x)=15+\frac58x^4$ \textbf{between 2 and 4}. \\[1ex]
-5. \textbf{Exercise.} \> Use your answer to Exercise 3 above to estimate the slope of  \\ \> the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ \textbf{at 2}.
+	}\\[-0.5ex]
+4. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of \\\> the \textbf{secant} through $y=15+\frac58x^4$ \textbf{between 2 and 4}. \\
+5. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of \\ \> the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ at \textbf{at 2}. \\
+6. \textbf{Exercise.} \> Use your answer to \textbf{Exercise 3} to confirm your answer to \textbf{Exercise 5}.
 \end{tabbing}
 \end{minipage}
 

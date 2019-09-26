@@ -3,7 +3,7 @@
 % AVOIDS "x to a" proof of power rule (slick, but less insight)
 %%%%%%%%%%
 
-\documentclass[17pt]{beamer}
+\documentclass[17pt, handout]{beamer}
 \usetheme{Pittsburgh}
 \setbeamertemplate{enumerate items}[default]
 %\setbeamercovered{transparent}
@@ -23,7 +23,7 @@
 \begin{document}
 %\section{Power Rule}
 \begin{frame}
-\begin{theorem}%[Power Rule]
+\begin{theorem}[Power Rule]
 \[\Big(x^n\Big)' = \pause nx^{n-1}\]
 \end{theorem}
 
@@ -40,6 +40,7 @@ Find the derivative of $f(x) = x^3$.
 
 \begin{frame}
 \begin{fact}
+\par\bigskip
 $(x+h)^2 = \pause x^2 + 2xh + h^2$ \pause\par\bigskip
 $(x+h)^3 = \pause x^3 + 3x^2h + 3xh^2 + h^3$ \pause\par\bigskip
 $(x+h)^4 = x^4 + 4x^3h + 6x^2h^2 + 4xh^3 + h^4$ \pause\par\bigskip\bigskip
@@ -112,30 +113,32 @@ $\phantom{(x+h)^n = {}}x^n \pause + nx^{n-1}h \pause \quad+\quad (\hspace{0.6ex}
 %%%%%%%%%%%%%%%
 
 \begin{frame}
-\begin{proof}
+\begin{block}{Proof (Power Rule)}
 Fix a positive integer $n$.
-Let $f(x) = x^n$.
+Let $f(x) = x^n$. So,
 
 \bigskip\pause
-Then \par\bigskip
 \phantom{=}
 $\uncover<7->{\lim_{h\to0}}
-	\uncover<5->(
+	\uncover<5->{\Big(}
 	f(x+h) \uncover<3->{{}- f(x)}
-	\uncover<5->{)\tfrac1h}$
+	\uncover<5->{\Big)\Big(\tfrac1h\Big)}$
 
 \bigskip
 = $\uncover<7->{\lim_{h\to0}}
-	\uncover<5->(
+	\uncover<5->{\Big(}
 	\alt<-3>{x^n}{\bcancel{x^n}}
 	+ nx^{n-1}\alt<-5>h{\bcancel h}
 	+ (\cdots\hspace{-0.1ex})h\alt<-5>{^2}{^{\bcancel2}}
 	\uncover<3->{{}-\alt<-3>{x^n}{\bcancel{x^n}}}
-	\uncover<5->{)\tfrac1{\alt<-5>h{\bcancel h}}}$
+	\uncover<5->{\Big)\Big(\tfrac1{\alt<-5>h{\bcancel h}}\Big)}$
+
+\bigskip
+= $\lim_{h\to0} \phantom{\Big(} nx^{n-1} + (\cdots\hspace{-0.1ex})h$
 
 \bigskip\pause[8]
 = $nx^{n-1}$
-\end{proof}
+\end{block}
 \end{frame}
 
 \end{document}

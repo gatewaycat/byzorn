@@ -169,7 +169,7 @@
 \begin{multicols}4
 \fivelimb{x^3}{x^3}
 \fivelima{e^x}{e^x}{ytick={1}, xtick={0}}
-\fivelima{\ln(x)}{ln(x)}{ytick={0}, xtick={1}}
+\fivelima{\ln(x)}{ln(x)}{ytick={0}, xtick={0}}
 \fivelim{\frac{\left| x \right|}x}{floor(x/10)*2+1}
 	{ytick={1},extra y ticks={-1},xtick={0},samples={501}}{\opencircle{0,1} \opencircle{0,-1}}
 \end{multicols}
@@ -189,8 +189,7 @@
 \def\three{\text{DNE}}
 \def\four{\text{DNE}}
 \fivelima{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
-
-\fivelima{x\sin(1/x)}{x/3*sin(deg(1/x*3))}{ytick={-1,1},xtick={0},samples={720}}
+\fivelim{x\sin(1/x)}{x/6*sin(deg(6/x)) * 0.7*(6-1.2*abs(x))}{ytick={-1,1},xtick={0},samples={720}}{\opencircle{0,0}}
 \end{multicols}
 
 \newpage
@@ -277,6 +276,6 @@
 	\\[2ex]
 	and is \fillin[right continuous][2in] at $x=a$
 	and is \fillin[left continuous][2in] at $x=b$.
-
+%
 \end{questions}
 \end{document}

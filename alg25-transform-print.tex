@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BASED ON Hodge-King IBL week1day2 "Transformation Matching"
+% DIRECTIONS: typeset twice to get positioning right
+% having placed alg25-transform.pdf in the same folder
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper,10pt]{article}
+\usepackage{pgfplots, pdfpages}
+\pgfplotsset{compat=1.13}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\newcommand\contentraw[1]{
+    \newpage
+    \begin{tikzpicture}
+    [remember picture, overlay]
+    \foreach \x in {0,...,2}{
+    \foreach \y in {0,...,4}
+    \draw (current page.south west) 
+        ++ ({(\x+0.5)/3*8.5in}, {(\y+0.5)/5*11in}) 
+        node {\scalebox{1.85}{\LARGE Group #1}};}
+    \end{tikzpicture}
+    }
+\newcommand\content[1]{
+    \includepdf[pages=1]{alg25-transform.pdf}
+    \contentraw{#1}
+    \includepdf[pages=2]{alg25-transform.pdf}
+    \contentraw{#1}
+    \includepdf[pages=3]{alg25-transform.pdf}
+    \contentraw{#1}
+    }
+
+
+\begin{document}
+\foreach \n in {1,...,10} {\content\n}
+\end{document}

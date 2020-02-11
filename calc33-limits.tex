@@ -23,15 +23,16 @@
 \usepackage{hyperref}
 
 % diagram for questions on pages 1 and 3
-\def\yscaleone{3} % = amount to shrink diagram in y direction
+\def\yscaleone{2.6} % = amount to shrink diagram in y direction
 \newcommand\diagram{
 \fullwidth{
+\vspace{-1em}
 \begin{center}
 \begin{tikzpicture}
 	[very thick, yscale=1/\yscaleone]
 	% grid
-	\draw[gray, semithick] (1,0) grid (12,20.5);
-	\draw[gray, semithick, xstep=10,xshift=-1cm] (0,0) grid (15.25,20.5);
+%	\draw[gray, semithick, ystep=100, xstep=2, xshift=-1cm] (1,0) grid (12,20.5);
+	\draw[gray, semithick, xstep=100, ystep=2, xshift=-1cm] (0,0) grid (15.25,20.5);
 	% x- and y-axes
 	\draw[<->, semithick] (-1,21) -- node[pos=0.03, right] {$y$} (-1,0) -- node[pos=0.99, above] {$x$} (14.5,0);
 	% labels on y-axis
@@ -62,7 +63,7 @@
 	\foreach \x/\y in {2/2, 3/1, 4/5, 4/8, 5/7, 5/16, 6/10, 7/17, 8/11}
 	\draw[black, fill=white, yscale=\yscaleone] (\x,\y/\yscaleone) circle (3pt);
 	% closed circles
-	\foreach \x/\y in {3/4, 5/19, 6/14, 7/13, 8/3, 11/15, 12/18}
+	\foreach \x/\y in {1/7, 3/4, 5/19, 6/14, 7/13, 8/3, 11/15, 12/18}
 	\draw[black, fill=black, yscale=\yscaleone] (\x,\y/\yscaleone) circle (2.5pt);
 	% f(x) label
 	\draw (1.5,15) node[fill,white] {\color{black} \huge$f(x)$};
@@ -160,7 +161,7 @@
 \raggedcolumns
 \begin{multicols}4
 \fivelimb{1/x}{1/x}
-\fivelimb{1/x^2}{1/x/x}
+\fivelimb{1/x^2}{1/abs(x)}
 \fivelimb{|x|}{abs(x)}
 \fivelim{\sqrt[3]x}{0}{grid=none, ticks=none}{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}
 \end{multicols}
@@ -184,7 +185,7 @@
 \fivelim{\frac{\sin(x)}x}{cos(deg(x*6))*exp(-abs(x/1.25))}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
 
 
-\def\one{\text{DNE}}
+\def\one{\text{undefined}}
 \def\two{\text{DNE}}
 \def\three{\text{DNE}}
 \def\four{\text{DNE}}

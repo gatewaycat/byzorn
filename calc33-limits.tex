@@ -114,13 +114,14 @@
 		\\[-0.9ex] \phantom{\lim_{x\to \mathbf0^+}} f(0) &= \one
 		\\[-0.9ex] \lim_{x\to \mathbf0^-}f(x) &= \two
 		\\[-0.9ex] \lim_{x\to \mathbf0^+}f(x) &= \three
-		\\[-0.9ex] \lim_{x\to \mathbf0\phantom{^+}}f(x) &= \four
+		\\[-0.9ex] \fourformat \lim_{x\to \mathbf0\phantom{^+}}f(x) &\fourformat= \four
 		\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &= \five
 		\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &= \six
 		\end{aligned}\)}
 \def\one{}
 \def\two{}
 \def\three{}
+\def\fourformat{}
 \def\four{}
 \def\five{}
 \def\six{}
@@ -128,6 +129,7 @@
 \def\one{}
 \def\two{}
 \def\three{}
+\def\fourformat{}
 \def\four{}
 \def\five{}
 \def\six{}
@@ -170,8 +172,11 @@
 \begin{multicols}4
 \fivelimb{x^3}{x^3}
 \fivelima{e^x}{e^x}{ytick={1}, xtick={0}}
+
+\def\fourformat{\color{white}}
 \fivelima{\ln(x)}{ln(x)}{ytick={0}, xtick={0}}
-\fivelim{\frac{\left| x \right|}x}{floor(x/10)*2+1}
+
+ \fivelim{\frac{\left| x \right|}x}{floor(x/10)*2+1}
 	{ytick={1},extra y ticks={-1},xtick={0},samples={501}}{\opencircle{0,1} \opencircle{0,-1}}
 \end{multicols}
 

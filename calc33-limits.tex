@@ -13,7 +13,7 @@
 
 \RequirePackage{luatex85}
 \documentclass[10pt, answers]{exam}
-\usepackage{tikz, pgfplots, amsmath, mathtools, multicol, xargs}
+\usepackage{tikz, pgfplots, amsmath, mathtools, multicol, xargs, setspace}
 %\pgfplotsset{compat=1.15}
 \usepackage[letterpaper, margin=0.5in, column sep=1in]{geometry}
 \setlength\parindent{0mm}
@@ -27,6 +27,7 @@
 \usepackage{hyperref}
 
 \setlength\fillinlinelength{0.7in}
+\setlength\answerclearance{0.7ex}
 \CorrectChoiceEmphasis{\bfseries\color{red}}
 
 % diagram for questions on pages 1 and 3
@@ -255,46 +256,44 @@
 \end{multicols}
 
 \newpage
+\setstretch{0.1}
 \diagram
 \vspace{-4mm}
+\setlength\columnsep{0.5in}
 \section{Identify Infinite, Jump, Removable Discontinuities Graphically}
-\vspace{-3mm}
-\question We say $f$ is
-  \textbf{continuous} (cts) at $x=a$
-  if $\lim\limits_{x\to a}f(x)$ is finite
-  and equals $f(a)$.
-  \par The function $f$ above is continuous
-  at integers $x$ = \fillin[][2in].
-
-\question We say $f$ has a 
-  \fillin[\textbf{removable}][1in] discontinuity
-  at \fillin[$x=a$][0.5in]
-  if $\lim\limits_{x\to a}f(x)$ is finite
-  and \emph{un}equal to $f(a)$.
-  \par
-  The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
-
-\question We say $f$ has a 
-  \fillin[\textbf{jump}][1in] discontinuity
-  at \fillin[$x=a$][0.5in]
-  if $\lim\limits_{x\to a\smash{^+}}f(x)$ 
-  and $\lim\limits_{x\to a\smash{^-}}f(x)$
-  are finite but \emph{un}equal.
-  \par
-  The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
-
-\question We say $f$ has an
-  \fillin[\textbf{infinite}][1in] discontinuity
-  at \fillin[$x=a$][0.5in]
-  if $\lim\limits_{x\to a\smash{^+}}f(x)$
-  or $\lim\limits_{x\to a\smash{^-}}f(x)$
-  is infinite.
-  \par
-  The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
 
 \vspace{-1mm}
+\setlength\fillinlinelength{0.8in}
+\question We say $f$
+  \rlap{is \fillin[continuous][1in] \textbf{at} $\pmb{x=a}$ if}%
+  \phantom{has a \fillin[\textbf{removable}][0.8in] \textbf{discontinuity at} $\pmb{x=a}$ if}
+  ${f(a) ={}} \lim\limits_{\mathclap{x\to a^-}}f(x) = \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  and all three exist and are finite.
+
+\question We say $f$
+  has a \fillin[\textbf{removable}] \textbf{discontinuity at} $\pmb{x=a}$ if
+  ${f(a) \ne{}} \lim\limits_{\mathclap{x\to a^-}}f(x) = \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  and the last two exist and are \rlap{finite.}
+
+\question We say $f$
+  has a \fillin[\textbf{jump}] \textbf{discontinuity at} $\pmb{x=a}$ if
+  $\phantom{f(a)={}}\lim\limits_{\mathclap{x\to a^-}}f(x) \ne \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  and both exist and are finite.
+
+\question We say $f$
+  has a \fillin[\textbf{infinite}] \textbf{discontinuity at} $\pmb{x=a}$ if
+  $\phantom{f(a)={}}\lim\limits_{\mathclap{x\to a^-}}f(x)$ or $ \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  is infinite and both exist.
+
+\setlength\fillinlinelength{1.5in}
+\question The function $f$ above is continuous (cts) at the following integers between 1 and 12: \fillin[1].
+\question The function $f$ above has removable discontinuities at the following integers: \fillin[2, 3].
+\question The function $f$ above has jump discontinuities at the following integers: \fillin[4, 5, 6, 7].
+\question The function $f$ above has infinite discontinuities at the following integers: \fillin[8, 9, 10, 11, 12].
+
+
 \section{Continuity on an Interval}
-\vspace{-2mm}
+\vspace{-4mm}
 \question We say $f$ is 
   \textbf{continuous on the open interval
   \boldmath $(a,b)$}
@@ -303,41 +302,41 @@
   \par Find the union of all open intervals
   \textbf{on which $f$
   is continuous}.
-  \\[3ex] (Set-builder notation) \fillin[][5in]
-  \\[3ex] (Interval notation) \fillin[][5in]
+  \\[3ex] (Set-builder notation) \fillin[\smash{\raisebox{2mm}{\pmb{$\{x\mid x\ne 2,3,4,\dots,12\}$}}}][5in]
+  \\[3ex] (Interval notation) \fillin[\smash{\raisebox{2mm}{\pmb{$
+  (-\infty,2)\cup(2,3)\cup(3,4)\cup\dots\cup(11,12)\cup(12,\infty)
+  $}}}][5in]
 \question We say $f$ is \textbf{continuous everywhere}
-  if $f$ is continuous at every $x$ in \fillin[][1in].
+  if $f$ is continuous at every $x$ in \fillin[\pmb{$(-\infty,\infty)$}].
 \question We say $f$ is 
   \textbf{a continuous function} 
-  if $f$ is continuous at every 
-  $x$ in its \fillin[][1in].
+  if $f$ is continuous at every
+  $x$ in its \fillin[domain].
 
 \vspace{-1mm}
 \section{Left and Right Continuity}
 \vspace{-4mm}
-\question We say $f$ is \fillin[left][1in] 
-  continuous at $x=a$
-  if $\lim_{x\to a^+}f(x)$ is finite 
-  and equals $f(a)$.
-  \\[2ex]
-  The function $f$ above
-  has this type of continuity at integers
-  $x$ = \fillin[][2in].
 
-\question We say $f$ is \fillin[right][1in] 
-  continuous at $x=a$
-  if $\lim_{x\to a^-}f(x)$ is finite 
-  and equals $f(a)$.
-  \\[2ex]
-  The function $f$ above
-  has this type of continuity at integers
-  $x$ = \fillin[][2in].
+\question We say $f$
+  is \fillin[left continuous] \textbf{at} $\pmb{x=a}$ if
+  ${f(a) ={}} \smash{\lim\limits_{\mathclap{x\to a^-}}}f(x)$
+  and both exist and are finite.
+  
+\question We say $f$
+  is \fillin[right continuous] \textbf{at} $\pmb{x=a}$ if
+  ${f(a) ={}} \smash{\lim\limits_{\mathclap{x\to a^+}}}f(x)$
+  and both exist and are finite.
+
+\question The function $f$ above is left continuous at the following integers between 1 and 12: \fillin[1, 7].
+\question The function $f$ above is right continuous at the following integers between 1 and 12: \fillin[1, 6].
 
 \question We say $f$ is \textbf{continuous on the closed interval \boldmath $[a,b]$}
   if $f$ is continuous at every $x$ in the \emph{open} interval $(a,b)$
-  \\[2ex]
+  \\[1ex]
   and is \fillin[right continuous][2in] at $x=a$
   and is \fillin[left continuous][2in] at $x=b$.
+
+\question The function $f$ above is continuous on the closed interval [ \fillin[6][5mm],\fillin[7][5mm] ] with integer endpoints between 1 and 12.
 %
 \end{questions}
 \end{document}

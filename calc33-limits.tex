@@ -203,15 +203,15 @@
 \fivelim[][\asymptote{-3,0}{3,0}\asymptote{0,-2}{0,2}]
   {1/x}{1/0}{1/x}
   [undefined][$-\infty$][$+\infty$][DNE][0][0]
-\fivelim[][\asymptote{0,-2}{0,2}][white]
-  {\ln x}{\ln0}{ln(x)}
-  [undefined][DNE][$-\infty$][][DNE][$+\infty$]
 \fivelim[samples={501}, xtick={0}, ytick={0}][][white]
   {\sqrt x}{\sqrt0}{sqrt(x)}
   [0][DNE][0][][DNE][$+\infty$]
-\fivelim[ytick={-1,1},xtick={0}][\opencircle{0,1}\asymptote{-3,0}{3,0}]
-  {\sin(x)/x}{\sin(0)/0}{cos(deg(x*6))*exp(-abs(x/1.25))}
-  [undefined][1][1][1][0][0]
+\fivelim[ytick={1}, xtick={0}][asymptote{-3,0}{3,0}]
+  {e^x}{e^0}{e^x}
+  [1][1][1][1][0][$+\infty$]
+\fivelim[][\asymptote{0,-2}{0,2}][white]
+  {\ln x}{\ln0}{ln(x)}
+  [undefined][DNE][$-\infty$][][DNE][$+\infty$]
 \end{multicols}
 
 \vfill
@@ -219,24 +219,24 @@
 \fivelim[][\asymptote{-3,0}{3,0}\asymptote{0,-2}{0,2}]
   {1/x^2}{1/0^2}{1/abs(x)}
   [undefined][$+\infty$][$+\infty$][$+\infty$][0][0]
-\fivelim[ytick={1}, xtick={0}][asymptote{-3,0}{3,0}]
-  {e^x}{e^0}{e^x}
-  [1][1][1][1][0][$+\infty$]
 \fivelim[][{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}]
   {\sqrt[3]x}{\sqrt[3]0}{0}
   [0][0][0][0][$-\infty$][$+\infty$]
-\fivelim{\cos x}{\cos 0}{cos(deg(x)*2)}
-  [1][1][1][1][DNE][DNE][][][red]
-\end{multicols}
-
-\vfill
-\begin{multicols}4
 \fivelim{|x|}{|0|}{abs(x)}
   [0][0][0][0][$+\infty$][$+\infty$]
 \fivelim[ytick={1}, extra y ticks={-1}, xtick={0}, samples={501}]
   [\opencircle{0,1} \opencircle{0,-1}]
   {|x|/x}{|0|/0}{floor(x/10)*2+1}
   [undefined][$-1$][1][DNE][$-1$][1]
+\end{multicols}
+
+\vfill
+\begin{multicols}4
+\fivelim{\sin x}{\sin 0}{sin(deg(x)*2)}
+  [0][0][0][0][DNE][DNE][][][red]
+\fivelim[ytick={-1,1},xtick={0}][\opencircle{0,1}\asymptote{-3,0}{3,0}]
+  {\sin(x)/x}{\sin(0)/0}{cos(deg(x*6))*exp(-abs(x/1.25))}
+  [undefined][1][1][1][0][0]
 \fivelim[ytick={-1,1},xtick={0},samples={720}][\asymptote{-3,0}{3,0}]
   {\sin(1/x)}{\sin(1/0)}{sin(deg(1/x*1.5))}
   [undefined][DNE][DNE][DNE][0][0][red][red]

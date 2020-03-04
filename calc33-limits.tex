@@ -5,11 +5,15 @@
 % then explain their answer to their neighbor.
 % Perhaps volunteers fill out answer key (+doc camera).
 %
+% TO PRINT SOLUTIONS
+% Typeset with class option "answers",
+% ie, \documentclass[10pt, answers]{exam}
+%
 %%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage{luatex85}
-\documentclass[10pt, addpoints]{exam}
-\usepackage{tikz, pgfplots, amsmath, mathtools, multicol}
+\documentclass[10pt, answers]{exam}
+\usepackage{tikz, pgfplots, amsmath, mathtools, multicol, xargs, setspace}
 %\pgfplotsset{compat=1.15}
 \usepackage[letterpaper, margin=0.5in, column sep=1in]{geometry}
 \setlength\parindent{0mm}
@@ -22,6 +26,10 @@
 
 \usepackage{hyperref}
 
+\setlength\fillinlinelength{0.7in}
+\setlength\answerclearance{0.7ex}
+\CorrectChoiceEmphasis{\bfseries\color{red}}
+
 % diagram for questions on pages 1 and 3
 \def\yscaleone{2.6} % = amount to shrink diagram in y direction
 \newcommand\diagram{
@@ -29,114 +37,134 @@
 \vspace{-1em}
 \begin{center}
 \begin{tikzpicture}
-	[very thick, yscale=1/\yscaleone]
-	% grid
-%	\draw[gray, semithick, ystep=100, xstep=2, xshift=-1cm] (1,0) grid (12,20.5);
-	\draw[gray, semithick, xstep=100, ystep=2, xshift=-1cm] (0,0) grid (15.25,20.5);
-	% x- and y-axes
-	\draw[<->, semithick] (-1,21) -- node[pos=0.03, right] {$y$} (-1,0) -- node[pos=0.99, above] {$x$} (14.5,0);
-	% labels on y-axis
-	\foreach \y in {0,10,...,200}
-	\draw (-1,\y/10) node[left] {\y};
-	% labels on x-axis
-	\foreach \x in {1,...,12}
-	\draw (\x,0) node[below] {\x};
-	% vertical asymptotes
-	\foreach \x in {8,...,12}
-	\draw[dashed] (\x,0) -- (\x,20.5);
-	% horizontal asymptotes
-	\foreach \y in {9,6}
-	\draw[dashed] (-1,\y) -- (14.25,\y);
-	% plot five curves on left half
-	\draw[smooth] plot coordinates{(-1,8.85) (0.2,8.6) (1,7) (2,2) (3.15,1.15) (4,5)};
-	\draw (4,8) -- (5,7);
-	\draw (5,16) to [bend right=10] (6,10);
-	\draw (6,14) -- (7,13);
-	\draw (7,17) to [bend left=10]  (8,11);
-	% plot five asymptotic curves on right half
-	\draw[smooth] plot coordinates {(8.1,20.5) (8.2,15) (8.8,15) (8.9,20.5)};
-	\draw[smooth] plot coordinates {(9.1,20.5) (9.2,12) (9.8,8) (9.9,0)};
-	\draw[smooth] plot coordinates {(10.1,20.5) (10.2,13) (10.8,13) (10.9,20.5)};
-	\draw[smooth] plot coordinates {(11.1,0) (11.2,10.5) (11.8,10.5) (11.9,0)};
-	\draw[smooth] plot coordinates {(12.1,0) (12.4,5) (14.25,5.85)};
-	% open circles
-	\foreach \x/\y in {2/2, 3/1, 4/5, 4/8, 5/7, 5/16, 6/10, 7/17, 8/11}
-	\draw[black, fill=white, yscale=\yscaleone] (\x,\y/\yscaleone) circle (3pt);
-	% closed circles
-	\foreach \x/\y in {1/7, 3/4, 5/19, 6/14, 7/13, 8/3, 11/15, 12/18}
-	\draw[black, fill=black, yscale=\yscaleone] (\x,\y/\yscaleone) circle (2.5pt);
-	% f(x) label
-	\draw (1.5,15) node[fill,white] {\color{black} \huge$f(x)$};
-	\end{tikzpicture}
-	\end{center}
-	}
-	
-	\vspace{-1em}
-	}
+  [very thick, yscale=1/\yscaleone]
+  % grid
+%  \draw[gray, semithick, ystep=100, xstep=2, xshift=-1cm] (1,0) grid (12,20.5);
+  \draw[gray, semithick, xstep=100, ystep=2, xshift=-1cm] (0,0) grid (15.25,20.5);
+  % x- and y-axes
+  \draw[<->, semithick] (-1,21) -- node[pos=0.03, right] {$y$} (-1,0) -- node[pos=0.99, above] {$x$} (14.5,0);
+  % labels on y-axis
+  \foreach \y in {0,10,...,200}
+  \draw (-1,\y/10) node[left] {\y};
+  % labels on x-axis
+  \foreach \x in {1,...,12}
+  \draw (\x,0) node[below] {\x};
+  % vertical asymptotes
+  \foreach \x in {8,...,12}
+  \draw[dashed] (\x,0) -- (\x,20.5);
+  % horizontal asymptotes
+  \foreach \y in {9,6}
+  \draw[dashed] (-1,\y) -- (14.25,\y);
+  % plot five curves on left half
+  \draw[smooth] plot coordinates{(-1,8.85) (0.2,8.6) (1,7) (2,2) (3.15,1.15) (4,5)};
+  \draw (4,8) -- (5,7);
+  \draw (5,16) to [bend right=10] (6,10);
+  \draw (6,14) -- (7,13);
+  \draw (7,17) to [bend left=10]  (8,11);
+  % plot five asymptotic curves on right half
+  \draw[smooth] plot coordinates {(8.1,20.5) (8.2,15) (8.8,15) (8.9,20.5)};
+  \draw[smooth] plot coordinates {(9.1,20.5) (9.2,12) (9.8,8) (9.9,0)};
+  \draw[smooth] plot coordinates {(10.1,20.5) (10.2,13) (10.8,13) (10.9,20.5)};
+  \draw[smooth] plot coordinates {(11.1,0) (11.2,10.5) (11.8,10.5) (11.9,0)};
+  \draw[smooth] plot coordinates {(12.1,0) (12.4,5) (14.25,5.85)};
+  % open circles
+  \foreach \x/\y in {2/2, 3/1, 4/5, 4/8, 5/7, 5/16, 6/10, 7/17, 8/11}
+  \draw[black, fill=white, yscale=\yscaleone] (\x,\y/\yscaleone) circle (3pt);
+  % closed circles
+  \foreach \x/\y in {1/7, 3/4, 5/19, 6/14, 7/13, 8/3, 11/15, 12/18}
+  \draw[black, fill=black, yscale=\yscaleone] (\x,\y/\yscaleone) circle (2.5pt);
+  % f(x) label
+  \draw (1.5,15) node[fill,white] {\color{black} \huge$f(x)$};
+  \end{tikzpicture}
+  \end{center}
+  }
+  
+  \vspace{-1em}
+  }
+
+
+\newcommandx\myfillin[6][1=\relax,2=black,3=white,usedefault]{
+  \\[-0.7ex]
+  \color{#2}
+  {#1 \lim_{x\to\mathrlap{\mathbf{#4}}\phantom{0^+}}{}}
+  \smash{#5}
+  &\color{#2}=\color{white}
+  \rlap{\hspace{0.5\fillinlinelength}\clap{\color{#3}\bfseries\text{#6}}}
+  \color{white}
+  \fillin[#6]
+  }
 
 % template for questions 1 through 12 on page 1
-\newcommand\threelim{
+\newcommandx\threelim[4]{
 \question $\left\{\begin{aligned}
-	\phantom{\lim_{x\to \mathbf{\arabic{question}}^+}} f(\arabic{question}) &=
-	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}^-}f(x) &=
-	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}^+}f(x) &=
-	\\[-0.5ex] \lim_{x\to \mathbf{\arabic{question}}\phantom{^+}}f(x) &=
-	\end{aligned}\right.$}
+  \\[-6ex]
+  \myfillin[\color{white}]{}{f(\arabic{question})}{#1}
+  \myfillin{\arabic{question}^-}{f(x)}{#2}
+  \myfillin{\arabic{question}^+}{f(x)}{#3}
+  \myfillin{\arabic{question}}{f(x)}{#4}
+  \end{aligned}\right.$
+  }
 
 % template for questions 15 through 26 on page 2
-\newcommand\fivelim[4]{
-	\question
-	\(\begin{matrix}
-	\begin{tikzpicture}
-	\begin{axis}[
-		every axis/.append style={font=\tiny}, 
-		xmin=-3.1, xmax=3.1,
-		ymin=-2.4, ymax=2.4,
-		samples=99, 
-		major tick length={0},
-		line width=1pt,
-		axis lines=center, height=1.6in, width=2in, grid=major,
-		restrict y to domain=-2.4:2.4, 
-		% title={\normalsize{\unboldmath$\displaystyle f(x) = #1$}},
-		extra y tick style={y tick label style={right}},
-		#3,
-		% samples=59 % speed up compile for testing
-		]
-		\addplot [black, smooth, thick, domain=-3:3] {#2};
-		#4
-	\end{axis}
-	\end{tikzpicture}
-	\end{matrix}\)
-	
-	\vspace{-3mm}
-	\fullwidth{\(\begin{aligned}
-		\phantom{\lim_{x\to \mathbf0^+}} f(x) &= \smash{#1}
-		\\[-0.9ex] \phantom{\lim_{x\to \mathbf0^+}} f(0) &= \one
-		\\[-0.9ex] \lim_{x\to \mathbf0^-}f(x) &= \two
-		\\[-0.9ex] \lim_{x\to \mathbf0^+}f(x) &= \three
-		\\[-0.9ex] \fourformat \lim_{x\to \mathbf0\phantom{^+}}f(x) &\fourformat= \four
-		\\[-0.9ex] \lim_{x\to \mathrlap{-\infty}\phantom{\mathbf0{^+}}}f(x) &= \five
-		\\[-0.9ex] \lim_{x\to \mathrlap{+\infty}\phantom{\mathbf0{^+}}}f(x) &= \six
-		\end{aligned}\)}
-\def\one{}
-\def\two{}
-\def\three{}
-\def\fourformat{}
-\def\four{}
-\def\five{}
-\def\six{}
-	}
-\def\one{}
-\def\two{}
-\def\three{}
-\def\fourformat{}
-\def\four{}
-\def\five{}
-\def\six{}
+\newcommandx\fivelim[6][
+  1={{grid=none, ticks=none}}, 2=\relax, 3=black, usedefault
+  ]{
+  \def\displayfx{#4}
+  \def\displayfzero{#5}
+  \def\axisfunction{#6}
+  \def\axisstyleoptions{#1}
+  \def\axisoptions{#2}
+  \def\colordoublelimit{#3}
+  \fivelimcontinued
+  }
+\newcommandx\fivelimcontinued[9][
+  1=\relax, 2=\relax, 3=\relax, 4=\relax, 5=\relax, 6=\relax,
+  7=white, 8=white, 9=white, usedefault
+  ]{
+  \question
+  \(\begin{matrix}
+  \begin{tikzpicture}
+  \begin{axis}[
+    every axis/.append style={font=\tiny}, 
+    xmin=-3.1, xmax=3.1,
+    ymin=-2.4, ymax=2.4,
+    samples=99,
+    major tick length={0},
+    line width=1pt,
+    axis lines=center, height=1.6in, width=2in, grid=major,
+    restrict y to domain=-2.4:2.4,
+    % title={\normalsize{\unboldmath$\displaystyle f(x) = #1$}},
+    extra y tick style={y tick label style={right}},
+    \axisstyleoptions,
+    % samples=59 % speed up compile for testing
+    ]
+    \addplot [black, smooth, thick, domain=-3:3] {\axisfunction};
+    \axisoptions
+    \end{axis}
+    \end{tikzpicture}
+    \end{matrix}\)
 
-\newcommand\fivelima[3]{\fivelim{#1}{#2}{#3}{}}
-\newcommand\fivelimb[2]{\fivelima{#1}{#2}{grid=none, ticks=none}}
-\newcommand\opencircle[1]{\draw[color=black,fill=white,thick] (axis cs:{#1}) circle [radius=2pt];}
+  \vspace{-3mm}
+  \fullwidth{\(\begin{aligned}
+    \myfillin[\color{white}][][#7]{}{\displayfzero}{#1}
+    \myfillin[][][#8]{0^-}{\displayfx}{#2}
+    \myfillin[][][#8]{0^+}{\displayfx}{#3}
+    \myfillin[][\colordoublelimit][#8]{0}{\displayfx}{#4}
+    \myfillin[][][#9]{-\infty}{\displayfx}{#5}
+    \myfillin[][][#9]{+\infty}{\displayfx}{#6}
+    \end{aligned}\)}
+  }
+
+\newcommand\opencircle[1]{
+  \draw[black, fill=white, thick](axis cs:{#1}) circle [radius=2pt];
+  }
+\newcommand\closecircle[1]{
+  \fill[black] (axis cs:{#1}) circle [radius=2pt];
+  }
+\newcommand\asymptote[2]{
+  \draw[dashed, blue, line width=0.8mm]
+  (axis cs: #1) -- (axis cs: #2);
+  }
 
 \thispagestyle{empty}
 \pagestyle{empty}
@@ -146,15 +174,25 @@
 \begin{questions}
 \section{Find Limits Graphically}
 \begin{multicols}3
-\Repeat 7 \threelim
+\threelim{70}{70}{70}{70}
+\threelim{undefined}{20}{20}{20}
+\threelim{40}{10}{10}{10}
+\threelim{undefined}{50}{80}{DNE}
+\threelim{190}{70}{160}{DNE}
+\threelim{140}{100}{140}{DNE}
+\threelim{130}{130}{170}{DNE}
 \end{multicols}
 
 \section{Find Limits Involving Infinity Graphically}
 \begin{multicols}3
-\Repeat 5 \threelim
+\threelim{30}{110}{$+\infty$}{DNE}
+\threelim{undefined}{$+\infty$}{$+\infty$}{$+\infty$}
+\threelim{undefined}{$-\infty$}{$+\infty$}{DNE}
+\threelim{150}{$+\infty$}{$-\infty$}{DNE}
+\threelim{180}{$-\infty$}{$-\infty$}{$-\infty$}
 \bigskip
-\question $\lim\limits_{x\to \mathbf{-\infty}}f(x) =$
-\question $\lim\limits_{x\to \mathbf{+\infty}}f(x) =$
+\question $\lim\limits_{x\to \mathbf{-\infty}}f(x) = \color{white}\fillin[90]$
+\question $\lim\limits_{x\to \mathbf{+\infty}}f(x) = \color{white}\fillin[60]$
 \end{multicols}
 
 \clearpage
@@ -162,126 +200,143 @@
 \setlength\columnsep{8mm}
 \raggedcolumns
 \begin{multicols}4
-\fivelimb{1/x}{1/x}
-\fivelimb{1/x^2}{1/abs(x)}
-\fivelimb{|x|}{abs(x)}
-\fivelim{\sqrt[3]x}{0}{grid=none, ticks=none}{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}
+\fivelim[][\asymptote{-3,0}{3,0}\asymptote{0,-2}{0,2}]
+  {1/x}{1/0}{1/x}
+  [undefined][$-\infty$][$+\infty$][DNE][0][0]
+\fivelim[samples={501}, xtick={0}, ytick={0}][][white]
+  {\sqrt x}{\sqrt0}{sqrt(x)}
+  [0][DNE][0][][DNE][$+\infty$]
+\fivelim[ytick={1}, xtick={0}][asymptote{-3,0}{3,0}]
+  {e^x}{e^0}{e^x}
+  [1][1][1][1][0][$+\infty$]
+\fivelim[][\asymptote{0,-2}{0,2}][white]
+  {\ln x}{\ln0}{ln(x)}
+  [undefined][DNE][$-\infty$][][DNE][$+\infty$]
 \end{multicols}
 
 \vfill
 \begin{multicols}4
-\fivelimb{x^3}{x^3}
-\fivelima{e^x}{e^x}{ytick={1}, xtick={0}}
-
-\def\fourformat{\color{white}}
-\fivelima{\ln(x)}{ln(x)}{ytick={0}, xtick={0}}
-
- \fivelim{\frac{\left| x \right|}x}{floor(x/10)*2+1}
-	{ytick={1},extra y ticks={-1},xtick={0},samples={501}}{\opencircle{0,1} \opencircle{0,-1}}
+\fivelim[][\asymptote{-3,0}{3,0}\asymptote{0,-2}{0,2}]
+  {1/x^2}{1/0^2}{1/abs(x)}
+  [undefined][$+\infty$][$+\infty$][$+\infty$][0][0]
+\fivelim[][{\addplot[black, smooth, thick, domain=-3:3] (x^3,x);}]
+  {\sqrt[3]x}{\sqrt[3]0}{0}
+  [0][0][0][0][$-\infty$][$+\infty$]
+\fivelim{|x|}{|0|}{abs(x)}
+  [0][0][0][0][$+\infty$][$+\infty$]
+\fivelim[ytick={1}, extra y ticks={-1}, xtick={0}, samples={501}]
+  [\opencircle{0,1} \opencircle{0,-1}]
+  {|x|/x}{|0|/0}{floor(x/10)*2+1}
+  [undefined][$-1$][1][DNE][$-1$][1]
 \end{multicols}
 
 \vfill
 \begin{multicols}4
-\def\five{\text{DNE}}
-\def\six{\text{DNE}}
-\fivelima{\cos(x)}{cos(deg(x)*2)}{ytick={-1,1},xtick={0}}
+\fivelim{\sin x}{\sin 0}{sin(deg(x)*2)}
+  [0][0][0][0][DNE][DNE][][][red]
+\fivelim[ytick={-1,1},xtick={0}][\opencircle{0,1}\asymptote{-3,0}{3,0}]
+  {\sin(x)/x}{\sin(0)/0}{cos(deg(x*6))*exp(-abs(x/1.25))}
+  [undefined][1][1][1][0][0]
+\fivelim[ytick={-1,1},xtick={0},samples={720}][\asymptote{-3,0}{3,0}]
+  {\sin(1/x)}{\sin(1/0)}{sin(deg(1/x*1.5))}
+  [undefined][DNE][DNE][DNE][0][0][red][red]
+\fivelim[ytick={-2,-1,1,2},xtick={-2,-1,1,2}][
+  {\draw[black,thick] (axis cs:-2,-2) edge[-] (axis cs:-1,-2);}
+  {\draw[black,thick] (axis cs:-1,-1) edge[-] (axis cs:0,-1);}
+  {\draw[black,thick] (axis cs:0,0) edge[-] (axis cs:1,0);}
+  {\draw[black,thick] (axis cs:1,1) edge[-] (axis cs:2,1);}
+  {\draw[black,thick] (axis cs:2,2) edge[-] (axis cs:3,2);}
+  \closecircle{-2,-2} \closecircle{-1,-1} \closecircle{0,0}
+  \closecircle{1,1} \closecircle{2,2} \opencircle{-1,-2}
+  \opencircle{0,-1} \opencircle{1,0} \opencircle{2,1}
+  ]{\lfloor x\rfloor}{\lfloor0\rfloor}{0}[0][$-1$][0][DNE][$-\infty$][$+\infty$]
 
-%	\fivelim{\frac{\sin(x)}x}{sin(deg(x*3))/(x*3)}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
-\fivelim{\frac{\sin(x)}x}{cos(deg(x*6))*exp(-abs(x/1.25))}{ytick={-1,1},xtick={0}}{\opencircle{0,1}}
-
-
-\def\one{\text{undefined}}
-\def\two{\text{DNE}}
-\def\three{\text{DNE}}
-\def\four{\text{DNE}}
-\fivelima{\sin(1/x)}{sin(deg(1/x*1.5))}{ytick={-1,1},xtick={0},samples={720}}
-\fivelim{x\sin(1/x)}{x/6*sin(deg(6/x)) * 0.7*(6-1.2*abs(x))}{ytick={-1,1},xtick={0},samples={720}}{\opencircle{0,0}}
+%%% OMIT, BUT PRETTY: x*sin(1/x)
+%\fivelim[ytick={-1,1},xtick={0},samples={720}][\opencircle{0,0}]{x\sin(1/x)}{0\sin(1/0)}{x/6*sin(deg(6/x)) * 0.7*(6-1.2*abs(x))}[undefined][0][0][0][1][1]
 \end{multicols}
 
 \newpage
+\setstretch{0.1}
 \diagram
 \vspace{-4mm}
+\setlength\columnsep{0.5in}
 \section{Identify Infinite, Jump, Removable Discontinuities Graphically}
-\vspace{-3mm}
-\question We say $f$ is
-	\textbf{continuous} (cts) at $x=a$
-	if $\lim\limits_{x\to a}f(x)$ is finite
-	and equals $f(a)$.
-	\par The function $f$ above is continuous
-	at integers $x$ = \fillin[][2in].
-
-\question We say $f$ has a 
-	\fillin[\textbf{removable}][1in] discontinuity
-	at \fillin[$x=a$][0.5in]
-	if $\lim\limits_{x\to a}f(x)$ is finite
-	and \emph{un}equal to $f(a)$.
-	\par
-	The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
-
-\question We say $f$ has a 
-	\fillin[\textbf{jump}][1in] discontinuity
-	at \fillin[$x=a$][0.5in]
-	if $\lim\limits_{x\to a\smash{^+}}f(x)$ 
-	and $\lim\limits_{x\to a\smash{^-}}f(x)$
-	are finite but \emph{un}equal.
-	\par
-	The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
-
-\question We say $f$ has an
-	\fillin[\textbf{infinite}][1in] discontinuity
-	at \fillin[$x=a$][0.5in]
-	if $\lim\limits_{x\to a\smash{^+}}f(x)$
-	or $\lim\limits_{x\to a\smash{^-}}f(x)$
-	is infinite.
-	\par
-	The function $f$ above has this type of discontinuity at integers $x$ = \fillin[][2in].
 
 \vspace{-1mm}
+\setlength\fillinlinelength{0.8in}
+\question We say $f$
+  \rlap{is \fillin[continuous][1in] \textbf{at} $\pmb{x=a}$ if}%
+  \phantom{has a \fillin[\textbf{removable}][0.8in] \textbf{discontinuity at} $\pmb{x=a}$ if}
+  ${f(a) ={}} \lim\limits_{\mathclap{x\to a^-}}f(x) = \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  and all three exist and are finite.
+
+\question We say $f$
+  has a \fillin[\textbf{removable}] \textbf{discontinuity at} $\pmb{x=a}$ if
+  ${f(a) \ne{}} \lim\limits_{\mathclap{x\to a^-}}f(x) = \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  and the last two exist and are \rlap{finite.}
+
+\question We say $f$
+  has a \fillin[\textbf{jump}] \textbf{discontinuity at} $\pmb{x=a}$ if
+  $\phantom{f(a)={}}\lim\limits_{\mathclap{x\to a^-}}f(x) \ne \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  and both exist and are finite.
+
+\question We say $f$
+  has a \fillin[\textbf{infinite}] \textbf{discontinuity at} $\pmb{x=a}$ if
+  $\phantom{f(a)={}}\lim\limits_{\mathclap{x\to a^-}}f(x)$ or $ \lim\limits_{\mathclap{x\to a^+}}f(x)$
+  is infinite and both exist.
+
+\setlength\fillinlinelength{1.5in}
+\question The function $f$ above is continuous (cts) at the following integers between 1 and 12: \fillin[1].
+\question The function $f$ above has removable discontinuities at the following integers: \fillin[2, 3].
+\question The function $f$ above has jump discontinuities at the following integers: \fillin[4, 5, 6, 7].
+\question The function $f$ above has infinite discontinuities at the following integers: \fillin[8, 9, 10, 11, 12].
+
+
 \section{Continuity on an Interval}
-\vspace{-2mm}
+\vspace{-4mm}
 \question We say $f$ is 
-	\textbf{continuous on the open interval
-	\boldmath $(a,b)$}
-	if $f$ is continuous at every $x$ 
-	in $(a,b)$.
-	\par Find the union of all open intervals
-	\textbf{on which $f$
-	is continuous}.
-	\\[3ex] (Set-builder notation) \fillin[][5in]
-	\\[3ex] (Interval notation) \fillin[][5in]
+  \textbf{continuous on the open interval
+  \boldmath $(a,b)$}
+  if $f$ is continuous at every $x$ 
+  in $(a,b)$.
+  \par Find the union of all open intervals
+  \textbf{on which $f$
+  is continuous}.
+  \\[3ex] (Set-builder notation) \fillin[\smash{\raisebox{2mm}{\pmb{$\{x\mid x\ne 2,3,4,\dots,12\}$}}}][5in]
+  \\[3ex] (Interval notation) \fillin[\smash{\raisebox{2mm}{\pmb{$
+  (-\infty,2)\cup(2,3)\cup(3,4)\cup\dots\cup(11,12)\cup(12,\infty)
+  $}}}][5in]
 \question We say $f$ is \textbf{continuous everywhere}
-	if $f$ is continuous at every $x$ in \fillin[][1in].
+  if $f$ is continuous at every $x$ in \fillin[\pmb{$(-\infty,\infty)$}].
 \question We say $f$ is 
-	\textbf{a continuous function} 
-	if $f$ is continuous at every 
-	$x$ in its \fillin[][1in].
+  \textbf{a continuous function} 
+  if $f$ is continuous at every
+  $x$ in its \fillin[domain].
 
 \vspace{-1mm}
 \section{Left and Right Continuity}
 \vspace{-4mm}
-\question We say $f$ is \fillin[left][1in] 
-	continuous at $x=a$
-	if $\lim_{x\to a^+}f(x)$ is finite 
-	and equals $f(a)$.
-	\\[2ex]
-	The function $f$ above
-	has this type of continuity at integers
-	$x$ = \fillin[][2in].
 
-\question We say $f$ is \fillin[right][1in] 
-	continuous at $x=a$
-	if $\lim_{x\to a^-}f(x)$ is finite 
-	and equals $f(a)$.
-	\\[2ex]
-	The function $f$ above
-	has this type of continuity at integers
-	$x$ = \fillin[][2in].
+\question We say $f$
+  is \fillin[left continuous] \textbf{at} $\pmb{x=a}$ if
+  ${f(a) ={}} \smash{\lim\limits_{\mathclap{x\to a^-}}}f(x)$
+  and both exist and are finite.
+  
+\question We say $f$
+  is \fillin[right continuous] \textbf{at} $\pmb{x=a}$ if
+  ${f(a) ={}} \smash{\lim\limits_{\mathclap{x\to a^+}}}f(x)$
+  and both exist and are finite.
+
+\question The function $f$ above is left continuous at the following integers between 1 and 12: \fillin[1, 7].
+\question The function $f$ above is right continuous at the following integers between 1 and 12: \fillin[1, 6].
 
 \question We say $f$ is \textbf{continuous on the closed interval \boldmath $[a,b]$}
-	if $f$ is continuous at every $x$ in the \emph{open} interval $(a,b)$
-	\\[2ex]
-	and is \fillin[right continuous][2in] at $x=a$
-	and is \fillin[left continuous][2in] at $x=b$.
+  if $f$ is continuous at every $x$ in the \emph{open} interval $(a,b)$
+  \\[1ex]
+  and is \fillin[right continuous][2in] at $x=a$
+  and is \fillin[left continuous][2in] at $x=b$.
+
+\question The function $f$ above is continuous on the closed interval [ \fillin[6][5mm],\fillin[7][5mm] ] with integer endpoints between 1 and 12.
 %
 \end{questions}
 \end{document}

@@ -1,5 +1,3 @@
-%% To do: Pick a lower degree function
-
 %%%%%%%%%%%%%%%%%%%%
 % SEMESTER START.
 % Send to repro asap;
@@ -21,11 +19,11 @@
 \pagestyle{empty}
 %\everymath{\displaystyle}
 
-% define macro \Repeat{integer}{content}
-\usepackage{expl3}
-\ExplSyntaxOn
-\cs_new_eq:NN \Repeat \prg_replicate:nn
-\ExplSyntaxOff
+%% define macro \Repeat{integer}{content}
+%\usepackage{expl3}
+%\ExplSyntaxOn
+%\cs_new_eq:NN \Repeat \prg_replicate:nn
+%\ExplSyntaxOff
 
 \newcommand\blob[2][15mm]{\(\begin{matrix}\begin{tikzpicture}
 	\node[text width=#1, align=flush center]{\begin{spacing}{0.7}#2\end{spacing}};
@@ -54,13 +52,10 @@
 		#2
 	\end{tikzpicture}}
 
-\begin{document}
-\large
-
-\Repeat{2}{
+\newcommand\pageone{
 % margin=0.5in, row sep=1in, so textheight=4.5in
 \begin{minipage}[t][4.5in]{\textwidth}
-1. \textbf{Definition.} The Limit Definition of Derivative
+N1. \textbf{Definition.} The Limit Definition of Derivative
 
 %\vspace{-1ex}
 Suppose the distance a train has traveled is a function of time $y=f(x)$.
@@ -95,7 +90,7 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 =\hfill$\frac{\Delta y}{\Delta x}$\hfill%
 =\hfill$\frac{y_2 - y_1}{x_2 - x_1}$\hfill%
 =\hfill{\LARGE\boxed{\phantom{\frac{f(x+h)-f(x)}h}}}\hfill%
-= \blob[22mm]{definition of difference quotient}
+= \blob[22mm]{definition\vphantom q of difference quotient}
 
 \vfill
 \blob{velocity at $x$}
@@ -108,21 +103,14 @@ Suppose the distance a train has traveled is a function of time $y=f(x)$.
 
 \vfill
 \end{minipage}
-
-\vspace{1in}
 }
 
-\Repeat{2}{
+\newcommand\pagetwo{
 \begin{minipage}[t][4.5in]{\textwidth}
-%\clearpage
 \begin{tabbing}
-2. \textbf{EXAMPLE.} \= Use the definition of difference quotient to find the slope of  \\ \> the \textbf{secant} line through $y=f(x)=15+\frac58x^4$ between $x$ and $x+h$. \\[0.5ex]
-\> \emph{Hint:} 
-%$f(x+h) = 5x^4/8+20x^3h/8+30x^2h^2/8+20xh^3/8+5h^4/8+15$
-$\phantom( f(x+h) \phantom{{}-f(x))\frac1h} = \phantom( 15 + \frac58x^4+\frac{20}8x^3h+\frac{30}8x^2h^2+\frac{20}8xh^3+\frac58h^4$
-\\[3ex] 
-3. \textbf{Exercise.} \> Use the definition of derivative and your answer to \textbf{Example 2} to find the slope of \\ \>  the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ at $x$. \\
-\diagram{node [right, yshift=-2mm] {$y=f(x)=15+\frac58x^4$}}{
+N2. \textbf{Exercise.}\,\, \= Estimate\={} from the d\=iagram: the slope of the \textbf{secant} through 2 and 4. \\[3.5ex]
+N3. \textbf{Exercise.} \> Estimate from the diagram: the slope of the \textbf{tangent} at 2. \\[0.5ex]
+\diagram{node [right, yshift=-2mm] {$y=f(x)$}}{
 	% tick marks and coordinates for closed circles
 	\foreach \x in {0, ..., 4}{
 		\draw (\x, {(\x-1)^4*5/8/100+15/100}) coordinate (\x);
@@ -141,12 +129,30 @@ $\phantom( f(x+h) \phantom{{}-f(x))\frac1h} = \phantom( 15 + \frac58x^4+\frac{20
 	\draw[gray, semithick, dotted, step=0.25] (0,0) grid (5.75,2.75);
 	\draw[gray, thick] (0,0) grid (5.75,2.75);
 	}\\[-0.5ex]
-4. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of \\\> the \textbf{secant} through $y=15+\frac58x^4$ \textbf{between 2 and 4}. \\
-5. \textbf{Exercise.} \> Use the \textbf{diagram} to estimate the slope of \\ \> the \textbf{tangent} line to $y=f(x)=15+\frac58x^4$ \textbf{at 2}. \\
-6. \textbf{Exercise.} \> Use your answer to \textbf{Exercise 3} to confirm your answer to \textbf{Exercise 5}.
+N4. \scshape{Example.} \> Suppose \>$f(x)=15+\frac58x^4$.
+Compute the slope of the \textbf{secant} through $x$ and $x+h$. \\[0.5ex]
+\>\>\color{gray} $\scriptstyle f(x+h)$
+\>\color{gray} = $15+\frac58(x+h)^4$
+\quad\,\, = $15 + \frac58x^4+\frac{20}8x^3h+\frac{30}8x^2h^2+\frac{20}8xh^3+\frac58h^4$ \\[0.5ex]
+\>\>\color{gray} $\frac{f(x+h) - f(x)}h$
+\>\color{gray} = 
+\\[1ex] 
+N5. \textbf{Exercise.} \> Suppose \>$f(x)=15+\frac58x^4$.
+Compute the slope of the \textbf{tangent} line at $x$. \\[4.5ex]
+N6. \textbf{Exercise.} \> Use your answer to N5 to compute $f'(2)$.
 \end{tabbing}
 \end{minipage}
 
 \vspace{1in}
 }
+
+
+\begin{document}
+\large
+\pageone\par\vspace{1in}
+\pagetwo\par\vspace{1in}
+
+\newpage
+\rotatebox{180}{\pagetwo}\par\vspace{1in}
+\rotatebox{180}{\pageone}\par\vspace{1in}
 \end{document}

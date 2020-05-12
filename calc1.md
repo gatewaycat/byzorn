@@ -38,7 +38,7 @@
   * Sketching Everywhere Continuous Function
   * Sketching Functions (with asymptotes)
 * V. Optimization
-* W. Integrals Graphically (includes FTCab, FTCax)
+* W. Integrals Graphically (includes FTCab, FTCax including as solving F'=given & F(a)=0)
 * X. Sums
   * Sigma notation
   * Right Sum R_xᵢ = Σ (xᵢ₋₁ - xᵢ) f(xᵢ)
